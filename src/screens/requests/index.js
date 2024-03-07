@@ -1,9 +1,9 @@
 import React from 'react';
 import {dummySneakerData} from '../../dummydata/Sneakers';
-import Sneakercard from '../../components/Sneakercard';
 import {Scroller} from '../../components/Scroller';
+import Sneakercard from '../../components/Sneakercard';
 
-export const Home = () => {
+export const Requests = () => {
   return (
     <Scroller>
       {dummySneakerData.map((sneaker, index) => (
@@ -13,6 +13,7 @@ export const Home = () => {
           brand={sneaker.Brand}
           price={100}
           source={sneaker.Photos[0]}
+          type={sneaker.Type}
         />
       ))}
     </Scroller>

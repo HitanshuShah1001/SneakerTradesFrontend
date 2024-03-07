@@ -1,8 +1,9 @@
 import React from 'react';
 import {Image, View, Text, StyleSheet} from 'react-native';
 import {FONT_SIZE} from '../constants/colorsandfonts';
+import {Typechip} from './Typechip';
 
-const Sneakercard = ({source, brand, name, price}) => {
+const Sneakercard = ({source, brand, name, price, type}) => {
   return (
     <View style={styles.container}>
       <Image source={{uri: source}} style={styles.image} />
@@ -10,6 +11,7 @@ const Sneakercard = ({source, brand, name, price}) => {
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.brand}>{brand}</Text>
         <Text style={styles.price}>{price}</Text>
+        <Typechip type={type} />
       </View>
     </View>
   );
