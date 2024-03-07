@@ -4,6 +4,7 @@ import {Tabbaricon} from '../../components/Tabbaricon';
 import {tabScreens} from '../../constants/Bottomtab';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
+import {SneakerDetail} from '../../screens/sneakerdetail';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +35,7 @@ export const ActionScreens = () => (
         component={MyTabs}
         options={{headerShown: false}}
       />
+      <Stack.Screen name="SneakerDetail" component={SneakerDetail} />
     </Stack.Navigator>
   </NavigationContainer>
 );

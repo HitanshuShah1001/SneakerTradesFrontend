@@ -1,11 +1,18 @@
 import React from 'react';
-import {Image, View, Text, StyleSheet} from 'react-native';
+import {Image, View, Text, StyleSheet, Pressable} from 'react-native';
 import {FONT_SIZE} from '../constants/colorsandfonts';
 import {Typechip} from './Typechip';
 
-const Sneakercard = ({source, brand, name, price, type}) => {
+const Sneakercard = ({
+  source,
+  brand,
+  name,
+  price,
+  type,
+  onPress = () => {},
+}) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Image source={{uri: source}} style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
@@ -13,7 +20,7 @@ const Sneakercard = ({source, brand, name, price, type}) => {
         <Text style={styles.price}>{price}</Text>
         <Typechip type={type} />
       </View>
-    </View>
+    </Pressable>
   );
 };
 

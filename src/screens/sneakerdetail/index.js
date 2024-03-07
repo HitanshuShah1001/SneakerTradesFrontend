@@ -6,7 +6,8 @@ import {styles} from './styles';
 import {ActionChip} from '../../components/ActionChip';
 import {UnlockOwnerDetails} from '../../components/UnlockOwnerDetails';
 
-export const SneakerDetail = ({sneaker = dummySneakerData[0]}) => {
+export const SneakerDetail = props => {
+  const sneaker = props.route.params.sneaker;
   const [selectedSneakerImage, setSelectedSneakerImage] = useState(
     sneaker.Photos[0],
   );
