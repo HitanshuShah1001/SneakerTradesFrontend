@@ -1,13 +1,5 @@
 import React, {useState} from 'react';
-import {
-  ScrollView,
-  Image,
-  Pressable,
-  Text,
-  View,
-  SafeAreaView,
-} from 'react-native';
-import {dummySneakerData} from '../../dummydata/Sneakers';
+import {ScrollView, Image, Pressable, View, SafeAreaView} from 'react-native';
 import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
 import {styles} from './styles';
 import {ActionChip} from '../../components/ActionChip';
@@ -27,13 +19,7 @@ export const SneakerDetail = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header go_back={true} />
-      <View
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-          flex: 1,
-          justifyContent: 'space-around',
-        }}>
+      <View style={styles.container}>
         <Image source={{uri: selectedSneakerImage}} style={styles.mainImage} />
         <View style={styles.thumbnailContainer}>
           {sneaker.Photos.map((photo, index) => (
@@ -49,7 +35,6 @@ export const SneakerDetail = props => {
           Size={sneaker.Size}
         />
         <ActionChip text={sneaker?.Type} />
-
         <UnlockOwnerDetails />
       </View>
     </SafeAreaView>

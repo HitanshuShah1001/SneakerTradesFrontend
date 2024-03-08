@@ -1,7 +1,9 @@
 export const styles = {
   container: {
-    alignItems: 'center',
-    flexGrow: 1,
+    width: '90%',
+    alignSelf: 'center',
+    flex: 1,
+    justifyContent: 'space-around',
   },
   mainImage: {
     height: '30%',
@@ -12,6 +14,7 @@ export const styles = {
   thumbnailContainer: {
     flexDirection: 'row',
     marginTop: 15,
+    flexWrap: 'wrap',
   },
   thumbnailImage: {
     height: 60,
