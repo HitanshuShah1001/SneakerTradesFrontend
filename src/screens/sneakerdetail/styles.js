@@ -1,14 +1,12 @@
 export const styles = {
   container: {
-    backgroundColor: 'white',
-    flex: 1,
-    paddingHorizontal: 12,
+    alignItems: 'center',
+    flexGrow: 1,
   },
   mainImage: {
-    height: '40%',
+    height: '30%',
     width: '100%',
     marginTop: 10,
-    alignSelf: 'center',
     borderRadius: 12,
   },
   thumbnailContainer: {

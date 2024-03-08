@@ -29,12 +29,8 @@ function MyTabs() {
 
 export const ActionScreens = () => (
   <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen
-        name="MainTabs"
-        component={MyTabs}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="MainTabs" component={MyTabs} />
       <Stack.Screen name="SneakerDetail" component={SneakerDetail} />
     </Stack.Navigator>
   </NavigationContainer>

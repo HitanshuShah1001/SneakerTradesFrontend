@@ -14,11 +14,6 @@ export const Sneakerdetailstext = ({Name, Brand, Gender, Size}) => {
   );
 };
 const styles = {
-  container: {
-    backgroundColor: 'white',
-    flex: 1,
-    paddingHorizontal: 10,
-  },
   mainImage: {
     height: '40%',
     width: '100%',
@@ -37,7 +32,7 @@ const styles = {
   },
   detailsContainer: {
     alignItems: 'flex-start',
-    marginTop: 16,
+    marginTop: 15,
   },
   name: {
     fontSize: 20,
