@@ -15,6 +15,7 @@ import {
   PLACEHOLDER_COLOR,
   THEME_PINK,
 } from '../../constants/colorsandfonts';
+import {Scroller} from '../../components/Scroller';
 
 export const Upload = () => {
   const [uploadedFor, setUploadedFor] = useState('Upload');
@@ -59,35 +60,35 @@ export const Upload = () => {
   );
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView>
-        <Uploadchips />
-        <Imageselectorcontainer />
-        <Text
-          style={{
-            alignSelf: 'center',
-            marginTop: 12,
-            color: PLACEHOLDER_COLOR,
-          }}>
-          Upload Min 3 Images
-        </Text>
-        <Textinput placeholder={'Sneaker Name'} customstyles={{width: '90%'}} />
-        <Textinput placeholder={'Price'} customstyles={{width: '90%'}} />
-        <Textinput placeholder={'Brand'} customstyles={{width: '90%'}} />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            marginVertical: 15,
-            width: '100%',
-          }}>
-          <Uploadedforchip text={'Rent'} />
-          <Uploadedforchip text={'Sell'} />
-          <Uploadedforchip text={'Both'} />
-        </View>
+    <Scroller>
+      <Uploadchips />
+      <Imageselectorcontainer />
+      <Text
+        style={{
+          alignSelf: 'center',
+          marginTop: 12,
+          color: PLACEHOLDER_COLOR,
+        }}>
+        Upload Min 3 Images
+      </Text>
+      <Textinput placeholder={'Sneaker Name'} customstyles={{width: '90%'}} />
+      <Textinput placeholder={'Price'} customstyles={{width: '90%'}} />
+      <Textinput placeholder={'Brand'} customstyles={{width: '90%'}} />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          marginVertical: 15,
+          width: '100%',
+        }}>
+        <Uploadedforchip text={'Rent'} />
+        <Uploadedforchip text={'Sell'} />
+        <Uploadedforchip text={'Both'} />
+      </View>
+      <View style={{width: '100%'}}>
         <AuthenticationButton text={'UPLOAD'} />
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </Scroller>
   );
 };
 
@@ -98,6 +99,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
+    marginTop: 12,
   },
   chip: {
     width: 160,

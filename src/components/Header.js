@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {FONT_WEIGHT_NORMAL, THEME_PINK} from '../constants/colorsandfonts';
 import {BACK_ICON, BRAND_ICON} from '../assets';
 
-export const Header = ({text = 'Sneaker Trades', show_back = false}) => {
+export const Header = ({text = 'Sneaker Trades', go_back = false}) => {
   const navigation = useNavigation();
 
   const handleGoBack = () => {
@@ -13,9 +13,9 @@ export const Header = ({text = 'Sneaker Trades', show_back = false}) => {
 
   return (
     <View style={styles.container}>
-      {show_back ? (
+      {go_back ? (
         <Pressable onPress={handleGoBack}>
-          <Image source={BACK_ICON} style={styles.image} />
+          <Image source={BACK_ICON} />
         </Pressable>
       ) : (
         <Image source={BRAND_ICON} style={styles.image} />
@@ -29,6 +29,7 @@ export const Header = ({text = 'Sneaker Trades', show_back = false}) => {
 const styles = {
   container: {
     width: '90%',
+    marginTop: 12,
     flexDirection: 'row',
     paddingHorizontal: 10,
     backgroundColor: 'white',

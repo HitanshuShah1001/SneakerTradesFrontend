@@ -3,11 +3,12 @@ import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
 import {useNavigation} from '@react-navigation/native';
+import {SafeArea} from '../../components/SafeArea';
 
 export const Login = () => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeArea>
       <Brandiconandtext />
       <View style={{flex: 0.6, alignItems: 'center'}}>
         <Textinput placeholder="Phone No." />
@@ -16,6 +17,6 @@ export const Login = () => {
         text={'Generate OTP'}
         onPress={() => navigation.navigate('OtpVerify')}
       />
-    </SafeAreaView>
+    </SafeArea>
   );
 };

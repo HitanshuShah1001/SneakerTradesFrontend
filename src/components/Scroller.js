@@ -3,7 +3,7 @@ import {Header} from './Header';
 
 export const Scroller = ({children}) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <Header text={'Sneaker Trades'} />
       <ScrollView
         contentContainerStyle={{
