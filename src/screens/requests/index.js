@@ -15,7 +15,7 @@ export const Requests = () => {
           price={100}
           source={sneaker.Photos[0]}
           type={sneaker.Type}
-          onPress={() => navigation.navigate('SneakerDetail')}
+          onPress={() => navigation.navigate('SneakerDetail', {sneaker})}
         />
       ))}
     </Scroller>
