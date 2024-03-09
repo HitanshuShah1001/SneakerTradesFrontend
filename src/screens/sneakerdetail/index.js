@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, Image, Pressable, View, SafeAreaView} from 'react-native';
+import {Image, Pressable, View, SafeAreaView} from 'react-native';
 import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
 import {styles} from './styles';
 import {ActionChip} from '../../components/ActionChip';
