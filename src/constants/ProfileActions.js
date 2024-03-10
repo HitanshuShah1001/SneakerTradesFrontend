@@ -1,7 +1,16 @@
+import {
+  COINS_BALANCE_RECHARGE,
+  DEACTIVATE_ACCOUNT,
+  LOGOUT,
+  MY_PROFILE,
+  MY_REQUESTS,
+  MY_UPLOADS,
+} from './Buttontitles';
+
 export const PROFILEITEMS = [
-  'My Profile',
-  'My Uploads',
-  'My Requests',
-  'Coins Balance & Recharge',
+  MY_PROFILE,
+  MY_UPLOADS,
+  MY_REQUESTS,
+  COINS_BALANCE_RECHARGE,
 ];
-export const ACCOUNTITEMS = ['Logout', 'Deactivate Account'];
+export const ACCOUNTITEMS = [LOGOUT, DEACTIVATE_ACCOUNT];

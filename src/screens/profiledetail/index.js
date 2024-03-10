@@ -3,18 +3,20 @@ import {UserContext} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
 import {Image, View} from 'react-native';
 import {ContactInfo} from '../../components/ContactInfo';
+import {MY_PROFILE} from '../../constants/Buttontitles';
+import {EMAIL_ID, NAME, PHONE_NUMBER, USER_NAME} from '../../constants/Labels';
 
 export const ProfileDetail = () => {
   const {user, setUser} = useContext(UserContext);
 
   return (
-    <SafeArea go_back={true} text={'My Profile'}>
+    <SafeArea go_back={true} text={MY_PROFILE}>
       <Image source={{uri: user.ProfilePhoto}} style={styles.image} />
       <View style={styles.contactcontainer}>
-        <ContactInfo title={'Username'} information={user.Username} />
-        <ContactInfo title={'Name'} information={user.Name} />
-        <ContactInfo title={'Email ID'} information={user.Email} />
-        <ContactInfo title={'Phone Number'} information={user.Phone} />
+        <ContactInfo title={USER_NAME} information={user.Username} />
+        <ContactInfo title={NAME} information={user.Name} />
+        <ContactInfo title={EMAIL_ID} information={user.Email} />
+        <ContactInfo title={PHONE_NUMBER} information={user.Phone} />
       </View>
     </SafeArea>
   );

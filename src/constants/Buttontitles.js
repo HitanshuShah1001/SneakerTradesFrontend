@@ -1,0 +1,12 @@
+export const MY_PROFILE = 'My Profile';
+export const MY_UPLOADS = 'My Uploads';
+export const MY_REQUESTS = 'My Requests';
+export const COINS_BALANCE_RECHARGE = 'Coins Balance & Recharge';
+export const LOGOUT = 'Logout';
+export const DEACTIVATE_ACCOUNT = 'Deactivate Account';
+export const GENERATE_OTP = 'Generate OTP';
+export const VERIFY_OTP = 'Verify OTP';
+export const RENT = 'Rent';
+export const SELL = 'Sell';
+export const BOTH = 'Both';
+export const SIGN_UP = 'Sign Up';

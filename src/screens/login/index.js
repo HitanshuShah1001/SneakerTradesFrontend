@@ -6,6 +6,8 @@ import {Textinput} from '../../components/Textinput';
 import {useNavigation} from '@react-navigation/native';
 import {SafeArea} from '../../components/SafeArea';
 import {apiService} from '../../services/apiService';
+import {OTP_VERIFY} from '../../constants/Screen';
+import {NO_USER_FOUND} from '../../constants/Messages';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -16,9 +18,9 @@ export const Login = () => {
     });
 
     if (!response) {
-      Alert.alert('No User found');
+      Alert.alert(NO_USER_FOUND);
     } else {
-      navigation.navigate('OtpVerify', {userData: response.user});
+      navigation.navigate(OTP_VERIFY, {userData: response.user});
     }
   };
   return (
@@ -32,7 +34,7 @@ export const Login = () => {
         />
       </View>
       <AuthenticationButton
-        text={'Generate OTP'}
+        text={GENERATE_OTP}
         onPress={() => checkIfUserExists()}
       />
     </SafeArea>

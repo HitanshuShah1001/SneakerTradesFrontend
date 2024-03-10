@@ -3,6 +3,8 @@ import {View, StyleSheet, SafeAreaView} from 'react-native';
 import {ProfileCard} from '../../components/Profilecard';
 import {ACCOUNTITEMS, PROFILEITEMS} from '../../constants/ProfileActions';
 import {useNavigation} from '@react-navigation/native';
+import {MY_PROFILE} from '../../constants/Buttontitles';
+import {PROFILE_DETAIL} from '../../constants/Screen';
 
 export const Profile = () => {
   const navigation = useNavigation();
@@ -10,12 +12,12 @@ export const Profile = () => {
     <SafeAreaView style={styles.container}>
       <View>
         {PROFILEITEMS.map((title, index) => {
-          if (title === 'My Profile') {
+          if (title === MY_PROFILE) {
             return (
               <ProfileCard
                 title={title}
                 key={index}
-                onPress={() => navigation.navigate('ProfileDetail')}
+                onPress={() => navigation.navigate(PROFILE_DETAIL)}
               />
             );
           }

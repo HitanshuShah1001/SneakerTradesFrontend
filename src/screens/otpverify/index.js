@@ -5,6 +5,7 @@ import {Otpinput} from '../../components/Otpinput';
 import {useContext, useState} from 'react';
 import {SafeArea} from '../../components/SafeArea';
 import {UserContext} from '../../navigation/BottomTab';
+import {VERIFY_OTP} from '../../constants/Buttontitles';
 
 export const OTPverify = props => {
   console.log(props.route.params);
@@ -13,7 +14,6 @@ export const OTPverify = props => {
   const [otp, setOTP] = useState('');
 
   const navigateToHome = () => {
-    console.log(userData);
     setUser(userData);
   };
   return (
@@ -23,7 +23,7 @@ export const OTPverify = props => {
         <Otpinput setOTP={setOTP} />
       </View>
       <AuthenticationButton
-        text={'Verify OTP'}
+        text={VERIFY_OTP}
         onPress={() => navigateToHome()}
       />
     </SafeArea>

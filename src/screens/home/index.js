@@ -3,6 +3,7 @@ import {dummySneakerData} from '../../dummydata/Sneakers';
 import Sneakercard from '../../components/Sneakercard';
 import {Scroller} from '../../components/Scroller';
 import {useNavigation} from '@react-navigation/native';
+import {SNEAKER_DETAIL} from '../../constants/Screen';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -16,7 +17,7 @@ export const Home = () => {
           price={100}
           source={sneaker.Photos[0]}
           type={sneaker.Type}
-          onPress={() => navigation.navigate('SneakerDetail', {sneaker})}
+          onPress={() => navigation.navigate(SNEAKER_DETAIL, {sneaker})}
         />
       ))}
     </Scroller>

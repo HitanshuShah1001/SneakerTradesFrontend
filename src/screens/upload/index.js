@@ -16,6 +16,8 @@ import {
   THEME_PINK,
 } from '../../constants/colorsandfonts';
 import {Scroller} from '../../components/Scroller';
+import {BOTH, RENT, SELL} from '../../constants/Buttontitles';
+import {UPLOAD} from '../../constants/Screen';
 
 export const Upload = () => {
   const [uploadedFor, setUploadedFor] = useState('Upload');
@@ -81,12 +83,12 @@ export const Upload = () => {
           marginVertical: 15,
           width: '100%',
         }}>
-        <Uploadedforchip text={'Rent'} />
-        <Uploadedforchip text={'Sell'} />
-        <Uploadedforchip text={'Both'} />
+        <Uploadedforchip text={RENT} />
+        <Uploadedforchip text={SELL} />
+        <Uploadedforchip text={BOTH} />
       </View>
       <View style={{width: '100%'}}>
-        <AuthenticationButton text={'UPLOAD'} />
+        <AuthenticationButton text={UPLOAD} />
       </View>
     </Scroller>
   );
