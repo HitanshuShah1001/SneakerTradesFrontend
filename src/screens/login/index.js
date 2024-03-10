@@ -14,10 +14,11 @@ export const Login = () => {
     const response = await apiService.post('user/login', {
       Phone: `+91-${Phone}`,
     });
+
     if (!response) {
       Alert.alert('No User found');
     } else {
-      navigation.navigate('OtpVerify', {userData: response.data});
+      navigation.navigate('OtpVerify', {userData: response.user});
     }
   };
   return (
