@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {FONT_WEIGHT_NORMAL, THEME_PINK} from '../constants/colorsandfonts';
 import {BACK_ICON, BRAND_ICON} from '../assets';
 
-export const Header = ({text = 'Sneaker Trades', go_back = false}) => {
+export const Header = ({text, go_back = false}) => {
   const navigation = useNavigation();
 
   const handleGoBack = () => {
@@ -21,7 +21,7 @@ export const Header = ({text = 'Sneaker Trades', go_back = false}) => {
         <Image source={BRAND_ICON} style={styles.image} />
       )}
 
-      <Text style={styles.headerText}>{text}</Text>
+      <Text style={styles.headerText}>{text ?? 'Sneaker Trades'}</Text>
     </View>
   );
 };
