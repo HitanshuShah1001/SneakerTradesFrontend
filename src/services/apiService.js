@@ -1,6 +1,4 @@
-// apiService.js
-
-const BASE_URL = 'https://api.example.com';
+const BASE_URL = 'http://localhost:4000';
 
 export const apiService = {
   get: async (endpoint, headers = {}) => {
@@ -11,8 +9,8 @@ export const apiService = {
           'Content-Type': 'application/json',
         },
       });
-      const data = await response.json();
-      return data;
+      const apiresponse = await response.json();
+      return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -27,8 +25,8 @@ export const apiService = {
           'Content-Type': 'application/json',
         },
       });
-      const data = await response.json();
-      return data;
+      const apiresponse = await response.json();
+      return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -43,8 +41,8 @@ export const apiService = {
           'Content-Type': 'application/json',
         },
       });
-      const data = await response.json();
-      return data;
+      const apiresponse = await response.json();
+      return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -59,8 +57,8 @@ export const apiService = {
           'Content-Type': 'application/json',
         },
       });
-      const data = await response.json();
-      return data;
+      const apiresponse = await response.json();
+      return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -74,8 +72,8 @@ export const apiService = {
           'Content-Type': 'application/json',
         },
       });
-      const data = await response.json();
-      return data;
+      const apiresponse = await response.json();
+      return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);
     }
