@@ -18,9 +18,10 @@ import {
 import {Scroller} from '../../components/Scroller';
 import {BOTH, RENT, SELL} from '../../constants/Buttontitles';
 import {UPLOAD} from '../../constants/Screen';
+import {REQUEST} from '../../constants/Choices';
 
 export const Upload = () => {
-  const [uploadedFor, setUploadedFor] = useState('Upload');
+  const [uploadedFor, setUploadedFor] = useState(UPLOAD);
 
   const Typechip = ({text}) => (
     <Pressable style={styles.chip} onPress={() => setUploadedFor(text)}>
@@ -32,8 +33,8 @@ export const Upload = () => {
 
   const Uploadchips = () => (
     <View style={styles.container}>
-      <Typechip text={'Upload'} />
-      <Typechip text={'Request'} />
+      <Typechip text={UPLOAD} />
+      <Typechip text={REQUEST} />
     </View>
   );
 
@@ -51,7 +52,7 @@ export const Upload = () => {
   );
 
   const getTotalItems = () =>
-    uploadedFor == 'Upload' ? [1, 2, 3, 4, 5, 6] : [1];
+    uploadedFor == UPLOAD ? [1, 2, 3, 4, 5, 6] : [1];
 
   const Imageselectorcontainer = () => (
     <View style={styles.imageselectorcontainer}>
@@ -65,24 +66,13 @@ export const Upload = () => {
     <Scroller>
       <Uploadchips />
       <Imageselectorcontainer />
-      <Text
-        style={{
-          alignSelf: 'center',
-          marginTop: 12,
-          color: PLACEHOLDER_COLOR,
-        }}>
-        Upload Min 3 Images
+      <Text style={styles.imageplaceholder}>
+        {uploadedFor === UPLOAD ? `Upload Min 3 Images` : ``}
       </Text>
       <Textinput placeholder={'Sneaker Name'} customstyles={{width: '90%'}} />
       <Textinput placeholder={'Price'} customstyles={{width: '90%'}} />
       <Textinput placeholder={'Brand'} customstyles={{width: '90%'}} />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          marginVertical: 15,
-          width: '100%',
-        }}>
+      <View style={styles.radiocontainer}>
         <Uploadedforchip text={RENT} />
         <Uploadedforchip text={SELL} />
         <Uploadedforchip text={BOTH} />
@@ -102,6 +92,11 @@ const styles = {
     justifyContent: 'space-around',
     width: '100%',
     marginTop: 12,
+  },
+  imageplaceholder: {
+    alignSelf: 'center',
+    marginTop: 12,
+    color: PLACEHOLDER_COLOR,
   },
   chip: {
     width: 160,
@@ -132,5 +127,11 @@ const styles = {
     borderWidth: 1,
     borderColor: THEME_PINK,
     height: 20,
+  },
+  radiocontainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 15,
+    width: '100%',
   },
 };
