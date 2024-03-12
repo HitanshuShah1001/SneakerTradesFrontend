@@ -8,6 +8,8 @@ import {UserContext} from '../../navigation/BottomTab';
 import {VERIFY_OTP} from '../../constants/Buttontitles';
 import {apiService} from '../../services/apiService';
 import {SIGN_UP_CALL} from '../../constants/Apicall';
+import {StoreTokenInLocalStorage} from '../../utils/GetAndStoreTokenInLocalStorage';
+import {StoreUserInLocalStorage} from '../../utils/GetAndStoreUserDetailsInLocalStorage';
 
 export const OTPverify = props => {
   const {setUser} = useContext(UserContext);
@@ -15,8 +17,7 @@ export const OTPverify = props => {
   const {userData} = props?.route?.params || {};
   const {cameFromSignUp} = props?.route?.params || false;
   const [otp, setOTP] = useState('');
-  console.log(userDataForSignUp, 'user data for sign up');
-  console.log(cameFromSignUp, 'came from sign up');
+
   const navigateToHome = async () => {
     if (cameFromSignUp) {
       const {Username, Name, Phone, Email} = userDataForSignUp;
@@ -26,8 +27,11 @@ export const OTPverify = props => {
         Email,
         Phone,
       });
-
       if (response) {
+        await Promise.allSettled([
+          StoreTokenInLocalStorage({token: response.token}),
+          StoreUserInLocalStorage({userData: response.user}),
+        ]);
         Alert.alert('User created succesfully!');
         setUser(response.user);
       }

@@ -9,6 +9,8 @@ import {apiService} from '../../services/apiService';
 import {OTP_VERIFY} from '../../constants/Screen';
 import {NO_USER_FOUND} from '../../constants/Messages';
 import {GENERATE_OTP} from '../../constants/Buttontitles';
+import {StoreTokenInLocalStorage} from '../../utils/GetAndStoreTokenInLocalStorage';
+import {StoreUserInLocalStorage} from '../../utils/GetAndStoreUserDetailsInLocalStorage';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -21,6 +23,11 @@ export const Login = () => {
     if (!response) {
       Alert.alert(NO_USER_FOUND);
     } else {
+      console.log(response.token, 'token');
+      await Promise.allSettled([
+        StoreTokenInLocalStorage({token: response.token}),
+        StoreUserInLocalStorage({userData: response.user}),
+      ]);
       navigation.navigate(OTP_VERIFY, {userData: response.user});
     }
   };

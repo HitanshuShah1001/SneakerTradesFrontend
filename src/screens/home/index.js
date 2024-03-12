@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {dummySneakerData} from '../../dummydata/Sneakers';
 import Sneakercard from '../../components/Sneakercard';
 import {Scroller} from '../../components/Scroller';
 import {useNavigation} from '@react-navigation/native';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
+import {apiService} from '../../services/apiService';
+import {UserContext} from '../../navigation/BottomTab';
 
 export const Home = () => {
   const navigation = useNavigation();
+  const {user} = useContext(UserContext);
+
+  // const getSneakers = async () => {
+  //   const response = await apiService.
+  // }
+  useEffect(() => {}, []);
   return (
     <Scroller>
       {dummySneakerData.map((sneaker, index) => (
