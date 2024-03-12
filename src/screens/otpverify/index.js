@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Otpinput} from '../../components/Otpinput';
@@ -15,7 +15,8 @@ export const OTPverify = props => {
   const {userData} = props?.route?.params || {};
   const {cameFromSignUp} = props?.route?.params || false;
   const [otp, setOTP] = useState('');
-
+  console.log(userDataForSignUp, 'user data for sign up');
+  console.log(cameFromSignUp, 'came from sign up');
   const navigateToHome = async () => {
     if (cameFromSignUp) {
       const {Username, Name, Phone, Email} = userDataForSignUp;
@@ -25,10 +26,11 @@ export const OTPverify = props => {
         Email,
         Phone,
       });
+
       if (response) {
         Alert.alert('User created succesfully!');
+        setUser(response.user);
       }
-      setUser(response.data);
     } else {
       setUser(userData);
     }

@@ -25,13 +25,13 @@ export const SignUp = () => {
   const [phone, setPhone] = useState('');
 
   const registerUser = async () => {
-    const userData = {
+    const userDataForSignUp = {
       Username: username,
       Name: name,
       Email: emailId,
       Phone: phone,
     };
-    navigation.navigate(OTP_VERIFY, {userData, cameFromSignUp: true});
+    navigation.navigate(OTP_VERIFY, {userDataForSignUp, cameFromSignUp: true});
   };
   return (
     <SafeArea go_back={true}>
