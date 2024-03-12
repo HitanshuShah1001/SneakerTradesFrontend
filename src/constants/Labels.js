@@ -13,3 +13,8 @@ export const IMAGE_PLACEHOLDERS = [
 ];
 
 export const REQUEST_IMAGE_PLACEHOLDER = [{index: 0, image: ''}];
+export const GENDER_ROLES = [
+  {label: 'Male', value: 'Male'},
+  {label: 'Female', value: 'Female'},
+  {label: 'Other', value: 'Other'},
+];

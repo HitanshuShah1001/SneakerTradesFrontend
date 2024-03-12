@@ -1,21 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {PLACEHOLDER_COLOR, THEME_PINK} from '../constants/colorsandfonts';
 
-const data = [
-  {label: 'Item 1', value: '1'},
-  {label: 'Item 2', value: '2'},
-  {label: 'Item 3', value: '3'},
-  {label: 'Item 4', value: '4'},
-  {label: 'Item 5', value: '5'},
-  {label: 'Item 6', value: '6'},
-  {label: 'Item 7', value: '7'},
-  {label: 'Item 8', value: '8'},
-];
-
-const DropdownComponent = ({placeholder = `Select Item`, data}) => {
-  const [value, setValue] = useState(null);
+const DropdownComponent = ({value, setValue, data, search = false}) => {
   const [isFocus, setIsFocus] = useState(false);
 
   return (
@@ -27,15 +15,12 @@ const DropdownComponent = ({placeholder = `Select Item`, data}) => {
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
         data={data}
-        search
+        search={search}
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? placeholder : '...'}
         searchPlaceholder="Search..."
         value={value}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
         onChange={item => {
           setValue(item.value);
           setIsFocus(false);
@@ -59,6 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     backgroundColor: 'white',
+    borderColor: THEME_PINK,
   },
   icon: {
     marginRight: 5,
@@ -78,7 +64,6 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
-    tintColor: THEME_PINK,
   },
   iconStyle: {
     width: 20,
