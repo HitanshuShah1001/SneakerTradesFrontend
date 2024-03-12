@@ -2,7 +2,6 @@ import {TextInput} from 'react-native';
 import {THEME_PINK} from '../constants/colorsandfonts';
 
 export const Textinput = ({placeholder, customstyles, custVal, setCustVal}) => {
-  console.log(custVal);
   return (
     <TextInput
       style={[styles.textinput, {...customstyles}]}

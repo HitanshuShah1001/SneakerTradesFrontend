@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
@@ -11,11 +11,11 @@ import {
   PHONE_NUMBER,
   USER_NAME,
 } from '../../constants/Labels';
-import {OTP_VERIFY} from '../../constants/Screen';
 import {SIGN_UP} from '../../constants/Buttontitles';
 import DropdownComponent from '../../components/Dropdown';
 import {useState} from 'react';
 import {apiService} from '../../services/apiService';
+import {OTP_VERIFY} from '../../constants/Screen';
 export const SignUp = () => {
   const navigation = useNavigation();
   const [value, setValue] = useState(null);
@@ -25,16 +25,16 @@ export const SignUp = () => {
   const [phone, setPhone] = useState('');
 
   const registerUser = async () => {
-    const response = await apiService.post('user/signUp', {
+    const userData = {
       Username: username,
       Name: name,
       Email: emailId,
       Phone: phone,
-    });
-    console.log(response, 'RESPONSE RECEIVED');
+    };
+    navigation.navigate(OTP_VERIFY, {userData, cameFromSignUp: true});
   };
   return (
-    <SafeArea>
+    <SafeArea go_back={true}>
       <Brandiconandtext />
       <View style={{flex: 0.8, alignItems: 'center'}}>
         <Textinput

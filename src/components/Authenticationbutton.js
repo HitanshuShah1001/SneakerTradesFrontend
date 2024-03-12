@@ -1,16 +1,28 @@
 import {Pressable, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, THEME_PINK} from '../constants/colorsandfonts';
-
+import {useNavigation} from '@react-navigation/native';
+import {OTP_VERIFY, SIGN_UP_SCREEN} from '../constants/Screen';
+import {SIGN_UP} from '../constants/Buttontitles';
 export const AuthenticationButton = ({
   text,
   customstyles,
+  showsignup = false,
   onPress = () => {},
 }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.pressablecontainer}>
       <Pressable style={styles.pressable} onPress={onPress}>
         <Text style={styles.text}>{text}</Text>
       </Pressable>
+      {showsignup && (
+        <Pressable
+          style={styles.signupnavigatiorpressable}
+          onPress={() => navigation.navigate(SIGN_UP_SCREEN)}>
+          <Text style={{color: THEME_PINK}}>Don't have an account?</Text>
+          <Text style={styles.navigator}>Sign Up</Text>
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -29,4 +41,17 @@ const styles = {
     borderRadius: 6,
   },
   text: {color: 'white', fontSize: 22, fontWeight: FONT_WEIGHT_BOLD},
+  signupnavigatiorpressable: {
+    flexDirection: 'row',
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 12,
+  },
+  navigator: {
+    color: THEME_PINK,
+    fontWeight: FONT_WEIGHT_BOLD,
+    marginLeft: 4,
+    textDecorationLine: 'underline',
+  },
 };

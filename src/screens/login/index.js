@@ -37,6 +37,7 @@ export const Login = () => {
       <AuthenticationButton
         text={GENERATE_OTP}
         onPress={() => checkIfUserExists()}
+        showsignup={true}
       />
     </SafeArea>
   );
