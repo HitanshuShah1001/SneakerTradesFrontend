@@ -8,6 +8,7 @@ import {SafeArea} from '../../components/SafeArea';
 import {apiService} from '../../services/apiService';
 import {OTP_VERIFY} from '../../constants/Screen';
 import {NO_USER_FOUND} from '../../constants/Messages';
+import {GENERATE_OTP} from '../../constants/Buttontitles';
 
 export const Login = () => {
   const navigation = useNavigation();

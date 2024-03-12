@@ -1,70 +1,71 @@
 import React, {useState} from 'react';
-import {
-  Pressable,
-  SafeAreaView,
-  Text,
-  View,
-  ScrollView,
-  Image,
-} from 'react-native';
-import {PHOTO_UPLOAD} from '../../assets';
+import {Pressable, Text, View, Image} from 'react-native';
+import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
 import {Textinput} from '../../components/Textinput';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
-import {
-  FONT_WEIGHT_BOLD,
-  PLACEHOLDER_COLOR,
-  THEME_PINK,
-} from '../../constants/colorsandfonts';
 import {Scroller} from '../../components/Scroller';
 import {BOTH, RENT, SELL} from '../../constants/Buttontitles';
 import {UPLOAD} from '../../constants/Screen';
-import {REQUEST} from '../../constants/Choices';
+import {openImagePicker, removeImage} from '../../components/CameraPicker';
+import {styles} from './styles';
+import {
+  IMAGE_PLACEHOLDERS,
+  REQUEST_IMAGE_PLACEHOLDER,
+} from '../../constants/Labels';
+import {Uploadchips, Uploadedforchip} from '../../components/Chips';
 
 export const Upload = () => {
   const [uploadedFor, setUploadedFor] = useState(UPLOAD);
-
-  const Typechip = ({text}) => (
-    <Pressable style={styles.chip} onPress={() => setUploadedFor(text)}>
-      <Text style={{fontWeight: uploadedFor === text ? FONT_WEIGHT_BOLD : 400}}>
-        {text}
-      </Text>
-    </Pressable>
+  const [images, setImages] = useState(
+    uploadedFor == UPLOAD ? IMAGE_PLACEHOLDERS : REQUEST_IMAGE_PLACEHOLDER,
   );
 
-  const Uploadchips = () => (
-    <View style={styles.container}>
-      <Typechip text={UPLOAD} />
-      <Typechip text={REQUEST} />
-    </View>
-  );
+  const Imageselector = ({index, image}) => {
+    return (
+      <View style={{width: '30%', alignItems: 'center'}}>
+        {image !== `` ? (
+          <>
+            <Pressable
+              style={{alignSelf: 'flex-end', marginTop: 12}}
+              onPress={() => removeImage({images, setImages, index})}>
+              <Image source={CANCEL_ICON} style={{height: 10, width: 10}} />
+            </Pressable>
+            <Pressable
+              style={styles.photoupload}
+              onPress={() => openImagePicker({images, setImages, index})}>
+              <Image source={{uri: image}} style={styles.selectedimage} />
+            </Pressable>
+          </>
+        ) : (
+          <Pressable
+            style={styles.photoupload}
+            onPress={() => openImagePicker({images, setImages, index})}>
+            <Image source={PHOTO_UPLOAD} style={styles.placeholderimage} />
+          </Pressable>
+        )}
+      </View>
+    );
+  };
 
-  const Uploadedforchip = ({text}) => (
-    <View style={{flexDirection: 'row'}}>
-      <Pressable style={styles.uploadedFor} />
-      <Text style={{marginLeft: 4}}>{text}</Text>
-    </View>
-  );
-
-  const Imageselector = () => (
-    <Pressable style={styles.photoupload}>
-      <Image source={PHOTO_UPLOAD} />
-    </Pressable>
-  );
-
-  const getTotalItems = () =>
-    uploadedFor == UPLOAD ? [1, 2, 3, 4, 5, 6] : [1];
-
-  const Imageselectorcontainer = () => (
-    <View style={styles.imageselectorcontainer}>
-      {getTotalItems().map(index => (
-        <Imageselector key={index} />
-      ))}
-    </View>
-  );
+  const Imageselectorcontainer = () => {
+    return (
+      <View style={styles.imageselectorcontainer}>
+        {images.map(val => {
+          return (
+            <Imageselector
+              key={val.index}
+              index={val.index}
+              image={val.image}
+            />
+          );
+        })}
+      </View>
+    );
+  };
 
   return (
     <Scroller>
-      <Uploadchips />
+      <Uploadchips uploadedFor={uploadedFor} setUploadedFor={setUploadedFor} />
       <Imageselectorcontainer />
       <Text style={styles.imageplaceholder}>
         {uploadedFor === UPLOAD ? `Upload Min 3 Images` : ``}
@@ -82,56 +83,4 @@ export const Upload = () => {
       </View>
     </Scroller>
   );
-};
-
-const styles = {
-  container: {
-    minHeight: 60, // Set a minimum height to ensure it's scrollable
-    paddingTop: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginTop: 12,
-  },
-  imageplaceholder: {
-    alignSelf: 'center',
-    marginTop: 12,
-    color: PLACEHOLDER_COLOR,
-  },
-  chip: {
-    width: 160,
-    height: 45,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFF',
-  },
-  photoupload: {
-    height: 120,
-    width: '30%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    borderRadius: 6,
-    marginTop: 8,
-  },
-  imageselectorcontainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    paddingHorizontal: 10,
-  },
-  uploadedFor: {
-    width: 20,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: THEME_PINK,
-    height: 20,
-  },
-  radiocontainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 15,
-    width: '100%',
-  },
 };

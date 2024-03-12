@@ -7,3 +7,4 @@ export const BRAND_ICON = require('./brand_icon.png');
 export const COINS = require('./coins_icon.png');
 export const PHOTO_UPLOAD = require('./photo_upload.png');
 export const BACK_ICON = require('../assets/back_icon.png');
+export const CANCEL_ICON = require('../assets/cancel_icon.png');
