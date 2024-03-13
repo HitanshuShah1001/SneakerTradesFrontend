@@ -9,16 +9,23 @@ import {UPLOAD} from '../../constants/Screen';
 import {openImagePicker, removeImage} from '../../components/CameraPicker';
 import {styles} from './styles';
 import {
+  BRANDS,
+  GENDER_ROLES,
   IMAGE_PLACEHOLDERS,
   REQUEST_IMAGE_PLACEHOLDER,
+  SIZES,
 } from '../../constants/Labels';
 import {Uploadchips, Uploadedforchip} from '../../components/Chips';
+import DropdownComponent from '../../components/Dropdown';
 
 export const Upload = () => {
   const [uploadedFor, setUploadedFor] = useState(UPLOAD);
   const [images, setImages] = useState(
     uploadedFor == UPLOAD ? IMAGE_PLACEHOLDERS : REQUEST_IMAGE_PLACEHOLDER,
   );
+  const [brand, setBrand] = useState('');
+  const [gender, setGender] = useState('');
+  const [size, setSize] = useState('');
 
   const Imageselector = ({index, image}) => {
     return (
@@ -72,7 +79,24 @@ export const Upload = () => {
       </Text>
       <Textinput placeholder={'Sneaker Name'} customstyles={{width: '90%'}} />
       <Textinput placeholder={'Price'} customstyles={{width: '90%'}} />
-      <Textinput placeholder={'Brand'} customstyles={{width: '90%'}} />
+      <DropdownComponent
+        placeholder="Brand"
+        value={brand}
+        setValue={setBrand}
+        data={BRANDS}
+      />
+      <DropdownComponent
+        placeholder="Gender"
+        value={gender}
+        setValue={setGender}
+        data={GENDER_ROLES}
+      />
+      <DropdownComponent
+        placeholder="Size"
+        value={size}
+        setValue={setSize}
+        data={SIZES}
+      />
       <View style={styles.radiocontainer}>
         <Uploadedforchip text={RENT} />
         <Uploadedforchip text={SELL} />
