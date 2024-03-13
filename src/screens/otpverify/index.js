@@ -17,7 +17,7 @@ export const OTPverify = props => {
   const {userData} = props?.route?.params || {};
   const {cameFromSignUp} = props?.route?.params || false;
   const [otp, setOTP] = useState('');
-  console.log(userData, 'user data in login');
+
   const navigateToHome = async () => {
     if (cameFromSignUp) {
       const {Username, Name, Phone, Email} = userDataForSignUp;
@@ -35,7 +35,8 @@ export const OTPverify = props => {
         Alert.alert('User created succesfully!');
       }
     } else {
-      await Promise.allSettled([
+      setUser(userData);
+      return await Promise.allSettled([
         StoreTokenInLocalStorage({token: userData.token}),
         StoreUserInLocalStorage({userData}),
       ]);

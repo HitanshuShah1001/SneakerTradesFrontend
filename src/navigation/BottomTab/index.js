@@ -10,12 +10,12 @@ export const Navigation = () => {
   const [user, setUser] = useState(undefined);
   const getUserDetails = async () => {
     const userDetails = await RetrieveUserFromLocalStorage();
-
     setUser(userDetails);
   };
   useEffect(() => {
     getUserDetails();
-  }, []);
+    console.log(user, 'user in navigation');
+  }, [user]);
   return (
     <UserContext.Provider value={{user, setUser}}>
       {user ? <ActionScreens /> : <AuthNavigation />}

@@ -23,7 +23,6 @@ export const Login = () => {
     if (!response) {
       Alert.alert(NO_USER_FOUND);
     } else {
-      console.log(response.token, 'token');
       await Promise.allSettled([
         StoreTokenInLocalStorage({token: response.token}),
         StoreUserInLocalStorage({userData: response.user}),
