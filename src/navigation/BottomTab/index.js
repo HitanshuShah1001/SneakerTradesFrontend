@@ -14,7 +14,6 @@ export const Navigation = () => {
   };
   useEffect(() => {
     getUserDetails();
-    console.log(user, 'user in navigation');
   }, [user]);
   return (
     <UserContext.Provider value={{user, setUser}}>

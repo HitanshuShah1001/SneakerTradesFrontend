@@ -12,7 +12,6 @@ export const Profile = () => {
   const navigation = useNavigation();
 
   const actionsBasedOnTitle = async ({title}) => {
-    console.log(title, 'title in action title');
     switch (title) {
       case LOGOUT:
         return await Promise.allSettled([

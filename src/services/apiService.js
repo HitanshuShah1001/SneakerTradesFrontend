@@ -10,9 +10,10 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      return apiresponse.data;
+      console.log(apiresponse);
+      return apiresponse.Data;
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
     }
   },
   post: async (endpoint, body, headers = {}) => {
