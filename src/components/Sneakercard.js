@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     marginVertical: 10,
     paddingHorizontal: 10,
+    alignSelf: 'center',
   },
   image: {
     height: '100%',

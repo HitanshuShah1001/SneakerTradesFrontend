@@ -15,15 +15,13 @@ export const Requests = () => {
     const response = await apiService.get('sneakerrequests/requests', {
       Authorization: `Bearer ${token}`,
     });
-    console.log(response.data, 'response.data');
+
     setSneakers(response.data);
   };
 
   useEffect(() => {
     getSneakersForRental();
   }, []);
-
-  console.log(sneakers);
 
   return (
     <Scroller>

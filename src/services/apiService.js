@@ -10,7 +10,7 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      console.log(apiresponse, 'api response in backend');
+      // console.log(apiresponse, 'api response in backend');
       return apiresponse.Data;
     } catch (error) {
       console.log(error);
