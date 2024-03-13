@@ -2,14 +2,16 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {AuthNavigation} from './authnav';
 import {ActionScreens} from './bottomtab';
 import {createContext, useEffect, useState} from 'react';
-import {RetrieveUserFromLocalStorage} from '../../utils/GetAndStoreUserDetailsInLocalStorage';
+import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 const Tab = createBottomTabNavigator();
 export const UserContext = createContext();
 export const Navigation = () => {
   const [user, setUser] = useState(undefined);
   const getUserDetails = async () => {
-    const isUserLoggedIn = await RetrieveUserFromLocalStorage();
+    const userDetails = await RetrieveUserFromLocalStorage();
+
+    setUser(userDetails);
   };
   useEffect(() => {
     getUserDetails();

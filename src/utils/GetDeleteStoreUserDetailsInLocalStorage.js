@@ -16,3 +16,11 @@ export const RetrieveUserFromLocalStorage = async () => {
     console.log(`Error occured in retrieving user from local storage`, e);
   }
 };
+
+export const RemoveUserFromLocalStorage = async () => {
+  try {
+    await AsyncStorage.removeItem('user');
+  } catch (e) {
+    console.log(`Error occured while removing item`, e);
+  }
+};

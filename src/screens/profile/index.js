@@ -3,11 +3,27 @@ import {View, StyleSheet, SafeAreaView} from 'react-native';
 import {ProfileCard} from '../../components/Profilecard';
 import {ACCOUNTITEMS, PROFILEITEMS} from '../../constants/ProfileActions';
 import {useNavigation} from '@react-navigation/native';
-import {MY_PROFILE} from '../../constants/Buttontitles';
+import {LOGOUT, MY_PROFILE} from '../../constants/Buttontitles';
 import {PROFILE_DETAIL} from '../../constants/Screen';
+import {RemoveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
+import {RemoveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const Profile = () => {
   const navigation = useNavigation();
+
+  const actionsBasedOnTitle = async ({title}) => {
+    console.log(title, 'title in action title');
+    switch (title) {
+      case LOGOUT:
+        return await Promise.allSettled([
+          RemoveTokenFromLocalStorage(),
+          RemoveUserFromLocalStorage(),
+        ]);
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -25,9 +41,15 @@ export const Profile = () => {
         })}
       </View>
       <View style={styles.accountContainer}>
-        {ACCOUNTITEMS.map((title, index) => (
-          <ProfileCard title={title} key={index} />
-        ))}
+        {ACCOUNTITEMS.map((title, index) => {
+          return (
+            <ProfileCard
+              title={title}
+              key={index}
+              onPress={() => actionsBasedOnTitle({title})}
+            />
+          );
+        })}
       </View>
     </SafeAreaView>
   );

@@ -16,3 +16,11 @@ export const RetrieveTokenFromLocalStorage = async () => {
     console.log(`Error occured in retrieving token from local storage`, e);
   }
 };
+
+export const RemoveTokenFromLocalStorage = async () => {
+  try {
+    await AsyncStorage.removeItem('token');
+  } catch (e) {
+    console.log(`Error occured while removing item`, e);
+  }
+};

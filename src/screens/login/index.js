@@ -9,8 +9,8 @@ import {apiService} from '../../services/apiService';
 import {OTP_VERIFY} from '../../constants/Screen';
 import {NO_USER_FOUND} from '../../constants/Messages';
 import {GENERATE_OTP} from '../../constants/Buttontitles';
-import {StoreTokenInLocalStorage} from '../../utils/GetAndStoreTokenInLocalStorage';
-import {StoreUserInLocalStorage} from '../../utils/GetAndStoreUserDetailsInLocalStorage';
+import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
+import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -28,7 +28,9 @@ export const Login = () => {
         StoreTokenInLocalStorage({token: response.token}),
         StoreUserInLocalStorage({userData: response.user}),
       ]);
-      navigation.navigate(OTP_VERIFY, {userData: response.user});
+      navigation.navigate(OTP_VERIFY, {
+        userData: {...response.user, token: response.token},
+      });
     }
   };
   return (
