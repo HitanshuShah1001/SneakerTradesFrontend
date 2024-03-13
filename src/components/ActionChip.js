@@ -12,7 +12,7 @@ export const ActionChip = ({text}) => {
 const styles = {
   chip: {
     width: 70,
-    height: 26,
+    height: 30,
     borderColor: THEME_PINK,
     justifyContent: 'center',
     alignItems: 'center',

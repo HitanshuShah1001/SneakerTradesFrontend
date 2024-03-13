@@ -1,0 +1,28 @@
+import React, {useState} from 'react';
+import {Image, Pressable, View, SafeAreaView} from 'react-native';
+import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
+import {styles} from './styles';
+import {ActionChip} from '../../components/ActionChip';
+import {UnlockOwnerDetails} from '../../components/UnlockOwnerDetails';
+import {Header} from '../../components/Header';
+
+export const SneakerRequestDetail = props => {
+  const sneaker = props.route.params.sneaker;
+
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <Header go_back={true} />
+      <View style={styles.container}>
+        <Image source={{uri: sneaker?.Photo ?? ''}} style={styles.mainImage} />
+        <Sneakerdetailstext
+          Name={sneaker.Name}
+          Brand={sneaker.Brand}
+          Gender={sneaker.Gender}
+          Size={sneaker.Size}
+        />
+        <ActionChip text={sneaker?.Type} />
+        <UnlockOwnerDetails />
+      </View>
+    </SafeAreaView>
+  );
+};
