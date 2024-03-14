@@ -54,10 +54,10 @@ export const SignUp = () => {
           setCustVal={setPhone}
         />
         <DropdownComponent
-          placeholder="Gender"
           value={value}
           setValue={setValue}
           data={GENDER_ROLES}
+          placeholder="Select Gender"
         />
       </View>
       <AuthenticationButton text={SIGN_UP} onPress={() => registerUser()} />

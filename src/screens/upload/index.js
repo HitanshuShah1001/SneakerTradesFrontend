@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pressable, Text, View, Image} from 'react-native';
 import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
 import {Textinput} from '../../components/Textinput';
@@ -27,6 +27,13 @@ export const Upload = () => {
   const [gender, setGender] = useState('');
   const [size, setSize] = useState('');
 
+  useEffect(() => {
+    if (uploadedFor == UPLOAD) {
+      setImages(IMAGE_PLACEHOLDERS);
+    } else {
+      setImages(REQUEST_IMAGE_PLACEHOLDER);
+    }
+  }, [uploadedFor]);
   const Imageselector = ({index, image}) => {
     return (
       <View style={{width: '30%', alignItems: 'center'}}>

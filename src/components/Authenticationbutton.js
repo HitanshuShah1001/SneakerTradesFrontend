@@ -12,12 +12,17 @@ export const AuthenticationButton = ({
   const navigation = useNavigation();
   return (
     <View style={styles.pressablecontainer}>
-      <Pressable style={styles.pressable} onPress={onPress}>
+      <Pressable
+        style={({pressed}) => [styles.pressable, pressed && {opacity: 0.5}]}
+        onPress={onPress}>
         <Text style={styles.text}>{text}</Text>
       </Pressable>
       {showsignup && (
         <Pressable
-          style={styles.signupnavigatiorpressable}
+          style={({pressed}) => {
+            console.log(pressed);
+            return styles.signupnavigatiorpressable;
+          }}
           onPress={() => navigation.navigate(SIGN_UP_SCREEN)}>
           <Text style={{color: THEME_PINK}}>Don't have an account?</Text>
           <Text style={styles.navigator}>Sign Up</Text>

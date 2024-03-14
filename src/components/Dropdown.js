@@ -3,7 +3,13 @@ import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {PLACEHOLDER_COLOR, THEME_PINK} from '../constants/colorsandfonts';
 
-const DropdownComponent = ({value, setValue, data, search = false}) => {
+const DropdownComponent = ({
+  value,
+  setValue,
+  data,
+  search = false,
+  placeholder = `Select Item`,
+}) => {
   const [isFocus, setIsFocus] = useState(false);
 
   return (
@@ -15,6 +21,7 @@ const DropdownComponent = ({value, setValue, data, search = false}) => {
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
         data={data}
+        placeholder={placeholder}
         search={search}
         maxHeight={300}
         labelField="label"
