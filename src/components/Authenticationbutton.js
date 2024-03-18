@@ -1,11 +1,9 @@
 import {Pressable, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, THEME_PINK} from '../constants/colorsandfonts';
 import {useNavigation} from '@react-navigation/native';
-import {OTP_VERIFY, SIGN_UP_SCREEN} from '../constants/Screen';
-import {SIGN_UP} from '../constants/Buttontitles';
+import {SIGN_UP_SCREEN} from '../constants/Screen';
 export const AuthenticationButton = ({
   text,
-  customstyles,
   showsignup = false,
   onPress = () => {},
 }) => {

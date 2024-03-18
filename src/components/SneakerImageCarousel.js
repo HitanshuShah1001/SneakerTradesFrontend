@@ -1,5 +1,9 @@
 import {Image, Pressable} from 'react-native';
-import {FONT_SIZE, FONT_WEIGHT_BOLD} from '../constants/colorsandfonts';
+import {
+  FONT_SIZE,
+  FONT_WEIGHT_BOLD,
+  TITLE_COLOR,
+} from '../constants/colorsandfonts';
 
 export const Sneakerimages = ({Photos, setSelectedSneakerImage}) => {
   const handleImagePress = photo => {
@@ -57,6 +61,6 @@ const styles = {
   detailText: {
     fontSize: FONT_SIZE,
     fontWeight: '400',
-    color: '#828282',
+    color: TITLE_COLOR,
   },
 };

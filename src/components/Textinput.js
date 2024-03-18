@@ -1,7 +1,13 @@
 import {TextInput} from 'react-native';
 import {THEME_PINK} from '../constants/colorsandfonts';
 
-export const Textinput = ({placeholder, customstyles, custVal, setCustVal}) => {
+export const Textinput = ({
+  placeholder,
+  customstyles,
+  custVal,
+  setCustVal,
+  inputMode,
+}) => {
   return (
     <TextInput
       style={[styles.textinput, {...customstyles}]}
@@ -10,6 +16,7 @@ export const Textinput = ({placeholder, customstyles, custVal, setCustVal}) => {
       onChangeText={val => {
         setCustVal(val);
       }}
+      inputMode={inputMode}
     />
   );
 };

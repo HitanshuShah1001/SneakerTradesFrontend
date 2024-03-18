@@ -1,5 +1,5 @@
 import {Text, View} from 'react-native';
-import {FONT_WEIGHT_BOLD} from '../constants/colorsandfonts';
+import {FONT_WEIGHT_BOLD, TITLE_COLOR} from '../constants/colorsandfonts';
 
 export const Sneakerdetailstext = ({Name, Brand, Gender, Size}) => {
   return (
@@ -49,6 +49,6 @@ const styles = {
   detailText: {
     fontSize: 16,
     fontWeight: '400',
-    color: '#828282',
+    color: TITLE_COLOR,
   },
 };
