@@ -34,20 +34,6 @@ export const Home = () => {
 
   const [sneakers, setSneakers] = useState([]);
 
-  const renderItem = ({sneaker}) => {
-    console.log(sneaker, 'sneaker in flat list');
-    return (
-      <Sneakercard
-        key={sneaker?.Name}
-        name={sneaker?.Name}
-        brand={sneaker?.Brand}
-        price={100}
-        source={sneaker?.Photos[0]}
-        type={sneaker?.Type}
-        onPress={() => navigation.navigate(SNEAKER_DETAIL, {sneaker})}
-      />
-    );
-  };
   return (
     <SafeArea>
       <FlatList

@@ -18,7 +18,6 @@ export const AuthenticationButton = ({
       {showsignup && (
         <Pressable
           style={({pressed}) => {
-            console.log(pressed);
             return styles.signupnavigatiorpressable;
           }}
           onPress={() => navigation.navigate(SIGN_UP_SCREEN)}>

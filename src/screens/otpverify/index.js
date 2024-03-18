@@ -28,6 +28,7 @@ export const OTPverify = props => {
         Phone,
       });
       if (response) {
+        setUser(response.user);
         await Promise.allSettled([
           StoreTokenInLocalStorage({token: response.token}),
           StoreUserInLocalStorage({userData: response.user}),
