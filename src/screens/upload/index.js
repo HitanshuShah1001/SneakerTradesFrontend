@@ -4,7 +4,6 @@ import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
 import {Textinput} from '../../components/Textinput';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Scroller} from '../../components/Scroller';
-import {BOTH, RENT, SELL} from '../../constants/Buttontitles';
 import {UPLOAD} from '../../constants/Screen';
 import {openImagePicker, removeImage} from '../../components/CameraPicker';
 import {styles} from './styles';
@@ -14,26 +13,56 @@ import {
   IMAGE_PLACEHOLDERS,
   REQUEST_IMAGE_PLACEHOLDER,
   SIZES,
+  TYPES,
 } from '../../constants/Labels';
 import {Uploadchips, Uploadedforchip} from '../../components/Chips';
 import DropdownComponent from '../../components/Dropdown';
+import {apiService} from '../../services/apiService';
+import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 
 export const Upload = () => {
   const [uploadedFor, setUploadedFor] = useState(UPLOAD);
-  const [images, setImages] = useState(
+  const [Photos, setPhotos] = useState(
     uploadedFor == UPLOAD ? IMAGE_PLACEHOLDERS : REQUEST_IMAGE_PLACEHOLDER,
   );
-  const [brand, setBrand] = useState('');
-  const [gender, setGender] = useState('');
-  const [size, setSize] = useState('');
+  const [Brand, setBrand] = useState('');
+  const [Gender, setGender] = useState('');
+  const [Size, setSize] = useState('');
+  const [Name, setName] = useState('');
+  const [Price, setPrice] = useState('');
+  const [Type, setType] = useState('');
 
   useEffect(() => {
     if (uploadedFor == UPLOAD) {
-      setImages(IMAGE_PLACEHOLDERS);
+      setPhotos(IMAGE_PLACEHOLDERS);
     } else {
-      setImages(REQUEST_IMAGE_PLACEHOLDER);
+      setPhotos(REQUEST_IMAGE_PLACEHOLDER);
     }
   }, [uploadedFor]);
+
+  const UploadSneaker = async () => {
+    let PhotosToSend = [];
+    Photos.forEach(({image}) => {
+      if (image) {
+        PhotosToSend.push(image);
+      }
+    });
+    const uploadDetails = new FormData();
+    uploadDetails.append('Name', Name);
+    uploadDetails.append('Brand', Brand);
+    uploadDetails.append('Price', Price);
+    uploadDetails.append('Gender', Gender);
+    uploadDetails.append('Type', Type);
+    Photos.forEach(photo => uploadDetails.append('Photo', photo));
+
+    let token = await RetrieveTokenFromLocalStorage();
+    console.log(uploadDetails, 'upload details');
+    const res = await apiService.post('sneaker/upload', uploadDetails, {
+      Authorization: `Bearer ${token}`,
+    });
+    console.log(res, 'response received');
+  };
+
   const Imageselector = ({index, image}) => {
     return (
       <View style={{width: '30%', alignItems: 'center'}}>
@@ -41,19 +70,19 @@ export const Upload = () => {
           <>
             <Pressable
               style={{alignSelf: 'flex-end', marginTop: 12}}
-              onPress={() => removeImage({images, setImages, index})}>
+              onPress={() => removeImage({Photos, setPhotos, index})}>
               <Image source={CANCEL_ICON} style={{height: 10, width: 10}} />
             </Pressable>
             <Pressable
               style={styles.photoupload}
-              onPress={() => openImagePicker({images, setImages, index})}>
+              onPress={() => openImagePicker({Photos, setPhotos, index})}>
               <Image source={{uri: image}} style={styles.selectedimage} />
             </Pressable>
           </>
         ) : (
           <Pressable
             style={styles.photoupload}
-            onPress={() => openImagePicker({images, setImages, index})}>
+            onPress={() => openImagePicker({Photos, setPhotos, index})}>
             <Image source={PHOTO_UPLOAD} style={styles.placeholderimage} />
           </Pressable>
         )}
@@ -64,7 +93,7 @@ export const Upload = () => {
   const Imageselectorcontainer = () => {
     return (
       <View style={styles.imageselectorcontainer}>
-        {images.map(val => {
+        {Photos.map(val => {
           return (
             <Imageselector
               key={val.index}
@@ -84,33 +113,44 @@ export const Upload = () => {
       <Text style={styles.imageplaceholder}>
         {uploadedFor === UPLOAD ? `Upload Min 3 Images` : ``}
       </Text>
-      <Textinput placeholder={'Sneaker Name'} customstyles={{width: '90%'}} />
-      <Textinput placeholder={'Price'} customstyles={{width: '90%'}} />
+      <Textinput
+        placeholder={'Sneaker Name'}
+        customstyles={{width: '90%'}}
+        custVal={Name}
+        setCustVal={setName}
+      />
+      <Textinput
+        placeholder={'Select Price'}
+        customstyles={{width: '90%'}}
+        custVal={Price}
+        setCustVal={setPrice}
+      />
       <DropdownComponent
-        placeholder="Brand"
-        value={brand}
+        placeholder="Select Brand"
+        value={Brand}
         setValue={setBrand}
         data={BRANDS}
       />
       <DropdownComponent
-        placeholder="Gender"
-        value={gender}
+        placeholder="Select Gender"
+        value={Gender}
         setValue={setGender}
         data={GENDER_ROLES}
       />
       <DropdownComponent
-        placeholder="Size"
-        value={size}
+        placeholder="Select Size"
+        value={Size}
         setValue={setSize}
         data={SIZES}
       />
-      <View style={styles.radiocontainer}>
-        <Uploadedforchip text={RENT} />
-        <Uploadedforchip text={SELL} />
-        <Uploadedforchip text={BOTH} />
-      </View>
-      <View style={{width: '100%'}}>
-        <AuthenticationButton text={UPLOAD} />
+      <DropdownComponent
+        placeholder="Select Type"
+        value={Type}
+        setValue={setType}
+        data={TYPES}
+      />
+      <View style={{width: '100%', marginTop: 10}}>
+        <AuthenticationButton text={UPLOAD} onPress={() => UploadSneaker()} />
       </View>
     </Scroller>
   );

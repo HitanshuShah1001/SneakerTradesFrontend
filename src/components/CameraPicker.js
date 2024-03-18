@@ -1,6 +1,6 @@
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-export const openImagePicker = ({images, setImages, index}) => {
+export const openImagePicker = ({Photos, setPhotos, index}) => {
   const options = {
     mediaType: 'photo',
     includeBase64: false,
@@ -15,7 +15,7 @@ export const openImagePicker = ({images, setImages, index}) => {
       let imageUri = response.uri || response.assets?.[0]?.uri;
 
       let newImages = [];
-      for (let img of images) {
+      for (let img of Photos) {
         let indiObj = {};
         indiObj.index = img.index;
         if (img.index == index) {
@@ -25,14 +25,14 @@ export const openImagePicker = ({images, setImages, index}) => {
         }
         newImages.push(indiObj);
       }
-      setImages(newImages);
+      setPhotos(newImages);
     }
   });
 };
 
-export const removeImage = ({images, setImages, index}) => {
+export const removeImage = ({Photos, setPhotos, index}) => {
   let newImages = [];
-  for (let img of images) {
+  for (let img of Photos) {
     let indiObj = {};
     indiObj.index = img.index;
     if (img.index == index) {
@@ -42,5 +42,5 @@ export const removeImage = ({images, setImages, index}) => {
     }
     newImages.push(indiObj);
   }
-  setImages(newImages);
+  setPhotos(newImages);
 };
