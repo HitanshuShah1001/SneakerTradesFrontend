@@ -18,7 +18,6 @@ const styles = {
     alignItems: 'center',
     borderRadius: 4,
     borderWidth: 1,
-    marginTop: 12,
   },
   text: {fontSize: 20, fontWeight: FONT_WEIGHT_BOLD, color: THEME_PINK},
 };

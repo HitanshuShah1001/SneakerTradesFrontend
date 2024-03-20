@@ -5,9 +5,32 @@ import {styles} from './styles';
 import {ActionChip} from '../../components/ActionChip';
 import {UnlockOwnerDetails} from '../../components/UnlockOwnerDetails';
 import {Header} from '../../components/Header';
+import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
+import {OwnerDetails} from '../../components/OwnerDetails';
+import {apiService} from '../../services/apiService';
 
 export const SneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
+  const [ownerDetails, setOwnerDetails] = useState(undefined);
+
+  const unlockOwnerDetails = async () => {
+    const [user, token] = await Promise.allSettled([
+      RetrieveUserFromLocalStorage(),
+      RetrieveTokenFromLocalStorage(),
+    ]);
+
+    if (user.value.TotalCoinsLeft < 10) {
+      Alert.alert('You have insufficient balance');
+    } else {
+      const res = await apiService.patchWithoutBody(
+        token.value,
+        `sneakerrequests/unlockrequestdetail/${sneaker.RequestedBy}`,
+      );
+
+      setOwnerDetails(res.user);
+    }
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -21,7 +44,18 @@ export const SneakerRequestDetail = props => {
           Size={sneaker.Size}
         />
         <ActionChip text={sneaker?.Type} />
-        <UnlockOwnerDetails />
+        {!ownerDetails ? (
+          <UnlockOwnerDetails
+            onPress={() => unlockOwnerDetails()}
+            text="Unlock Requestor Details"
+          />
+        ) : (
+          <OwnerDetails
+            Name={ownerDetails.Name}
+            Phone={ownerDetails.Phone}
+            Email={ownerDetails.Email}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

@@ -56,11 +56,10 @@ export const Upload = () => {
     Photos.forEach(photo => uploadDetails.append('Photo', photo));
 
     let token = await RetrieveTokenFromLocalStorage();
-    console.log(uploadDetails, 'upload details');
+
     const res = await apiService.post('sneaker/upload', uploadDetails, {
       Authorization: `Bearer ${token}`,
     });
-    console.log(res, 'response received');
   };
 
   const Imageselector = ({index, image}) => {

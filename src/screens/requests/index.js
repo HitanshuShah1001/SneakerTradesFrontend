@@ -11,12 +11,17 @@ import {SafeArea} from '../../components/SafeArea';
 export const Requests = () => {
   const navigation = useNavigation();
   const [sneakers, setSneakers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   const getSneakersForRental = async () => {
     let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.get('sneakerrequests/requests', {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiService.get(
+      `sneakerrequests/requests?page=${page}&limit=${limit}`,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+    );
 
     setSneakers(response.data);
   };

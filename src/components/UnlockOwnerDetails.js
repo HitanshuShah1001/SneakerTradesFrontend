@@ -6,7 +6,10 @@ import {
   THEME_PINK,
 } from '../constants/colorsandfonts';
 
-export const UnlockOwnerDetails = ({onPress}) => {
+export const UnlockOwnerDetails = ({
+  onPress,
+  text = 'Unlock Owner Details',
+}) => {
   return (
     <Pressable
       style={({pressed}) => [styles.pressable, pressed && {opacity: 0.5}]}
@@ -17,7 +20,7 @@ export const UnlockOwnerDetails = ({onPress}) => {
           fontSize: FONT_SIZE,
           fontWeight: FONT_WEIGHT_BOLD,
         }}>
-        Unlock owner details
+        {text}
       </Text>
       <Image source={COINS} />
     </Pressable>

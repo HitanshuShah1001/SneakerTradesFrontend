@@ -15,14 +15,15 @@ import {
   RetrieveTokenFromLocalStorage,
 } from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {UserContext} from '../../navigation/BottomTab';
+import {OwnerDetails} from '../../components/OwnerDetails';
 
 export const SneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
   const [selectedSneakerImage, setSelectedSneakerImage] = useState(
     sneaker.Photos[0],
   );
+  const [ownerDetails, setOwnerDetails] = useState(undefined);
 
-  const {setUser} = useContext(UserContext);
   const handleImagePress = photo => {
     setSelectedSneakerImage(photo);
   };
@@ -32,21 +33,14 @@ export const SneakerDetail = props => {
       RetrieveTokenFromLocalStorage(),
     ]);
 
-    if (user.TotalCoinsLeft < 10) {
+    if (user.value.TotalCoinsLeft < 10) {
       Alert.alert('You have insufficient balance');
     } else {
       const res = await apiService.patchWithoutBody(
         token.value,
         `sneaker/unlock/${sneaker?.Owner}`,
       );
-      console.log(res, 'response recceived from the unlock api');
-      // if (res.message == `Log User Out`) {
-      //   return await Promise.allSettled([
-      //     RemoveTokenFromLocalStorage(),
-      //     RemoveUserFromLocalStorage(),
-      //   ]);
-      // }
-      console.log(res, 'response received');
+      setOwnerDetails(res.user);
     }
   };
 
@@ -69,7 +63,15 @@ export const SneakerDetail = props => {
           Size={sneaker.Size}
         />
         <ActionChip text={sneaker?.Type} />
-        <UnlockOwnerDetails onPress={() => unlockOwnerDetails()} />
+        {!ownerDetails ? (
+          <UnlockOwnerDetails onPress={() => unlockOwnerDetails()} />
+        ) : (
+          <OwnerDetails
+            Name={ownerDetails.Name}
+            Phone={ownerDetails.Phone}
+            Email={ownerDetails.Email}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

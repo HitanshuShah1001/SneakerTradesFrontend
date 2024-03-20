@@ -49,7 +49,6 @@ export const apiService = {
   },
   patchWithoutBody: async (token, endpoint, headers = {}) => {
     try {
-      console.log(token, 'token');
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: 'PATCH',
         headers: {
@@ -57,14 +56,13 @@ export const apiService = {
           'Content-Type': 'application/json',
         },
       });
+
       const apiresponse = await response.json();
 
-      if (apiresponse.message.message == 'jwt malformed') {
-        return {data: undefined, message: `Log User Out`};
-      }
-      return apiresponse.data;
+      return apiresponse.Data;
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error, 'error');
+      throw new Error(error);
     }
   },
   delete: async (endpoint, headers = {}) => {
