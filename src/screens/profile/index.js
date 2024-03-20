@@ -18,7 +18,7 @@ export const Profile = () => {
           RemoveTokenFromLocalStorage(),
           RemoveUserFromLocalStorage(),
         ]);
-        break;
+
       default:
         break;
     }

@@ -1,4 +1,4 @@
-import {Image, Text, View} from 'react-native';
+import {Image, Pressable, Text, View} from 'react-native';
 import {COINS} from '../assets';
 import {
   FONT_SIZE,
@@ -6,21 +6,11 @@ import {
   THEME_PINK,
 } from '../constants/colorsandfonts';
 
-export const UnlockOwnerDetails = () => {
+export const UnlockOwnerDetails = ({onPress}) => {
   return (
-    <View
-      style={{
-        width: '80%',
-        alignSelf: 'center',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        flexDirection: 'row',
-        borderWidth: 1,
-        borderColor: THEME_PINK,
-        height: 50,
-        borderRadius: 4,
-        marginTop: 25,
-      }}>
+    <Pressable
+      style={({pressed}) => [styles.pressable, pressed && {opacity: 0.5}]}
+      onPress={onPress}>
       <Text
         style={{
           color: THEME_PINK,
@@ -30,6 +20,21 @@ export const UnlockOwnerDetails = () => {
         Unlock owner details
       </Text>
       <Image source={COINS} />
-    </View>
+    </Pressable>
   );
+};
+
+const styles = {
+  pressable: {
+    width: '80%',
+    alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: THEME_PINK,
+    height: 50,
+    borderRadius: 4,
+    marginTop: 25,
+  },
 };

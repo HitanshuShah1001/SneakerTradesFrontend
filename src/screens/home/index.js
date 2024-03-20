@@ -20,11 +20,12 @@ export const Home = () => {
   const getSneakers = async () => {
     let token = await RetrieveTokenFromLocalStorage();
     const response = await apiService.get(
-      `sneaker/forpurchaseandborrow?page=${page}&limit=${limit}`,
+      `sneaker/forpurchaseandborrow?page=${page}&limit=${100}`,
       {
         Authorization: `Bearer ${token}`,
       },
     );
+
     setSneakers(response.data);
   };
 

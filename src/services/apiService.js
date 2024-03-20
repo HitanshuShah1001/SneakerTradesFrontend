@@ -47,17 +47,21 @@ export const apiService = {
       throw new Error(error.message);
     }
   },
-  patch: async (endpoint, body, headers = {}) => {
+  patchWithoutBody: async (token, endpoint, headers = {}) => {
     try {
+      console.log(token, 'token');
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: 'PATCH',
-        body: JSON.stringify(body),
         headers: {
-          ...headers,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
       const apiresponse = await response.json();
+
+      if (apiresponse.message.message == 'jwt malformed') {
+        return {data: undefined, message: `Log User Out`};
+      }
       return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);
