@@ -5,14 +5,14 @@ import {Scroller} from '../../components/Scroller';
 import {useNavigation} from '@react-navigation/native';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {apiService} from '../../services/apiService';
-import {UserContext} from '../../navigation/BottomTab';
+import {Context} from '../../navigation/BottomTab';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {FlatList} from 'react-native';
 import {SafeArea} from '../../components/SafeArea';
 
 export const Home = () => {
   const navigation = useNavigation();
-  const {user} = useContext(UserContext);
+  const {user} = useContext(Context);
   const [token, setToken] = useState('');
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);

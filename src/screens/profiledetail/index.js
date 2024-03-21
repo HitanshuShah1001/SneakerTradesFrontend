@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {UserContext} from '../../navigation/BottomTab';
+import {Context} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
 import {Image, View} from 'react-native';
 import {ContactInfo} from '../../components/ContactInfo';
@@ -7,7 +7,7 @@ import {MY_PROFILE} from '../../constants/Buttontitles';
 import {EMAIL_ID, NAME, PHONE_NUMBER, USER_NAME} from '../../constants/Labels';
 
 export const ProfileDetail = () => {
-  const {user, setUser} = useContext(UserContext);
+  const {user, setUser} = useContext(Context);
 
   return (
     <SafeArea go_back={true} text={MY_PROFILE}>

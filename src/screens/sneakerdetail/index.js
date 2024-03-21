@@ -14,7 +14,7 @@ import {
   RemoveTokenFromLocalStorage,
   RetrieveTokenFromLocalStorage,
 } from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {UserContext} from '../../navigation/BottomTab';
+import {Context} from '../../navigation/BottomTab';
 import {OwnerDetails} from '../../components/OwnerDetails';
 
 export const SneakerDetail = props => {

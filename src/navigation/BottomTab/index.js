@@ -5,9 +5,18 @@ import {createContext, useEffect, useState} from 'react';
 import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 const Tab = createBottomTabNavigator();
-export const UserContext = createContext();
+export const Context = createContext();
 export const Navigation = () => {
   const [user, setUser] = useState(undefined);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 6000);
+    }
+  }, [loading]);
   const getUserDetails = async () => {
     const userDetails = await RetrieveUserFromLocalStorage();
     setUser(userDetails);
@@ -16,8 +25,8 @@ export const Navigation = () => {
     getUserDetails();
   }, [user]);
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <Context.Provider value={{user, setUser, loading, setLoading}}>
       {user ? <ActionScreens /> : <AuthNavigation />}
-    </UserContext.Provider>
+    </Context.Provider>
   );
 };
