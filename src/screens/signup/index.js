@@ -13,10 +13,13 @@ import {
 } from '../../constants/Labels';
 import {SIGN_UP} from '../../constants/Buttontitles';
 import DropdownComponent from '../../components/Dropdown';
-import {useState} from 'react';
-import {apiService} from '../../services/apiService';
+import {useContext, useState} from 'react';
 import {OTP_VERIFY} from '../../constants/Screen';
+import {SELECT_GENDER} from '../../constants/Placeholders';
+import {Context} from '../../navigation/BottomTab';
+import {FILL_DETAILS} from '../../constants/Messages';
 export const SignUp = () => {
+  const {setLoading} = useContext(Context);
   const navigation = useNavigation();
   const [value, setValue] = useState(null);
   const [username, setUsername] = useState('');
@@ -25,12 +28,17 @@ export const SignUp = () => {
   const [phone, setPhone] = useState('');
 
   const registerUser = async () => {
+    if (!username || !name || !emailId || !phone || !value) {
+      return Alert.alert(FILL_DETAILS);
+    }
+    setLoading(true);
     const userDataForSignUp = {
       Username: username,
       Name: name,
       Email: emailId,
       Phone: phone,
     };
+    setLoading(false);
     navigation.navigate(OTP_VERIFY, {userDataForSignUp, cameFromSignUp: true});
   };
   return (
@@ -57,7 +65,7 @@ export const SignUp = () => {
           value={value}
           setValue={setValue}
           data={GENDER_ROLES}
-          placeholder="Select Gender"
+          placeholder={SELECT_GENDER}
         />
       </View>
       <AuthenticationButton text={SIGN_UP} onPress={() => registerUser()} />

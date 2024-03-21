@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import {Alert, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
@@ -11,15 +11,19 @@ import {NO_USER_FOUND} from '../../constants/Messages';
 import {GENERATE_OTP} from '../../constants/Buttontitles';
 import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {Context} from '../../navigation/BottomTab';
+import {LOGIN_CALL} from '../../constants/Apicall';
 
 export const Login = () => {
   const navigation = useNavigation();
   const [Phone, setPhone] = useState('');
+  const {setLoading} = useContext(Context);
   const checkIfUserExists = async () => {
-    const response = await apiService.post('user/login', {
+    setLoading(true);
+    const response = await apiService.post(LOGIN_CALL, {
       Phone: `+91-${Phone}`,
     });
-
+    setLoading(false);
     if (!response) {
       Alert.alert(NO_USER_FOUND);
     } else {
