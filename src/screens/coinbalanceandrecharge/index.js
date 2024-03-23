@@ -3,8 +3,10 @@ import {Image, Text, View} from 'react-native';
 import {COINS} from '../../assets';
 import {Textinput} from '../../components/Textinput';
 import {FONT_WEIGHT_BOLD, TITLE_COLOR} from '../../constants/colorsandfonts';
+import {SafeArea} from '../../components/SafeArea';
 
-export const Coinbalanceandrecharge = ({balance = 570}) => {
+export const Coinbalanceandrecharge = props => {
+  const {balance} = props.route.params;
   const [coins, setCoins] = useState('');
 
   const CurrentBalance = ({balance}) => {
@@ -35,10 +37,10 @@ export const Coinbalanceandrecharge = ({balance = 570}) => {
     );
   };
   return (
-    <View>
-      <CurrentBalance />
+    <SafeArea text={'Coin Balance And Recharge'} go_back>
+      <CurrentBalance balance={balance} />
       <CoinsToRecharge />
-    </View>
+    </SafeArea>
   );
 };
 

@@ -7,6 +7,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {SneakerDetail} from '../../screens/sneakerdetail';
 import {ProfileDetail} from '../../screens/profiledetail';
 import {SneakerRequestDetail} from '../../screens/sneakerrequestdetail';
+import {COINS_BALANCE_AND_RECHARGE} from '../../constants/Screen';
+import {Coinbalanceandrecharge} from '../../screens/coinbalanceandrecharge';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -39,6 +41,10 @@ export const ActionScreens = () => (
         component={SneakerRequestDetail}
       />
       <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
+      <Stack.Screen
+        name={COINS_BALANCE_AND_RECHARGE}
+        component={Coinbalanceandrecharge}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );

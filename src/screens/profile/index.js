@@ -3,14 +3,28 @@ import {View, StyleSheet, SafeAreaView} from 'react-native';
 import {ProfileCard} from '../../components/Profilecard';
 import {ACCOUNTITEMS, PROFILEITEMS} from '../../constants/ProfileActions';
 import {useNavigation} from '@react-navigation/native';
-import {LOGOUT, MY_PROFILE} from '../../constants/Buttontitles';
-import {PROFILE_DETAIL} from '../../constants/Screen';
+import {
+  COINS_BALANCE_RECHARGE,
+  LOGOUT,
+  MY_PROFILE,
+} from '../../constants/Buttontitles';
+import {
+  COINS_BALANCE_AND_RECHARGE,
+  PROFILE_DETAIL,
+} from '../../constants/Screen';
 import {RemoveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {RemoveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {
+  RemoveUserFromLocalStorage,
+  RetrieveUserFromLocalStorage,
+} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const Profile = () => {
   const navigation = useNavigation();
-
+  const getDetails = async () => {
+    const user = await RetrieveUserFromLocalStorage();
+    return user;
+  };
+  // getDetails();
   const actionsBasedOnTitle = async ({title}) => {
     switch (title) {
       case LOGOUT:
@@ -18,6 +32,12 @@ export const Profile = () => {
           RemoveTokenFromLocalStorage(),
           RemoveUserFromLocalStorage(),
         ]);
+      case COINS_BALANCE_RECHARGE:
+        return getDetails().then(user =>
+          navigation.navigate(COINS_BALANCE_AND_RECHARGE, {
+            balance: user?.TotalCoinsLeft,
+          }),
+        );
 
       default:
         break;
@@ -27,16 +47,13 @@ export const Profile = () => {
     <SafeAreaView style={styles.container}>
       <View>
         {PROFILEITEMS.map((title, index) => {
-          if (title === MY_PROFILE) {
-            return (
-              <ProfileCard
-                title={title}
-                key={index}
-                onPress={() => navigation.navigate(PROFILE_DETAIL)}
-              />
-            );
-          }
-          return <ProfileCard title={title} key={index} />;
+          return (
+            <ProfileCard
+              title={title}
+              key={index}
+              onPress={() => actionsBasedOnTitle({title})}
+            />
+          );
         })}
       </View>
       <View style={styles.accountContainer}>
