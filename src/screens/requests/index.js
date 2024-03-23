@@ -39,7 +39,7 @@ export const Requests = () => {
   }, [page]);
 
   return (
-    <SafeArea>
+    <SafeArea text={'Requests'}>
       <FlatList
         data={sneakers}
         renderItem={({item: sneaker}) => (

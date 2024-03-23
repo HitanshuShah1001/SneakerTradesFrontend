@@ -38,7 +38,6 @@ export const Profile = () => {
             balance: user?.TotalCoinsLeft,
           }),
         );
-
       default:
         break;
     }

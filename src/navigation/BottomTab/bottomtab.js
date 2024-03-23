@@ -16,13 +16,18 @@ const Stack = createStackNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator>
-      {tabScreens.map(({name, icon, component = Home}, index) => (
+      {tabScreens.map(({name, icon, component = Home, fo_icon}, index) => (
         <Tab.Screen
           key={index}
           name={name}
           component={component}
           options={{
-            tabBarIcon: ({color, focused}) => <Tabbaricon source={icon} />,
+            tabBarIcon: ({color, focused}) =>
+              focused ? (
+                <Tabbaricon source={fo_icon} />
+              ) : (
+                <Tabbaricon source={icon} />
+              ),
             headerShown: false,
           }}
         />

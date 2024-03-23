@@ -18,7 +18,6 @@ export const Home = () => {
 
   const getSneakers = async () => {
     setLoading(true); // Set loading state to true before fetching data
-
     let token = await RetrieveTokenFromLocalStorage();
     const response = await apiService.get(
       `sneaker/forpurchaseandborrow?page=${page}&limit=10`,

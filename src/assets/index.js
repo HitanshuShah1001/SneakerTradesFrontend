@@ -8,3 +8,7 @@ export const COINS = require('./coins_icon.png');
 export const PHOTO_UPLOAD = require('./photo_upload.png');
 export const BACK_ICON = require('../assets/back_icon.png');
 export const CANCEL_ICON = require('../assets/cancel_icon.png');
+export const HOME_ICON_FOCUSED = require('../assets/home_icon_focused.png');
+export const REQUEST_ICON_FOCUSED = require('../assets/request_icon_focused.png');
+export const UPLOAD_ICON_FOCUSED = require('../assets/upload_icon_focused.png');
+export const PROFILE_ICON_FOCUSED = require('../assets/profile_icon_focused.png');
