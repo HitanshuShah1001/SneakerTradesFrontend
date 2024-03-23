@@ -4,7 +4,7 @@ import {Header} from './Header';
 import {useContext} from 'react';
 import {Context} from '../navigation/BottomTab';
 
-const LoadingIndicator = () => {
+export const LoadingIndicator = () => {
   return (
     <View style={[styles.loadingContainer, StyleSheet.absoluteFillObject]}>
       <ActivityIndicator size={'large'} />

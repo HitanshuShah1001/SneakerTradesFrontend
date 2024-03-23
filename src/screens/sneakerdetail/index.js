@@ -5,29 +5,26 @@ import {styles} from './styles';
 import {ActionChip} from '../../components/ActionChip';
 import {UnlockOwnerDetails} from '../../components/UnlockOwnerDetails';
 import {Header} from '../../components/Header';
-import {
-  RemoveUserFromLocalStorage,
-  RetrieveUserFromLocalStorage,
-} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {apiService} from '../../services/apiService';
-import {
-  RemoveTokenFromLocalStorage,
-  RetrieveTokenFromLocalStorage,
-} from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {Context} from '../../navigation/BottomTab';
+import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {OwnerDetails} from '../../components/OwnerDetails';
+import {Context} from '../../navigation/BottomTab';
+import {LoadingIndicator} from '../../components/SafeArea';
 
 export const SneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
   const [selectedSneakerImage, setSelectedSneakerImage] = useState(
     sneaker.Photos[0],
   );
+  const {loading, setLoading} = useContext(Context);
   const [ownerDetails, setOwnerDetails] = useState(undefined);
 
   const handleImagePress = photo => {
     setSelectedSneakerImage(photo);
   };
   const unlockOwnerDetails = async () => {
+    setLoading(true);
     const [user, token] = await Promise.allSettled([
       RetrieveUserFromLocalStorage(),
       RetrieveTokenFromLocalStorage(),
@@ -40,12 +37,15 @@ export const SneakerDetail = props => {
         token.value,
         `sneaker/unlock/${sneaker?.Owner}`,
       );
-      setOwnerDetails(res.user);
+
+      setOwnerDetails(res?.user);
+      setLoading(false);
     }
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      {loading && <LoadingIndicator />}
       <Header go_back={true} />
       <View style={styles.container}>
         <Image source={{uri: selectedSneakerImage}} style={styles.mainImage} />

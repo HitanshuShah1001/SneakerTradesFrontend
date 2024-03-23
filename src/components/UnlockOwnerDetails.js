@@ -8,7 +8,7 @@ import {
 
 export const UnlockOwnerDetails = ({
   onPress,
-  text = 'Unlock Owner Details',
+  text = 'Unlock Owner Details for 10 Coins',
 }) => {
   return (
     <Pressable
@@ -29,7 +29,7 @@ export const UnlockOwnerDetails = ({
 
 const styles = {
   pressable: {
-    width: '80%',
+    width: '90%',
     alignSelf: 'center',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -37,7 +37,7 @@ const styles = {
     borderWidth: 1,
     borderColor: THEME_PINK,
     height: 50,
-    borderRadius: 4,
+    borderRadius: 12,
     marginTop: 25,
   },
 };

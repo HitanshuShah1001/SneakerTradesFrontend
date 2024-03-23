@@ -27,7 +27,7 @@ export const Home = () => {
       },
     );
 
-    const newData = response.data;
+    // const newData = response.data;
     setSneakers(prevData => [...prevData, ...dummySneakerData]); // Append new data to existing list
     setLoading(false); // Set loading state back to false after fetching data
   };
