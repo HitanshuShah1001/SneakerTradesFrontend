@@ -8,3 +8,4 @@ export const PROFILE_DETAIL = 'ProfileDetail';
 export const SIGN_UP_SCREEN = 'SignUp';
 export const LOGIN_SCREEN = 'Login';
 export const COINS_BALANCE_AND_RECHARGE = 'CoinBalanceAndRecharge';
+export const FILTER_SCREEN = 'Filter';

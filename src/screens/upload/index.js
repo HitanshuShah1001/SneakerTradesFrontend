@@ -57,6 +57,7 @@ export const Upload = () => {
   const UploadSneaker = async () => {
     setLoading(true);
     const uploadDetails = new FormData();
+
     uploadDetails.append('Name', Name);
     uploadDetails.append('Brand', Brand);
     uploadDetails.append('Gender', Gender);
@@ -88,6 +89,7 @@ export const Upload = () => {
     const res = await apiService.postformdata(Apicall, uploadDetails, {
       Authorization: `Bearer ${token}`,
     });
+    console.log(res, 'res');
     setLoading(false);
   };
 
