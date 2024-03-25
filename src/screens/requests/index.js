@@ -7,6 +7,7 @@ import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import Sneakercard from '../../components/Sneakercard';
 import {dummySneakerData} from '../../dummydata/Sneakers';
+import {SearchAndFilter} from '../../components/SearchAndFilter';
 
 export const Requests = () => {
   const navigation = useNavigation();
@@ -14,6 +15,7 @@ export const Requests = () => {
   const [page, setPage] = useState(1);
   const {loading, setLoading} = useContext(Context);
   const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const getSneakersForRental = async () => {
     setLoading(true);
@@ -40,6 +42,10 @@ export const Requests = () => {
 
   return (
     <SafeArea text={'Requests'}>
+      <SearchAndFilter
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <FlatList
         data={sneakers}
         renderItem={({item: sneaker}) => (

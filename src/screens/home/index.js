@@ -10,7 +10,7 @@ import Sneakercard from '../../components/Sneakercard';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {Searchbar} from 'react-native-paper';
 import {SEARCH_ICON} from '../../assets';
-import {Search} from '../../components/Search';
+import {Search, SearchAndFilter} from '../../components/SearchAndFilter';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -53,7 +53,10 @@ export const Home = () => {
 
   return (
     <SafeArea>
-      <Search />
+      <SearchAndFilter
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <FlatList
         data={sneakers}
         renderItem={({item: sneaker}) => (

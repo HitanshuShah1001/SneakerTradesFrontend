@@ -13,3 +13,4 @@ export const REQUEST_ICON_FOCUSED = require('../assets/request_icon_focused.png'
 export const UPLOAD_ICON_FOCUSED = require('../assets/upload_icon_focused.png');
 export const PROFILE_ICON_FOCUSED = require('../assets/profile_icon_focused.png');
 export const SEARCH_ICON = require('../assets/search_icon.png');
+export const FILTER_ICON = require('../assets/filter_icon.png');
