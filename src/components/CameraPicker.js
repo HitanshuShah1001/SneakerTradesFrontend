@@ -12,19 +12,27 @@ export const openImagePicker = ({Photos, setPhotos, index}) => {
     if (response.didCancel) {
     } else if (response.error) {
     } else {
-      let imageUri = response.uri || response.assets?.[0]?.uri;
-
+      let imageUri = response.uri || response.assets[0]?.uri;
+      let fileName = response.fileName || response.assets[0]?.fileName;
+      let type = response.uri || response.assets[0]?.type;
       let newImages = [];
       for (let img of Photos) {
         let indiObj = {};
         indiObj.index = img.index;
         if (img.index == index) {
+          indiObj.uri = imageUri;
+          indiObj.fileName = fileName;
+          indiObj.type = type;
           indiObj.image = imageUri;
         } else {
           indiObj.image = img.image;
+          indiObj.uri = img.imageUri;
+          indiObj.fileName = img.fileName;
+          indiObj.type = img.type;
         }
         newImages.push(indiObj);
       }
+
       setPhotos(newImages);
     }
   });

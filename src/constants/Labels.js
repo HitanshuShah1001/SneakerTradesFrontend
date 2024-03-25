@@ -4,15 +4,17 @@ export const EMAIL_ID = 'Email ID';
 export const PHONE_NUMBER = 'Phone Number';
 export const MY_PROFILE = 'My Profile';
 export const IMAGE_PLACEHOLDERS = [
-  {index: 0, image: ''},
-  {index: 1, image: ''},
-  {index: 2, image: ''},
-  {index: 3, image: ''},
-  {index: 4, image: ''},
-  {index: 5, image: ''},
+  {index: 0, image: '', uri: '', fileName: '', type: ''},
+  {index: 1, image: '', uri: '', fileName: '', type: ''},
+  {index: 2, image: '', uri: '', fileName: '', type: ''},
+  {index: 3, image: '', uri: '', fileName: '', type: ''},
+  {index: 4, image: '', uri: '', fileName: '', type: ''},
+  {index: 5, image: '', uri: '', fileName: '', type: ''},
 ];
 
-export const REQUEST_IMAGE_PLACEHOLDER = [{index: 0, image: ''}];
+export const REQUEST_IMAGE_PLACEHOLDER = [
+  {index: 0, image: '', uri: '', fileName: '', type: ''},
+];
 export const GENDER_ROLES = [
   {label: 'Male', value: 'Male'},
   {label: 'Female', value: 'Female'},
@@ -48,5 +50,11 @@ export const SIZES = [
 export const TYPES = [
   {label: `Lend`, value: 'lend'},
   {label: `Sell`, value: `sell`},
+  {label: `Both`, value: `both`},
+];
+
+export const REQUEST_TYPES = [
+  {label: `Rent`, value: 'rent'},
+  {label: `Buy`, value: `buy`},
   {label: `Both`, value: `both`},
 ];

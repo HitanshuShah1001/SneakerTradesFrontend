@@ -26,6 +26,23 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
+      console.log(apiresponse, 'API RESPONSE RECEIVED');
+      return apiresponse.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  postformdata: async (endpoint, body, headers = {}) => {
+    try {
+      const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        method: 'POST',
+        body,
+        headers: {
+          ...headers,
+        },
+      });
+      const apiresponse = await response.json();
+      console.log(apiresponse, 'API RESPONSE RECEIVED');
       return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);

@@ -23,7 +23,7 @@ export const styles = {
     backgroundColor: '#FFF',
   },
   photoupload: {
-    height: 100,
+    height: 90,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
