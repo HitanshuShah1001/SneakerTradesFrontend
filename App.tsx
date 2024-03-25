@@ -7,9 +7,14 @@
 
 import React from 'react';
 import {Navigation} from './src/navigation/BottomTab';
+import {PaperProvider} from 'react-native-paper';
 
 function App(): React.JSX.Element {
-  return <Navigation />;
+  return (
+    <PaperProvider>
+      <Navigation />
+    </PaperProvider>
+  );
 }
 
 export default App;

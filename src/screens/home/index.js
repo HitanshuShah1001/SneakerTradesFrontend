@@ -2,12 +2,15 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {FlatList, RefreshControl} from 'react-native';
+import {FlatList, Image, RefreshControl} from 'react-native';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {dummySneakerData} from '../../dummydata/Sneakers';
 import Sneakercard from '../../components/Sneakercard';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
+import {Searchbar} from 'react-native-paper';
+import {SEARCH_ICON} from '../../assets';
+import {Search} from '../../components/Search';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -15,6 +18,7 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const [sneakers, setSneakers] = useState(dummySneakerData);
   const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const getSneakers = async () => {
     setLoading(true); // Set loading state to true before fetching data
@@ -49,6 +53,7 @@ export const Home = () => {
 
   return (
     <SafeArea>
+      <Search />
       <FlatList
         data={sneakers}
         renderItem={({item: sneaker}) => (
