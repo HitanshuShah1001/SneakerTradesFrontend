@@ -51,7 +51,10 @@ export const SneakerDetail = props => {
         <Image source={{uri: selectedSneakerImage}} style={styles.mainImage} />
         <View style={styles.thumbnailContainer}>
           {sneaker.Photos.map((photo, index) => (
-            <Pressable key={index} onPress={() => handleImagePress(photo)}>
+            <Pressable
+              key={index}
+              onPress={() => handleImagePress(photo)}
+              style={{marginLeft: 8}}>
               <Image source={{uri: photo}} style={styles.thumbnailImage} />
             </Pressable>
           ))}

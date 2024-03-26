@@ -15,7 +15,6 @@ export const styles = {
     flexDirection: 'row',
     marginTop: 15,
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
   },
   thumbnailImage: {
     height: 60,
