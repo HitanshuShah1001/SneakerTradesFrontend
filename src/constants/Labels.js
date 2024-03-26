@@ -20,13 +20,6 @@ export const GENDER_ROLES = [
   {label: 'Female', value: 'Female'},
   {label: 'Other', value: 'Other'},
 ];
-export const BRANDS = [
-  {label: 'Nike', value: 'Nike'},
-  {label: 'Adidas', value: 'Adidas'},
-  {label: 'Sketchers', value: 'Sketchers'},
-  {label: 'Puma', value: 'Puma'},
-  {label: `Other`, value: `Other`},
-];
 
 export const GENDER_SHOES = [
   {label: `Male`, value: `Male`},
@@ -35,16 +28,16 @@ export const GENDER_SHOES = [
 ];
 
 export const SIZES = [
-  {label: `1`, value: 1},
-  {label: `2`, value: 2},
-  {label: `3`, value: 3},
-  {label: `4`, value: 4},
-  {label: `5`, value: 5},
-  {label: `6`, value: 6},
-  {label: `7`, value: 7},
-  {label: `8`, value: 8},
-  {label: `9`, value: 9},
-  {label: `10`, value: 10},
+  {label: `UK - 1`, value: 1},
+  {label: `UK - 2`, value: 2},
+  {label: `UK - 3`, value: 3},
+  {label: `UK - 4`, value: 4},
+  {label: `UK - 5`, value: 5},
+  {label: `UK - 6`, value: 6},
+  {label: `UK - 7`, value: 7},
+  {label: `UK - 8`, value: 8},
+  {label: `UK - 9`, value: 9},
+  {label: `UK - 10`, value: 10},
 ];
 
 export const TYPES = [
@@ -57,4 +50,16 @@ export const REQUEST_TYPES = [
   {label: `Rent`, value: 'rent'},
   {label: `Buy`, value: `buy`},
   {label: `Both`, value: `both`},
+];
+
+export const BRANDS = [
+  {label: 'Nike', value: 'Nike'},
+  {label: 'Puma', value: 'Puma'},
+  {label: 'Sketchers', value: 'Sketchers'},
+  {label: 'Adidas', value: 'Adidas'},
+  {label: 'Lacoste', value: 'Lacoste'},
+  {label: 'Asics', value: 'Asics'},
+  {label: 'Fila', value: 'Fila'},
+  {label: 'New Balance', value: 'New Balance'},
+  {label: `Other`, value: `Other`},
 ];

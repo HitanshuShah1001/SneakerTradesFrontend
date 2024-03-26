@@ -39,7 +39,6 @@ const styles = {
     borderRadius: 12,
   },
   headerText: {
-    marginLeft: 10,
     fontWeight: FONT_WEIGHT_NORMAL,
     fontSize: 20,
     color: THEME_PINK,
