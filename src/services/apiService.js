@@ -26,7 +26,6 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      console.log(apiresponse, 'API RESPONSE RECEIVED');
       return apiresponse.data;
     } catch (error) {
       throw new Error(error.message);
@@ -42,8 +41,7 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      console.log(apiresponse, 'API RESPONSE RECEIVED');
-      return apiresponse.data;
+      return apiresponse.Data.status;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -78,7 +76,6 @@ export const apiService = {
 
       return apiresponse.Data;
     } catch (error) {
-      console.log(error, 'error');
       throw new Error(error);
     }
   },

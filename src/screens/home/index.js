@@ -16,7 +16,7 @@ export const Home = () => {
   const navigation = useNavigation();
   const {loading, setLoading} = useContext(Context);
   const [page, setPage] = useState(1);
-  const [sneakers, setSneakers] = useState(dummySneakerData);
+  const [sneakers, setSneakers] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -30,8 +30,8 @@ export const Home = () => {
       },
     );
 
-    // const newData = response.data;
-    setSneakers(prevData => [...prevData, ...dummySneakerData]); // Append new data to existing list
+    const newData = response.data;
+    setSneakers(prevData => [...prevData, ...newData]); // Append new data to existing list
     setLoading(false); // Set loading state back to false after fetching data
   };
 

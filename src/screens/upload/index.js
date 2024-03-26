@@ -16,7 +16,7 @@ import {
   SIZES,
   TYPES,
 } from '../../constants/Labels';
-import {Uploadchips, Uploadedforchip} from '../../components/Chips';
+import {Uploadchips} from '../../components/Chips';
 import DropdownComponent from '../../components/Dropdown';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
@@ -69,7 +69,7 @@ export const Upload = () => {
       uploadDetails.append('Location', 2.22);
       uploadDetails.append('Price', Price);
       Photos.forEach(photo => {
-        if (photo.uri !== undefined) {
+        if (photo.uri !== '') {
           uploadDetails.append('Photos', {
             uri: photo.uri,
             type: photo.type,
@@ -84,12 +84,13 @@ export const Upload = () => {
         name: Photos[0].fileName,
       });
     }
+
     let token = await RetrieveTokenFromLocalStorage();
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
     const res = await apiService.postformdata(Apicall, uploadDetails, {
       Authorization: `Bearer ${token}`,
     });
-    console.log(res, 'res');
+
     setLoading(false);
   };
 

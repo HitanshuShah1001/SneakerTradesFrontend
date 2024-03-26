@@ -26,13 +26,12 @@ export const openImagePicker = ({Photos, setPhotos, index}) => {
           indiObj.image = imageUri;
         } else {
           indiObj.image = img.image;
-          indiObj.uri = img.imageUri;
+          indiObj.uri = img.uri;
           indiObj.fileName = img.fileName;
           indiObj.type = img.type;
         }
         newImages.push(indiObj);
       }
-
       setPhotos(newImages);
     }
   });
