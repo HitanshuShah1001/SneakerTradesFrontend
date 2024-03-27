@@ -1,4 +1,4 @@
-import {Alert, View} from 'react-native';
+import {Alert, Image, Pressable, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
@@ -18,6 +18,8 @@ import {OTP_VERIFY} from '../../constants/Screen';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
+import {USER_UPLOAD_ICON} from '../../assets';
+import {openImagePickerForProfilePhoto} from '../../components/CameraPicker';
 export const SignUp = () => {
   const {setLoading} = useContext(Context);
   const navigation = useNavigation();
@@ -26,6 +28,12 @@ export const SignUp = () => {
   const [name, setName] = useState('');
   const [emailId, setEmailId] = useState('');
   const [phone, setPhone] = useState('');
+  const [profilephoto, setProfilePhoto] = useState({
+    image: '',
+    uri: '',
+    fileName: '',
+    type: '',
+  });
 
   const registerUser = async () => {
     if (!username || !name || !emailId || !phone || !value) {
@@ -41,10 +49,21 @@ export const SignUp = () => {
     setLoading(false);
     navigation.navigate(OTP_VERIFY, {userDataForSignUp, cameFromSignUp: true});
   };
+
+  const handleImagePickerPress = () => {
+    openImagePickerForProfilePhoto({setProfilePhoto});
+  };
   return (
     <SafeArea go_back={true}>
       <Brandiconandtext />
-      <View style={{flex: 0.8, alignItems: 'center'}}>
+      <View style={{flex: 0.9, alignItems: 'center'}}>
+        <Pressable onPress={handleImagePickerPress}>
+          {profilephoto.uri ? (
+            <Image source={{uri: profilephoto.uri}} style={styles.image} />
+          ) : (
+            <Image source={USER_UPLOAD_ICON} style={styles.image} />
+          )}
+        </Pressable>
         <Textinput
           placeholder={USER_NAME}
           custVal={username}
@@ -71,4 +90,8 @@ export const SignUp = () => {
       <AuthenticationButton text={SIGN_UP} onPress={() => registerUser()} />
     </SafeArea>
   );
+};
+
+const styles = {
+  image: {height: 80, width: 80, borderRadius: 12},
 };

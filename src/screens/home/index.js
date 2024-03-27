@@ -2,15 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {FlatList, Image, RefreshControl} from 'react-native';
+import {FlatList, RefreshControl} from 'react-native';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
-import {dummySneakerData} from '../../dummydata/Sneakers';
 import Sneakercard from '../../components/Sneakercard';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
-import {Searchbar} from 'react-native-paper';
-import {SEARCH_ICON} from '../../assets';
-import {Search, SearchAndFilter} from '../../components/SearchAndFilter';
+import {SearchAndFilter} from '../../components/SearchAndFilter';
 
 export const Home = () => {
   const navigation = useNavigation();

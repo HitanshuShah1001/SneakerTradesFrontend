@@ -1,13 +1,32 @@
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
+
+const options = {
+  mediaType: 'photo',
+  includeBase64: false,
+  maxHeight: 2000,
+  maxWidth: 2000,
+};
+
+export const openImagePickerForProfilePhoto = ({setProfilePhoto}) => {
+  console.log('Here in image picker');
+  launchImageLibrary(options, response => {
+    if (response.didCancel) {
+    } else if (response.error) {
+    } else {
+      let imageUri = response.uri || response.assets[0]?.uri;
+      let fileName = response.fileName || response.assets[0]?.fileName;
+      let type = response.uri || response.assets[0]?.type;
+      let indiObj = {};
+      indiObj.uri = imageUri;
+      indiObj.fileName = fileName;
+      indiObj.type = type;
+      indiObj.image = imageUri;
+      setProfilePhoto(indiObj);
+    }
+  });
+};
 
 export const openImagePicker = ({Photos, setPhotos, index}) => {
-  const options = {
-    mediaType: 'photo',
-    includeBase64: false,
-    maxHeight: 2000,
-    maxWidth: 2000,
-  };
-
   launchImageLibrary(options, response => {
     if (response.didCancel) {
     } else if (response.error) {
