@@ -38,6 +38,8 @@ export const Profile = () => {
             balance: user?.TotalCoinsLeft,
           }),
         );
+      case MY_PROFILE:
+        return navigation.navigate(PROFILE_DETAIL);
       default:
         break;
     }

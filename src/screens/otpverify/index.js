@@ -17,16 +17,20 @@ export const OTPverify = props => {
   const {userData} = props?.route?.params || {};
   const {cameFromSignUp} = props?.route?.params || false;
   const [otp, setOTP] = useState('');
-
   const navigateToHome = async () => {
     if (cameFromSignUp) {
-      const {Username, Name, Phone, Email} = userDataForSignUp;
-      const response = await apiService.post(SIGN_UP_CALL, {
-        Username,
-        Name,
-        Email,
-        Phone,
+      const {Username, Name, Phone, Email, ProfilePhoto} = userDataForSignUp;
+      const formData = new FormData();
+      formData.append('Username', Username);
+      formData.append('Name', Name);
+      formData.append('Email', Email);
+      formData.append('Phone', Phone);
+      formData.append('ProfilePhoto', {
+        uri: ProfilePhoto.uri,
+        type: ProfilePhoto.type,
+        name: ProfilePhoto.fileName,
       });
+      const response = await apiService.postformdata(SIGN_UP_CALL, formData);
       if (response) {
         setUser(response.user);
         await Promise.allSettled([

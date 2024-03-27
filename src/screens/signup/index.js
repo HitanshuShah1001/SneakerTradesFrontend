@@ -9,6 +9,7 @@ import {
   GENDER_ROLES,
   NAME,
   PHONE_NUMBER,
+  PROFILE_PHOTO_PLACEHOLDER,
   USER_NAME,
 } from '../../constants/Labels';
 import {SIGN_UP} from '../../constants/Buttontitles';
@@ -18,7 +19,7 @@ import {OTP_VERIFY} from '../../constants/Screen';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
-import {USER_UPLOAD_ICON} from '../../assets';
+import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
 import {openImagePickerForProfilePhoto} from '../../components/CameraPicker';
 export const SignUp = () => {
   const {setLoading} = useContext(Context);
@@ -28,12 +29,7 @@ export const SignUp = () => {
   const [name, setName] = useState('');
   const [emailId, setEmailId] = useState('');
   const [phone, setPhone] = useState('');
-  const [profilephoto, setProfilePhoto] = useState({
-    image: '',
-    uri: '',
-    fileName: '',
-    type: '',
-  });
+  const [profilephoto, setProfilePhoto] = useState(PROFILE_PHOTO_PLACEHOLDER);
 
   const registerUser = async () => {
     if (!username || !name || !emailId || !phone || !value) {
@@ -45,6 +41,7 @@ export const SignUp = () => {
       Name: name,
       Email: emailId,
       Phone: phone,
+      ProfilePhoto: profilephoto,
     };
     setLoading(false);
     navigation.navigate(OTP_VERIFY, {userDataForSignUp, cameFromSignUp: true});
@@ -59,7 +56,16 @@ export const SignUp = () => {
       <View style={{flex: 0.9, alignItems: 'center'}}>
         <Pressable onPress={handleImagePickerPress}>
           {profilephoto.uri ? (
-            <Image source={{uri: profilephoto.uri}} style={styles.image} />
+            <View style={{width: 100, height: 100}}>
+              <Pressable
+                onPress={() => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER)}>
+                <Image
+                  source={CANCEL_ICON}
+                  style={{height: 10, width: 10, alignSelf: 'flex-end'}}
+                />
+              </Pressable>
+              <Image source={{uri: profilephoto.uri}} style={styles.image} />
+            </View>
           ) : (
             <Image source={USER_UPLOAD_ICON} style={styles.image} />
           )}
@@ -93,5 +99,5 @@ export const SignUp = () => {
 };
 
 const styles = {
-  image: {height: 80, width: 80, borderRadius: 12},
+  image: {height: 80, width: 80, borderRadius: 12, alignSelf: 'center'},
 };

@@ -8,7 +8,6 @@ const options = {
 };
 
 export const openImagePickerForProfilePhoto = ({setProfilePhoto}) => {
-  console.log('Here in image picker');
   launchImageLibrary(options, response => {
     if (response.didCancel) {
     } else if (response.error) {

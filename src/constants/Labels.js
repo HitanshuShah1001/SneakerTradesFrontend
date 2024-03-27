@@ -15,6 +15,13 @@ export const IMAGE_PLACEHOLDERS = [
 export const REQUEST_IMAGE_PLACEHOLDER = [
   {index: 0, image: '', uri: '', fileName: '', type: ''},
 ];
+
+export const PROFILE_PHOTO_PLACEHOLDER = {
+  image: '',
+  uri: '',
+  fileName: '',
+  type: '',
+};
 export const GENDER_ROLES = [
   {label: 'Male', value: 'Male'},
   {label: 'Female', value: 'Female'},
