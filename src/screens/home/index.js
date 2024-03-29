@@ -2,16 +2,18 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {FlatList, RefreshControl} from 'react-native';
+import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import Sneakercard from '../../components/Sneakercard';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {SearchAndFilter} from '../../components/SearchAndFilter';
+import {EmptyView} from '../../components/EmptyView';
+import {ItemRendererSneakers} from '../../components/ItemRenderer';
 
 export const Home = () => {
   const navigation = useNavigation();
-  const {loading, setLoading} = useContext(Context);
+  const {setLoading} = useContext(Context);
   const [page, setPage] = useState(1);
   const [sneakers, setSneakers] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -26,7 +28,6 @@ export const Home = () => {
         Authorization: `Bearer ${token}`,
       },
     );
-
     const newData = response.data;
     setSneakers(prevData => [...prevData, ...newData]); // Append new data to existing list
     setLoading(false); // Set loading state back to false after fetching data
@@ -54,28 +55,12 @@ export const Home = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <FlatList
-        data={sneakers}
-        renderItem={({item: sneaker}) => (
-          <Sneakercard
-            key={sneaker?.Name}
-            name={sneaker?.Name}
-            brand={sneaker?.Brand}
-            price={100}
-            source={sneaker?.Photos[0]}
-            type={sneaker?.Type}
-            onPress={() => handleSneakerPress(sneaker)}
-          />
-        )}
-        onEndReachedThreshold={0.01}
-        onEndReached={() => {
-          if (!loading) {
-            setPage(prevPage => prevPage + 1); // Increment page only if not already loading
-          }
-        }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-        }
+      <ItemRendererSneakers
+        sneakers={sneakers}
+        handleRefresh={handleRefresh}
+        handleSneakerPress={handleSneakerPress}
+        setPage={setPage}
+        refreshing={refreshing}
       />
     </SafeArea>
   );

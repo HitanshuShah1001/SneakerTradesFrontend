@@ -41,7 +41,8 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      return apiresponse.Data;
+
+      return apiresponse.data;
     } catch (error) {
       console.log(error);
       throw new Error(error.message);

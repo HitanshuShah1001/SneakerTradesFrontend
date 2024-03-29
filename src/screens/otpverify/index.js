@@ -12,13 +12,14 @@ import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalSt
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const OTPverify = props => {
-  const {setUser} = useContext(Context);
+  const {setUser, setLoading} = useContext(Context);
   const {userDataForSignUp} = props?.route?.params || {};
   const {userData} = props?.route?.params || {};
   const {cameFromSignUp} = props?.route?.params || false;
   const [otp, setOTP] = useState('');
   const navigateToHome = async () => {
     if (cameFromSignUp) {
+      setLoading(true);
       const {Username, Name, Phone, Email, ProfilePhoto} = userDataForSignUp;
       const formData = new FormData();
       formData.append('Username', Username);
@@ -31,14 +32,14 @@ export const OTPverify = props => {
         name: ProfilePhoto.fileName,
       });
       const response = await apiService.postformdata(SIGN_UP_CALL, formData);
-      if (response) {
-        setUser(response.user);
-        await Promise.allSettled([
-          StoreTokenInLocalStorage({token: response.token}),
-          StoreUserInLocalStorage({userData: response.user}),
-        ]);
-        Alert.alert('User created succesfully!');
-      }
+      console.log(response, 'response');
+      setUser(response.user);
+      await Promise.allSettled([
+        StoreTokenInLocalStorage({token: response.token}),
+        StoreUserInLocalStorage({userData: response.user}),
+      ]);
+      Alert.alert('User created succesfully!');
+      setLoading(false);
     } else {
       setUser(userData);
       return await Promise.allSettled([
