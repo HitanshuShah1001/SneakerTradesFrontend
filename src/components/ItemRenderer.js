@@ -1,6 +1,8 @@
 import {FlatList, RefreshControl} from 'react-native';
 import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
+import {useContext} from 'react';
+import {Context} from '../navigation/BottomTab';
 
 export const ItemRendererSneakers = ({
   sneakers,
@@ -9,6 +11,7 @@ export const ItemRendererSneakers = ({
   refreshing,
   handleRefresh,
 }) => {
+  const {loading} = useContext(Context);
   return (
     <>
       {sneakers.length > 0 ? (

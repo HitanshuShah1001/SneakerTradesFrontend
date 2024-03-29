@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Pressable, Text, View, Image} from 'react-native';
+import {Pressable, Text, View, Image, Alert} from 'react-native';
 import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
 import {Textinput} from '../../components/Textinput';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
@@ -90,8 +90,22 @@ export const Upload = () => {
     const res = await apiService.postformdata(Apicall, uploadDetails, {
       Authorization: `Bearer ${token}`,
     });
-
     setLoading(false);
+    if (res) {
+      ResetFields();
+    }
+  };
+
+  const ResetFields = () => {
+    Alert.alert('Sneaker uploaded succesfully');
+    setBrand('');
+    setGender('');
+    setName('');
+    setPrice('');
+    setSize('');
+    setType('');
+    setUploadedFor(UPLOAD);
+    setPhotos(IMAGE_PLACEHOLDERS);
   };
 
   const Imageselector = ({index, image}) => {
