@@ -1,14 +1,18 @@
 import {FlatList, RefreshControl} from 'react-native';
 import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
+import {useNavigation} from '@react-navigation/native';
+import {Context} from '../navigation/BottomTab';
+import {useContext} from 'react';
 
-export const ItemRendererSneakers = ({
+export const ItemRendererSneakerRequests = ({
   sneakers,
-  handleSneakerPress,
   setPage,
   refreshing,
   handleRefresh,
 }) => {
+  const {loading} = useContext(Context);
+  const {navigation} = useNavigation();
   return (
     <>
       {sneakers.length > 0 ? (
@@ -20,15 +24,17 @@ export const ItemRendererSneakers = ({
               name={sneaker?.Name}
               brand={sneaker?.Brand}
               price={100}
-              source={sneaker?.Photos[0]}
+              source={sneaker?.Photo}
               type={sneaker?.Type}
-              onPress={() => handleSneakerPress(sneaker)}
+              onPress={() =>
+                navigation.navigate('SneakerRequestDetail', {sneaker})
+              }
             />
           )}
           onEndReachedThreshold={0.01}
           onEndReached={() => {
             if (!loading) {
-              setPage(prevPage => prevPage + 1); // Increment page only if not already loading
+              setPage(prevPage => prevPage + 1);
             }
           }}
           refreshControl={
@@ -36,7 +42,7 @@ export const ItemRendererSneakers = ({
           }
         />
       ) : (
-        <EmptyView />
+        <EmptyView text="No Requests Found" />
       )}
     </>
   );

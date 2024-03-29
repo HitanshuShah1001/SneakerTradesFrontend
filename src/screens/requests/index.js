@@ -8,10 +8,11 @@ import {Context} from '../../navigation/BottomTab';
 import Sneakercard from '../../components/Sneakercard';
 import {dummySneakerData} from '../../dummydata/Sneakers';
 import {SearchAndFilter} from '../../components/SearchAndFilter';
+import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 
 export const Requests = () => {
   const navigation = useNavigation();
-  const [sneakers, setSneakers] = useState(dummySneakerData);
+  const [sneakers, setSneakers] = useState([]);
   const [page, setPage] = useState(1);
   const {loading, setLoading} = useContext(Context);
   const [refreshing, setRefreshing] = useState(false);
@@ -27,7 +28,7 @@ export const Requests = () => {
       },
     );
     setLoading(false);
-    setSneakers(prevData => [...prevData, ...dummySneakerData]);
+    setSneakers(prevData => [...prevData, ...response.data]);
   };
   const handleRefresh = () => {
     setRefreshing(true);
@@ -46,30 +47,11 @@ export const Requests = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <FlatList
-        data={sneakers}
-        renderItem={({item: sneaker}) => (
-          <Sneakercard
-            key={sneaker?.Name}
-            name={sneaker?.Name}
-            brand={sneaker?.Brand}
-            price={100}
-            source={sneaker?.Photo}
-            type={sneaker?.Type}
-            onPress={() =>
-              navigation.navigate('SneakerRequestDetail', {sneaker})
-            }
-          />
-        )}
-        onEndReachedThreshold={0.01}
-        onEndReached={() => {
-          if (!loading) {
-            setPage(prevPage => prevPage + 1);
-          }
-        }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-        }
+      <ItemRendererSneakerRequests
+        sneakers={sneakers}
+        setPage={setPage}
+        refreshing={refreshing}
+        handleRefresh={handleRefresh}
       />
     </SafeArea>
   );
