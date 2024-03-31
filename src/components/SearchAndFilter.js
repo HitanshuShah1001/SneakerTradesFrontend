@@ -3,14 +3,14 @@ import {FILTER_ICON, SEARCH_ICON} from '../assets';
 import {Image, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FILTER_SCREEN} from '../constants/Screen';
-export const SearchAndFilter = ({searchQuery, setSearchQuery}) => {
+export const SearchAndFilter = ({searchQuery, onChangeText}) => {
   const navigation = useNavigation();
   return (
     <View style={{width: '90%', alignSelf: 'center', flexDirection: 'row'}}>
       <Searchbar
         placeholder="SEARCH"
         inputStyle={styles.input}
-        onChangeText={text => setSearchQuery(text)}
+        onChangeText={onChangeText}
         value={searchQuery}
         style={styles.container}
         icon={() => <Image source={SEARCH_ICON} />}

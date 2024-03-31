@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {PLACEHOLDER_COLOR, THEME_PINK} from '../constants/colorsandfonts';
+import {SELECT_ITEM} from '../constants/Placeholders';
 
 const DropdownComponent = ({
   value,
   setValue,
   data,
   search = false,
-  placeholder = `Select Item`,
+  placeholder = SELECT_ITEM,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 

@@ -2,23 +2,22 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {FlatList, RefreshControl} from 'react-native';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
-import Sneakercard from '../../components/Sneakercard';
-import {dummySneakerData} from '../../dummydata/Sneakers';
 import {SearchAndFilter} from '../../components/SearchAndFilter';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
+import {debounce} from '../../utils/debounce';
 
 export const Requests = () => {
   const navigation = useNavigation();
   const [sneakers, setSneakers] = useState([]);
   const [page, setPage] = useState(1);
-  const {loading, setLoading} = useContext(Context);
+  const {setLoading} = useContext(Context);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [count, setCount] = useState(0);
 
-  const getSneakersForRental = async () => {
+  const getSneakerRequests = async () => {
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
     const response = await apiService.get(
@@ -27,25 +26,52 @@ export const Requests = () => {
         Authorization: `Bearer ${token}`,
       },
     );
+    const sneakers = response.data || [];
     setLoading(false);
-    setSneakers(prevData => [...prevData, ...response.data]);
+    setSneakers(prevData => [...prevData, ...sneakers]);
   };
+
+  const getSneakerRequestsViaSearch = async () => {
+    setLoading(true);
+    let token = await RetrieveTokenFromLocalStorage();
+    const response = await apiService.get(
+      `sneakerrequests/search?q=${searchQuery}&page=${page}&limit=10`,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+    );
+    const sneakers = response.data || [];
+    setLoading(false);
+    setSneakers(sneakers);
+  };
+
   const handleRefresh = () => {
     setRefreshing(true);
-    setPage(1); // Reset page to 1 to fetch fresh data
-    getSneakersForRental(); // Fetch fresh data
+    setPage(1);
+    getSneakerRequests();
     setRefreshing(false);
   };
 
   useEffect(() => {
-    getSneakersForRental();
+    getSneakerRequests();
   }, [page]);
+
+  useEffect(() => {
+    getSneakerRequestsViaSearch();
+  }, [count]);
+
+  const Calltochangecount = debounce(() => setCount(!count), 500);
+
+  const onChangeInput = text => {
+    setSearchQuery(text);
+    Calltochangecount();
+  };
 
   return (
     <SafeArea text={'Requests'}>
       <SearchAndFilter
         searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+        onChangeText={text => onChangeInput(text)}
       />
       <ItemRendererSneakerRequests
         sneakers={sneakers}

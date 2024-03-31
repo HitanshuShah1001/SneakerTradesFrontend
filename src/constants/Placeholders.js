@@ -6,3 +6,4 @@ export const SELECT_SIZE = 'Select Size';
 export const SELECT_TYPE = 'Select Type';
 export const MIN_THREE_IMAGES = `Upload Min 3 Images`;
 export const MIN_ONE_IMAGE = 'Please Select One Image';
+export const SELECT_ITEM = 'Select Item';

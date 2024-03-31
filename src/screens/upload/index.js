@@ -9,7 +9,7 @@ import {openImagePicker, removeImage} from '../../components/CameraPicker';
 import {styles} from './styles';
 import {
   BRANDS,
-  GENDER_ROLES,
+  GENDER_ROLES_FOR_UPLOAD,
   IMAGE_PLACEHOLDERS,
   REQUEST_IMAGE_PLACEHOLDER,
   REQUEST_TYPES,
@@ -32,6 +32,7 @@ import {
   SNEAKER_PRICE,
 } from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
+import {askForSourceInUpload} from '../../components/AskForSource';
 
 export const Upload = () => {
   const {setLoading} = useContext(Context);
@@ -120,14 +121,14 @@ export const Upload = () => {
             </Pressable>
             <Pressable
               style={styles.photoupload}
-              onPress={() => openImagePicker({Photos, setPhotos, index})}>
+              onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
               <Image source={{uri: image}} style={styles.selectedimage} />
             </Pressable>
           </>
         ) : (
           <Pressable
             style={styles.photoupload}
-            onPress={() => openImagePicker({Photos, setPhotos, index})}>
+            onPress={() => askForSourceInUpload({index})}>
             <Image source={PHOTO_UPLOAD} style={styles.placeholderimage} />
           </Pressable>
         )}
@@ -180,7 +181,7 @@ export const Upload = () => {
         placeholder={SELECT_GENDER}
         value={Gender}
         setValue={setGender}
-        data={GENDER_ROLES}
+        data={GENDER_ROLES_FOR_UPLOAD}
       />
       <DropdownComponent
         placeholder={SELECT_SIZE}

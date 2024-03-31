@@ -21,6 +21,7 @@ import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
 import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
 import {openImagePickerForProfilePhoto} from '../../components/CameraPicker';
+import {askForSourceDuringSignUp} from '../../components/AskForSource';
 export const SignUp = () => {
   const {setLoading} = useContext(Context);
   const navigation = useNavigation();
@@ -48,7 +49,7 @@ export const SignUp = () => {
   };
 
   const handleImagePickerPress = () => {
-    openImagePickerForProfilePhoto({setProfilePhoto});
+    askForSourceDuringSignUp({setProfilePhoto});
   };
   return (
     <SafeArea go_back={true}>

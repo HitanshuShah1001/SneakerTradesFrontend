@@ -28,6 +28,11 @@ export const GENDER_ROLES = [
   {label: 'Other', value: 'Other'},
 ];
 
+export const GENDER_ROLES_FOR_UPLOAD = [
+  {label: 'Male', value: 'Male'},
+  {label: 'Female', value: 'Female'},
+  {label: 'Unisex', value: 'Unisex'},
+];
 export const GENDER_SHOES = [
   {label: `Male`, value: `Male`},
   {label: `Female`, value: `Female`},

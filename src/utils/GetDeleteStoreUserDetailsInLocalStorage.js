@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {USER} from '../constants/LocalStorageVars';
 
 export const StoreUserInLocalStorage = async ({userData}) => {
   try {
-    const user = await AsyncStorage.setItem('user', JSON.stringify(userData));
+    const user = await AsyncStorage.setItem(USER, JSON.stringify(userData));
   } catch (e) {
     console.log('Error occured in stroing user local storage', e);
   }
@@ -10,7 +11,7 @@ export const StoreUserInLocalStorage = async ({userData}) => {
 
 export const RetrieveUserFromLocalStorage = async () => {
   try {
-    const user = await AsyncStorage.getItem('user');
+    const user = await AsyncStorage.getItem(USER);
     return user ? JSON.parse(user) : null;
   } catch (e) {
     console.log(`Error occured in retrieving user from local storage`, e);
@@ -19,7 +20,7 @@ export const RetrieveUserFromLocalStorage = async () => {
 
 export const RemoveUserFromLocalStorage = async () => {
   try {
-    await AsyncStorage.removeItem('user');
+    await AsyncStorage.removeItem(USER);
   } catch (e) {
     console.log(`Error occured while removing item`, e);
   }
