@@ -7,9 +7,11 @@ import {
   COINS_BALANCE_RECHARGE,
   LOGOUT,
   MY_PROFILE,
+  MY_UPLOADS,
 } from '../../constants/Buttontitles';
 import {
   COINS_BALANCE_AND_RECHARGE,
+  MY_UPLOAD_SCREEN,
   PROFILE_DETAIL,
 } from '../../constants/Screen';
 import {RemoveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
@@ -40,6 +42,9 @@ export const Profile = () => {
         );
       case MY_PROFILE:
         return navigation.navigate(PROFILE_DETAIL);
+      case MY_UPLOADS:
+        return navigation.navigate(MY_UPLOAD_SCREEN);
+
       default:
         break;
     }

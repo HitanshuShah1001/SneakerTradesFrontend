@@ -10,9 +10,14 @@ import {SneakerRequestDetail} from '../../screens/sneakerrequestdetail';
 import {
   COINS_BALANCE_AND_RECHARGE,
   FILTER_SCREEN,
+  MY_UPLOAD_SCREEN,
+  PROFILE_DETAIL,
+  SNEAKER_DETAIL,
 } from '../../constants/Screen';
 import {Coinbalanceandrecharge} from '../../screens/coinbalanceandrecharge';
 import {Filter} from '../../screens/filter';
+import {MY_UPLOADS} from '../../constants/Buttontitles';
+import {MyUploads} from '../../screens/myuploads';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -44,16 +49,17 @@ export const ActionScreens = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="MainTabs" component={MyTabs} />
-      <Stack.Screen name="SneakerDetail" component={SneakerDetail} />
+      <Stack.Screen name={SNEAKER_DETAIL} component={SneakerDetail} />
       <Stack.Screen
-        name="SneakerRequestDetail"
+        name={'SneakerRequestDetail'}
         component={SneakerRequestDetail}
       />
-      <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
+      <Stack.Screen name={PROFILE_DETAIL} component={ProfileDetail} />
       <Stack.Screen
         name={COINS_BALANCE_AND_RECHARGE}
         component={Coinbalanceandrecharge}
       />
+      <Stack.Screen name={MY_UPLOAD_SCREEN} component={MyUploads} />
       <Stack.Screen name={FILTER_SCREEN} component={Filter} />
     </Stack.Navigator>
   </NavigationContainer>

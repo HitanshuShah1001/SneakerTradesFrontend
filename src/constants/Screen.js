@@ -5,6 +5,7 @@ export const PROFILE = 'Profile';
 export const SNEAKER_DETAIL = 'SneakerDetail';
 export const OTP_VERIFY = 'OtpVerify';
 export const PROFILE_DETAIL = 'ProfileDetail';
+export const MY_UPLOAD_SCREEN = 'MyUploads';
 export const SIGN_UP_SCREEN = 'SignUp';
 export const LOGIN_SCREEN = 'Login';
 export const COINS_BALANCE_AND_RECHARGE = 'CoinBalanceAndRecharge';

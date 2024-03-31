@@ -7,10 +7,5 @@ import {
   MY_UPLOADS,
 } from './Buttontitles';
 
-export const PROFILEITEMS = [
-  MY_PROFILE,
-  MY_UPLOADS,
-  MY_REQUESTS,
-  COINS_BALANCE_RECHARGE,
-];
+export const PROFILEITEMS = [MY_PROFILE, MY_UPLOADS, MY_REQUESTS];
 export const ACCOUNTITEMS = [LOGOUT, DEACTIVATE_ACCOUNT];
