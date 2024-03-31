@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
@@ -10,7 +10,7 @@ import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
 import {MY_UPLOADS} from '../../constants/Buttontitles';
 
-export const MyUploads = () => {
+export const MyRequests = () => {
   const navigation = useNavigation();
   const {setLoading} = useContext(Context);
   const [page, setPage] = useState(1);

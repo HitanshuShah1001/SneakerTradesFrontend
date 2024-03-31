@@ -7,10 +7,12 @@ import {
   COINS_BALANCE_RECHARGE,
   LOGOUT,
   MY_PROFILE,
+  MY_REQUESTS,
   MY_UPLOADS,
 } from '../../constants/Buttontitles';
 import {
   COINS_BALANCE_AND_RECHARGE,
+  MY_REQUEST_SCREEN,
   MY_UPLOAD_SCREEN,
   PROFILE_DETAIL,
 } from '../../constants/Screen';
@@ -26,6 +28,8 @@ export const Profile = () => {
     const user = await RetrieveUserFromLocalStorage();
     return user;
   };
+
+  const navigateTo = screen => navigation.navigate(screen);
   // getDetails();
   const actionsBasedOnTitle = async ({title}) => {
     switch (title) {
@@ -41,10 +45,11 @@ export const Profile = () => {
           }),
         );
       case MY_PROFILE:
-        return navigation.navigate(PROFILE_DETAIL);
+        return navigateTo(PROFILE_DETAIL);
       case MY_UPLOADS:
-        return navigation.navigate(MY_UPLOAD_SCREEN);
-
+        return navigateTo(MY_UPLOAD_SCREEN);
+      case MY_REQUESTS:
+        return navigateTo(MY_REQUEST_SCREEN);
       default:
         break;
     }
