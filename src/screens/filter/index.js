@@ -1,27 +1,37 @@
-import {
-  Platform,
-  Pressable,
-  ScrollView,
-  ScrollViewBase,
-  Text,
-  View,
-} from 'react-native';
+import {Platform, Pressable, ScrollView, Text, View} from 'react-native';
 import {SafeArea} from '../../components/SafeArea';
-import {useCallback, useState} from 'react';
+import {useCallback, useContext, useState} from 'react';
 import {BRANDS, GENDER_ROLES, SIZES} from '../../constants/Labels';
 import {Checkbox} from 'react-native-paper';
 import {styles} from './styles';
-import {UPLOAD} from '../../constants/Screen';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
+import {SneakerContext} from '../sneakercontext/SneakerContext';
+import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
+import {dummySneakerData} from '../../dummydata/Sneakers';
+import {Context} from '../../navigation/BottomTab';
+import {apiService} from '../../services/apiService';
+import {useNavigation} from '@react-navigation/native';
+import {HOME} from '../../constants/Screen';
 
 export const Filter = () => {
-  const [checkboxopts, setCheckboxOpts] = useState(GENDER_ROLES);
-  const [selectedfilter, setSelectedFilter] = useState('Gender');
-  const [selectedGenders, setSelectedGenders] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedSizes, setSelectedSizes] = useState([]);
-  const [allfilters, setAllFilters] = useState([]);
-
+  const {
+    setSneakers,
+    checkboxopts,
+    setCheckboxOpts,
+    selectedBrands,
+    selectedGenders,
+    selectedFilter,
+    selectedSizes,
+    allFilters,
+    setSelectedBrands,
+    setSelectedFilter,
+    setSelectedGenders,
+    setAllFilters,
+    setSelectedSizes,
+    searchQuery,
+  } = useContext(SneakerContext);
+  const navigation = useNavigation();
+  const {setLoading} = useContext(Context);
   const changeSelectedFilter = useCallback(
     text => {
       switch (text) {
@@ -81,12 +91,38 @@ export const Filter = () => {
     }
   };
 
+  const ApplyFilter = async () => {
+    setLoading(true);
+    let token = await RetrieveTokenFromLocalStorage();
+    const response = await apiService.post(
+      `sneaker/forpurchaseandborrow`,
+      {
+        searchQuery,
+        filters: {
+          Gender: selectedGenders,
+          Brand: selectedBrands,
+          Size: selectedSizes,
+        },
+        pagination: {
+          limit: 10,
+          page: 1,
+        },
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      },
+    );
+    setSneakers(response.data);
+    navigation.navigate(HOME);
+    setLoading(false);
+  };
+
   const TitleChip = ({text}) => {
     return (
       <Pressable
         style={[
           styles.pressable,
-          {borderWidth: selectedfilter === text ? 1 : 0},
+          {borderWidth: selectedFilter === text ? 1 : 0},
         ]}
         onPress={() => {
           setCheckboxOpts(text);
@@ -117,12 +153,12 @@ export const Filter = () => {
               key={index}
               mode={Platform.OS}
               onPress={() => {
-                addSelectedFiltersToRelevantArrays(selectedfilter, opt.value);
+                addSelectedFiltersToRelevantArrays(selectedFilter, opt.value);
               }}
               style={{
                 marginTop: 4,
                 borderRadius: 8,
-                backgroundColor: allfilters.includes(opt.value)
+                backgroundColor: allFilters.includes(opt.value)
                   ? 'grey'
                   : 'white',
               }}
@@ -131,7 +167,7 @@ export const Filter = () => {
         </ScrollView>
       </View>
       <View style={{width: '100%', marginTop: 10, height: '10%'}}>
-        <AuthenticationButton text={'SAVE'} onPress={() => {}} />
+        <AuthenticationButton text={'SAVE'} onPress={() => ApplyFilter()} />
       </View>
     </SafeArea>
   );

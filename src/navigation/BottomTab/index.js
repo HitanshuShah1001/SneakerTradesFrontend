@@ -2,6 +2,7 @@ import {AuthNavigation} from './authnav';
 import {ActionScreens} from './bottomtab';
 import {createContext, useEffect, useState} from 'react';
 import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {SneakerWrapper} from '../../screens/sneakercontext/SneakerContext';
 
 export const Context = createContext();
 export const Navigation = () => {
@@ -25,7 +26,13 @@ export const Navigation = () => {
 
   return (
     <Context.Provider value={{user, setUser, loading, setLoading}}>
-      {user ? <ActionScreens /> : <AuthNavigation />}
+      {user ? (
+        <SneakerWrapper>
+          <ActionScreens />
+        </SneakerWrapper>
+      ) : (
+        <AuthNavigation />
+      )}
     </Context.Provider>
   );
 };

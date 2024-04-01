@@ -1,13 +1,15 @@
 const BASE_URL = 'http://localhost:4000';
 
 export const apiService = {
-  get: async (endpoint, headers = {}) => {
+  get: async (endpoint, headers = {}, body) => {
     try {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        method: 'GET',
         headers: {
           ...headers,
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(body),
       });
       const apiresponse = await response.json();
       return apiresponse.Data;
@@ -26,7 +28,7 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      return apiresponse.data;
+      return apiresponse.Data;
     } catch (error) {
       throw new Error(error.message);
     }

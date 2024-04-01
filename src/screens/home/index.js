@@ -9,41 +9,80 @@ import {SearchAndFilter} from '../../components/SearchAndFilter';
 import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
 import {dummySneakerData} from '../../dummydata/Sneakers';
+import {SneakerContext} from '../sneakercontext/SneakerContext';
 
 export const Home = () => {
   const navigation = useNavigation();
   const {setLoading} = useContext(Context);
-  const [page, setPage] = useState(1);
-  const [sneakers, setSneakers] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [count, setCount] = useState(0);
+  const {
+    sneakers,
+    setSneakers,
+    selectedBrands,
+    selectedGenders,
+    selectedSizes,
+    refreshing,
+    setRefreshing,
+    count,
+    setCount,
+    page,
+    setPage,
+    searchQuery,
+    setSearchQuery,
+  } = useContext(SneakerContext);
 
   const getSneakers = async () => {
+    console.log('In get sneakers api call');
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.get(
-      `sneaker/forpurchaseandborrow?page=${page}&limit=10`,
+    const response = await apiService.post(
+      `sneaker/forpurchaseandborrow`,
+      {
+        searchQuery,
+        filters: {
+          Gender: selectedGenders,
+          Brand: selectedBrands,
+          Size: selectedSizes,
+        },
+        pagination: {
+          limit: 10,
+          page: 1,
+        },
+      },
       {
         Authorization: `Bearer ${token}`,
       },
     );
-    const newData = response?.data || [];
-    setSneakers(prevData => [...prevData, ...newData]);
+    console.log(response.data.length);
+    setSneakers(response.data);
     setLoading(false);
   };
 
-  const getSneakersViaSearch = async () => {
+  const getSneakersOnEndReached = async () => {
+    setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.get(
-      `sneaker/search?q=${searchQuery}&page=${page}&limit=10`,
+    const response = await apiService.post(
+      `sneaker/forpurchaseandborrow`,
       {
         Authorization: `Bearer ${token}`,
       },
+      {
+        searchQuery,
+        filters: {
+          Gender: selectedGenders,
+          Brand: selectedBrands,
+          Size: selectedSizes,
+        },
+        pagination: {
+          limit: 10,
+          page: page,
+        },
+      },
     );
-    const newData = response?.data || [];
-    setSneakers(newData);
+
+    setSneakers(sneakers => [...sneakers, ...sneakers]);
+    setLoading(false);
   };
+
   const handleRefresh = () => {
     setRefreshing(true);
     setPage(1);
@@ -54,19 +93,16 @@ export const Home = () => {
 
   useEffect(() => {
     getSneakers();
-  }, [page]);
-
-  useEffect(() => {
-    getSneakersViaSearch();
   }, [count]);
 
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});
   };
 
-  const Calltochangecount = debounce(() => setCount(!count), 5000);
+  const Calltochangecount = debounce(() => setCount(!count), 500);
 
   const onChangeInput = text => {
+    console.log(text);
     setSearchQuery(text);
     Calltochangecount();
   };
@@ -78,7 +114,7 @@ export const Home = () => {
         onChangeText={text => onChangeInput(text)}
       />
       <ItemRendererSneakers
-        sneakers={dummySneakerData}
+        sneakers={sneakers}
         handleRefresh={handleRefresh}
         handleSneakerPress={handleSneakerPress}
         setPage={setPage}
