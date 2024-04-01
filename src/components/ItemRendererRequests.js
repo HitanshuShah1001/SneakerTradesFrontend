@@ -12,7 +12,7 @@ export const ItemRendererSneakerRequests = ({
   handleRefresh,
 }) => {
   const {loading} = useContext(Context);
-  const {navigation} = useNavigation();
+  const navigation = useNavigation();
   return (
     <>
       {sneakers.length > 0 ? (

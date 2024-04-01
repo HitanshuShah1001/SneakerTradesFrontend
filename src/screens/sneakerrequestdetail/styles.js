@@ -10,6 +10,7 @@ export const styles = {
     width: '100%',
     marginTop: 10,
     borderRadius: 12,
+    resizeMode: 'contain',
   },
   thumbnailContainer: {
     flexDirection: 'row',

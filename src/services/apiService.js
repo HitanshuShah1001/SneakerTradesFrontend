@@ -18,7 +18,6 @@ export const apiService = {
     }
   },
   post: async (endpoint, body, headers = {}) => {
-    console.log(body);
     try {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: 'POST',
@@ -29,9 +28,10 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      console.log(apiresponse);
+      console.log(apiresponse.Data.data, 'api response');
       return apiresponse.Data;
     } catch (error) {
+      console.log(error);
       throw new Error(error.message);
     }
   },

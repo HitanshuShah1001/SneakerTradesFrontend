@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
@@ -8,7 +8,6 @@ import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {SearchAndFilter} from '../../components/SearchAndFilter';
 import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
-import {dummySneakerData} from '../../dummydata/Sneakers';
 import {SneakerContext} from '../sneakercontext/SneakerContext';
 
 export const Home = () => {
@@ -31,7 +30,6 @@ export const Home = () => {
   } = useContext(SneakerContext);
 
   const getSneakers = async () => {
-    console.log('In get sneakers api call');
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
     const response = await apiService.post(

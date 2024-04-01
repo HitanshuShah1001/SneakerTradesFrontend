@@ -3,6 +3,7 @@ import {ActionScreens} from './bottomtab';
 import {createContext, useEffect, useState} from 'react';
 import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {SneakerWrapper} from '../../screens/sneakercontext/SneakerContext';
+import {SneakerRequestWrapper} from '../../screens/sneakercontext/SneakerRequestContext';
 
 export const Context = createContext();
 export const Navigation = () => {
@@ -28,7 +29,9 @@ export const Navigation = () => {
     <Context.Provider value={{user, setUser, loading, setLoading}}>
       {user ? (
         <SneakerWrapper>
-          <ActionScreens />
+          <SneakerRequestWrapper>
+            <ActionScreens />
+          </SneakerRequestWrapper>
         </SneakerWrapper>
       ) : (
         <AuthNavigation />
