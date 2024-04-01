@@ -7,11 +7,11 @@ import {styles} from './styles';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {SneakerContext} from '../sneakercontext/SneakerContext';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
-import {dummySneakerData} from '../../dummydata/Sneakers';
 import {Context} from '../../navigation/BottomTab';
 import {apiService} from '../../services/apiService';
 import {useNavigation} from '@react-navigation/native';
 import {HOME} from '../../constants/Screen';
+import {THEME_PINK} from '../../constants/colorsandfonts';
 
 export const Filter = () => {
   const {
@@ -117,35 +117,59 @@ export const Filter = () => {
     setLoading(false);
   };
 
-  const TitleChip = ({text}) => {
-    return (
-      <Pressable
-        style={[
-          styles.pressable,
-          {borderWidth: selectedFilter === text ? 1 : 0},
-        ]}
-        onPress={() => {
-          setCheckboxOpts(text);
-          setSelectedFilter(text);
-          changeSelectedFilter(text);
-        }}>
-        <Text>{text}</Text>
-      </Pressable>
-    );
-  };
-
-  const TitleChips = () => (
-    <View style={{width: '35%', marginLeft: 8}}>
-      {['Brands', 'Gender', 'Size'].map((brand, index) => (
-        <TitleChip text={brand} key={index} />
-      ))}
-    </View>
-  );
-
   return (
     <SafeArea go_back text={'Filter'}>
       <View style={styles.mainContainer}>
-        <TitleChips />
+        <View style={{width: '35%', marginLeft: 8}}>
+          <Pressable
+            key={'Genders'}
+            style={[
+              styles.pressable,
+              {
+                borderColor: selectedFilter === 'Brands' ? THEME_PINK : 'white',
+                borderWidth: 1,
+              },
+            ]}
+            onPress={() => {
+              setCheckboxOpts('Brands');
+              setSelectedFilter('Brands');
+              changeSelectedFilter('Brands');
+            }}>
+            <Text>Brands</Text>
+          </Pressable>
+          <Pressable
+            key={'Gender'}
+            style={[
+              styles.pressable,
+              {
+                borderColor: selectedFilter === 'Gender' ? THEME_PINK : 'white',
+                borderWidth: 1,
+              },
+            ]}
+            onPress={() => {
+              setCheckboxOpts('Gender');
+              setSelectedFilter('Gender');
+              changeSelectedFilter('Gender');
+            }}>
+            <Text>Gender</Text>
+          </Pressable>
+          <Pressable
+            key={'Size'}
+            style={[
+              styles.pressable,
+              {
+                borderColor: selectedFilter === 'Size' ? THEME_PINK : 'white',
+                borderWidth: 1,
+              },
+            ]}
+            onPress={() => {
+              setCheckboxOpts('Size');
+              setSelectedFilter('Size');
+              changeSelectedFilter('Size');
+            }}>
+            <Text>Size</Text>
+          </Pressable>
+        </View>
         <ScrollView style={styles.checkboxcontainer}>
           {checkboxopts.map((opt, index) => (
             <Checkbox.Item
