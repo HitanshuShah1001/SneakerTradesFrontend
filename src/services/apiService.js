@@ -28,7 +28,6 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      console.log(apiresponse.Data.data, 'api response');
       return apiresponse.Data;
     } catch (error) {
       console.log(error);
@@ -37,7 +36,6 @@ export const apiService = {
   },
   postformdata: async (endpoint, body, headers = {}) => {
     try {
-      console.log('Inside post form data');
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: 'POST',
         body,

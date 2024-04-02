@@ -50,7 +50,6 @@ export const Home = () => {
         Authorization: `Bearer ${token}`,
       },
     );
-    console.log(response);
     setSneakers(response.data);
     setLoading(false);
   };
