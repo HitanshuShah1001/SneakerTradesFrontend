@@ -1,18 +1,40 @@
-const BASE_URL = 'http://localhost:4000';
+import {
+  APPLICATION_JSON,
+  BASE_URL,
+  GET,
+  HEADERS,
+  POST,
+  PUT,
+} from '../constants/ApiParams';
+import {RemoveTokenFromLocalStorage} from '../utils/GetDeleteStoreTokenInLocalStorage';
+import {RemoveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
+export const responseHandler = async apiresponse => {
+  const {status, Data} = apiresponse || {};
+  console.log(Data);
+  if (status === 'Fail') {
+    if (Data?.message == 'jwt expired') {
+      return await Promise.allSettled([
+        RemoveTokenFromLocalStorage(),
+        RemoveUserFromLocalStorage(),
+      ]);
+    } else {
+      console.log(message);
+    }
+  } else {
+    return Data;
+  }
+};
 export const apiService = {
   get: async (endpoint, headers = {}, body) => {
     try {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
-        method: 'GET',
-        headers: {
-          ...headers,
-          'Content-Type': 'application/json',
-        },
+        method: GET,
+        headers: HEADERS(headers),
         body: JSON.stringify(body),
       });
       const apiresponse = await response.json();
-      return apiresponse.Data;
+      responseHandler(apiresponse);
     } catch (error) {
       console.log(error);
     }
@@ -20,15 +42,13 @@ export const apiService = {
   post: async (endpoint, body, headers = {}) => {
     try {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
-        method: 'POST',
+        method: POST,
         body: JSON.stringify(body),
-        headers: {
-          ...headers,
-          'Content-Type': 'application/json',
-        },
+        headers: HEADERS(headers),
       });
       const apiresponse = await response.json();
-      return apiresponse.Data;
+      console.log(apiresponse);
+      return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -36,31 +56,27 @@ export const apiService = {
   postformdata: async (endpoint, body, headers = {}) => {
     try {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
-        method: 'POST',
+        method: POST,
         body,
         headers: {
           ...headers,
         },
       });
       const apiresponse = await response.json();
-      return apiresponse.Data;
+      return responseHandler(apiresponse);
     } catch (error) {
-      console.log(error);
       throw new Error(error.message);
     }
   },
   put: async (endpoint, body, headers = {}) => {
     try {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
-        method: 'PUT',
+        method: PUT,
         body: JSON.stringify(body),
-        headers: {
-          ...headers,
-          'Content-Type': 'application/json',
-        },
+        headers: HEADERS(headers),
       });
       const apiresponse = await response.json();
-      return apiresponse.data;
+      return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -71,13 +87,12 @@ export const apiService = {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          'Content-Type': APPLICATION_JSON,
         },
       });
 
       const apiresponse = await response.json();
-
-      return apiresponse.Data;
+      return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error);
     }
@@ -86,13 +101,10 @@ export const apiService = {
     try {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: 'DELETE',
-        headers: {
-          ...headers,
-          'Content-Type': 'application/json',
-        },
+        headers: HEADERS(headers),
       });
       const apiresponse = await response.json();
-      return apiresponse.data;
+      return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
