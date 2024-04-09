@@ -128,7 +128,7 @@ export const Upload = () => {
         ) : (
           <Pressable
             style={styles.photoupload}
-            onPress={() => askForSourceInUpload({index})}>
+            onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
             <Image source={PHOTO_UPLOAD} style={styles.placeholderimage} />
           </Pressable>
         )}
@@ -165,12 +165,15 @@ export const Upload = () => {
         custVal={Name}
         setCustVal={setName}
       />
-      <Textinput
-        placeholder={SNEAKER_PRICE}
-        customstyles={{width: '90%'}}
-        custVal={Price}
-        setCustVal={setPrice}
-      />
+      {uploadedFor === UPLOAD && (
+        <Textinput
+          placeholder={SNEAKER_PRICE}
+          customstyles={{width: '90%'}}
+          custVal={Price}
+          setCustVal={setPrice}
+        />
+      )}
+
       <DropdownComponent
         placeholder={SELECT_BRAND}
         value={Brand}

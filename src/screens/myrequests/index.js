@@ -9,6 +9,7 @@ import {SearchAndFilter} from '../../components/SearchAndFilter';
 import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
 import {MY_UPLOADS} from '../../constants/Buttontitles';
+import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 
 export const MyRequests = () => {
   const navigation = useNavigation();
@@ -23,11 +24,12 @@ export const MyRequests = () => {
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
     const response = await apiService.get(
-      `sneaker/getsneakersowned?page=${page}&limit=10`,
+      `sneakerrequests/requestscreated?page=${page}&limit=10`,
       {
         Authorization: `Bearer ${token}`,
       },
     );
+
     const newData = response?.data || [];
     setSneakers(prevData => [...prevData, ...newData]);
     setLoading(false);
@@ -70,7 +72,7 @@ export const MyRequests = () => {
         searchQuery={searchQuery}
         onChangeText={text => onChangeInput(text)}
       />
-      <ItemRendererSneakers
+      <ItemRendererSneakerRequests
         sneakers={sneakers}
         handleRefresh={handleRefresh}
         handleSneakerPress={handleSneakerPress}
