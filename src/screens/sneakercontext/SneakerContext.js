@@ -14,7 +14,7 @@ export const SneakerWrapper = ({children}) => {
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [count, setCount] = useState(0);
-
+  const [requestPage, setRequestPage] = useState(1);
   const [page, setPage] = useState(1);
   const valuesToShare = {
     sneakers,
@@ -39,6 +39,8 @@ export const SneakerWrapper = ({children}) => {
     setPage,
     searchQuery,
     setSearchQuery,
+    requestPage,
+    setRequestPage,
   };
 
   return (

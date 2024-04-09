@@ -1,15 +1,14 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, {useContext, useEffect} from 'react';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
-import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {SearchAndFilter} from '../../components/SearchAndFilter';
-import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
 import {SneakerRequestContext} from '../sneakercontext/SneakerRequestContext';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
+import {getSneakersOrSneakerRequests} from '../../services/getSneakersAndRequests';
+import {GET_SNEAKER_REQUESTS} from '../../constants/Apicall';
 
 export const Requests = () => {
   const {setLoading} = useContext(Context);
@@ -29,72 +28,35 @@ export const Requests = () => {
     setSearchQuery,
   } = useContext(SneakerRequestContext);
 
-  const getSneakers = async () => {
-    setLoading(true);
-    let token = await RetrieveTokenFromLocalStorage();
-
-    const response = await apiService.post(
-      `sneakerrequests/requests`,
-      {
-        searchQuery,
-        filters: {
-          Gender: selectedGenders,
-          Brand: selectedBrands,
-          Size: selectedSizes,
-        },
-        pagination: {
-          limit: 10,
-          page: 1,
-        },
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      },
-    );
-    setSneakerRequests(response.data);
-    setLoading(false);
-  };
-
   const handleRefresh = () => {
     setRefreshing(true);
     setPage(1);
     setSneakerRequests([]);
-    getSneakers();
+    getSneakerRequests();
     setRefreshing(false);
   };
 
-  const getSneakersOnEndReached = async () => {
-    setLoading(true);
-    let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.post(
-      `sneaker/forpurchaseandborrow`,
-      {
-        searchQuery,
-        filters: {
-          Gender: selectedGenders,
-          Brand: selectedBrands,
-          Size: selectedSizes,
-        },
-        pagination: {
-          limit: 10,
-          page,
-        },
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      },
-    );
-    setSneakerRequests(sneakers => [...sneakers, ...(response?.data || [])]);
-    setLoading(false);
-  };
+  const getSneakerRequests = ({paginated = false}) =>
+    getSneakersOrSneakerRequests({
+      setLoading,
+      page,
+      setValue: setSneakerRequests,
+      value: sneakerrequests,
+      searchQuery,
+      selectedBrands,
+      selectedGenders,
+      selectedSizes,
+      apicall: GET_SNEAKER_REQUESTS,
+      paginated,
+    });
 
   useEffect(() => {
-    getSneakers();
+    getSneakerRequests();
   }, [count]);
 
   useEffect(() => {
     if (page != 1) {
-      getSneakersOnEndReached();
+      getSneakerRequests({paginated: true});
     }
   }, [page]);
 

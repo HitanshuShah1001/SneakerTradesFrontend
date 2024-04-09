@@ -11,7 +11,6 @@ import {RemoveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLo
 
 export const responseHandler = async apiresponse => {
   const {status, Data} = apiresponse || {};
-  console.log(Data);
   if (status === 'Fail') {
     if (Data?.message == 'jwt expired') {
       return await Promise.allSettled([
@@ -47,7 +46,6 @@ export const apiService = {
         headers: HEADERS(headers),
       });
       const apiresponse = await response.json();
-      console.log(apiresponse);
       return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);

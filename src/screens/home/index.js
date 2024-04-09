@@ -9,6 +9,8 @@ import {SearchAndFilter} from '../../components/SearchAndFilter';
 import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
 import {SneakerContext} from '../sneakercontext/SneakerContext';
+import {getSneakersOrSneakerRequests} from '../../services/getSneakersAndRequests';
+import {GET_SNEAKER_FOR_PURCHASE_AND_BORROW} from '../../constants/Apicall';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -29,55 +31,19 @@ export const Home = () => {
     setSearchQuery,
   } = useContext(SneakerContext);
 
-  const getSneakers = async () => {
-    setLoading(true);
-    let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.post(
-      `sneaker/forpurchaseandborrow`,
-      {
-        searchQuery,
-        filters: {
-          Gender: selectedGenders,
-          Brand: selectedBrands,
-          Size: selectedSizes,
-        },
-        pagination: {
-          limit: 10,
-          page: 1,
-        },
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      },
-    );
-    setSneakers(response.data);
-    setLoading(false);
-  };
-
-  const getSneakersOnEndReached = async () => {
-    setLoading(true);
-    let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.post(
-      `sneaker/forpurchaseandborrow`,
-      {
-        searchQuery,
-        filters: {
-          Gender: selectedGenders,
-          Brand: selectedBrands,
-          Size: selectedSizes,
-        },
-        pagination: {
-          limit: 10,
-          page: page,
-        },
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      },
-    );
-    setSneakers(sneakers => [...sneakers, ...(response?.data || [])]);
-    setLoading(false);
-  };
+  const getSneakers = ({paginated = false}) =>
+    getSneakersOrSneakerRequests({
+      setLoading,
+      page,
+      setValue: setSneakers,
+      value: sneakers,
+      paginated,
+      searchQuery,
+      selectedBrands,
+      selectedGenders,
+      selectedSizes,
+      apicall: GET_SNEAKER_FOR_PURCHASE_AND_BORROW,
+    });
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -91,6 +57,12 @@ export const Home = () => {
     getSneakers();
   }, [count]);
 
+  useEffect(() => {
+    if (page != 1) {
+      getSneakers({paginated: true});
+    }
+  }, [page]);
+
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});
   };
@@ -101,12 +73,6 @@ export const Home = () => {
     setSearchQuery(text);
     Calltochangecount();
   };
-
-  useEffect(() => {
-    if (page != 1) {
-      getSneakersOnEndReached();
-    }
-  }, [page]);
 
   return (
     <SafeArea>

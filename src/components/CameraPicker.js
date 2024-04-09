@@ -47,7 +47,6 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
 export const openImagePicker = ({Photos, setPhotos, index, source}) => {
   if (source === 'GALLERY') {
     launchImageLibrary(options, response => {
-      console.log(response);
       let {didCancel, errorMessage, errorCode} = response || {};
       if (didCancel) {
         Alert.alert('User canceelled');
