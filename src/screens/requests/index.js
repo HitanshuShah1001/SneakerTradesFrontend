@@ -12,7 +12,6 @@ import {SneakerRequestContext} from '../sneakercontext/SneakerRequestContext';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 
 export const Requests = () => {
-  const navigation = useNavigation();
   const {setLoading} = useContext(Context);
   const {
     sneakerrequests,
@@ -24,6 +23,7 @@ export const Requests = () => {
     setRefreshing,
     count,
     setCount,
+    page,
     setPage,
     searchQuery,
     setSearchQuery,
@@ -51,7 +51,6 @@ export const Requests = () => {
         Authorization: `Bearer ${token}`,
       },
     );
-    console.log(response, 'response');
     setSneakerRequests(response.data);
     setLoading(false);
   };
@@ -59,14 +58,45 @@ export const Requests = () => {
   const handleRefresh = () => {
     setRefreshing(true);
     setPage(1);
-    setSneakers([]);
+    setSneakerRequests([]);
     getSneakers();
     setRefreshing(false);
+  };
+
+  const getSneakersOnEndReached = async () => {
+    setLoading(true);
+    let token = await RetrieveTokenFromLocalStorage();
+    const response = await apiService.post(
+      `sneaker/forpurchaseandborrow`,
+      {
+        searchQuery,
+        filters: {
+          Gender: selectedGenders,
+          Brand: selectedBrands,
+          Size: selectedSizes,
+        },
+        pagination: {
+          limit: 10,
+          page,
+        },
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      },
+    );
+    setSneakerRequests(sneakers => [...sneakers, ...(response?.data || [])]);
+    setLoading(false);
   };
 
   useEffect(() => {
     getSneakers();
   }, [count]);
+
+  useEffect(() => {
+    if (page != 1) {
+      getSneakersOnEndReached();
+    }
+  }, [page]);
 
   const Calltochangecount = debounce(() => setCount(!count), 500);
 

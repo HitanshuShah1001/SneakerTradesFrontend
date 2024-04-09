@@ -30,7 +30,7 @@ export const Profile = () => {
   };
 
   const navigateTo = screen => navigation.navigate(screen);
-  // getDetails();
+
   const actionsBasedOnTitle = async ({title}) => {
     switch (title) {
       case LOGOUT:

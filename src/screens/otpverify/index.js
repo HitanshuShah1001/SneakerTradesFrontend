@@ -32,7 +32,6 @@ export const OTPverify = props => {
         name: ProfilePhoto.fileName,
       });
       const response = await apiService.postformdata(SIGN_UP_CALL, formData);
-      console.log(response, 'response');
       setUser(response.user);
       await Promise.allSettled([
         StoreTokenInLocalStorage({token: response.token}),

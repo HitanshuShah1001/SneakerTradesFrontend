@@ -19,7 +19,6 @@ export const SneakerDetail = props => {
     setSelectedSneakerImage(photo);
   };
 
-  console.log(sneaker);
   return (
     <SafeAreaView style={{flex: 1}}>
       {loading && <LoadingIndicator />}

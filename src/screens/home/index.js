@@ -60,9 +60,6 @@ export const Home = () => {
     const response = await apiService.post(
       `sneaker/forpurchaseandborrow`,
       {
-        Authorization: `Bearer ${token}`,
-      },
-      {
         searchQuery,
         filters: {
           Gender: selectedGenders,
@@ -74,9 +71,11 @@ export const Home = () => {
           page: page,
         },
       },
+      {
+        Authorization: `Bearer ${token}`,
+      },
     );
-
-    setSneakers(sneakers => [...sneakers, ...sneakers]);
+    setSneakers(sneakers => [...sneakers, ...(response?.data || [])]);
     setLoading(false);
   };
 
@@ -99,10 +98,15 @@ export const Home = () => {
   const Calltochangecount = debounce(() => setCount(!count), 500);
 
   const onChangeInput = text => {
-    console.log(text);
     setSearchQuery(text);
     Calltochangecount();
   };
+
+  useEffect(() => {
+    if (page != 1) {
+      getSneakersOnEndReached();
+    }
+  }, [page]);
 
   return (
     <SafeArea>

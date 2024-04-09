@@ -30,7 +30,6 @@ export const apiService = {
       const apiresponse = await response.json();
       return apiresponse.Data;
     } catch (error) {
-      console.log(error);
       throw new Error(error.message);
     }
   },
@@ -44,7 +43,6 @@ export const apiService = {
         },
       });
       const apiresponse = await response.json();
-      console.log(apiresponse, 'apio response');
       return apiresponse.Data;
     } catch (error) {
       console.log(error);

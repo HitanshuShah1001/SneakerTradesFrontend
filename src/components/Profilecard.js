@@ -4,7 +4,9 @@ import {FONT_SIZE} from '../constants/colorsandfonts';
 
 export const ProfileCard = ({title, onPress = {}}) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable
+      style={({pressed}) => [styles.container, pressed && {opacity: 0.5}]}
+      onPress={onPress}>
       <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
