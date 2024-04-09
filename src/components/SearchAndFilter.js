@@ -1,12 +1,12 @@
 import {Searchbar} from 'react-native-paper';
-import {FILTER_ICON, SEARCH_ICON} from '../assets';
+import {FILTER_ICON, SEARCH_CLEAR, SEARCH_ICON} from '../assets';
 import {Image, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FILTER_SCREEN} from '../constants/Screen';
 export const SearchAndFilter = ({searchQuery, onChangeText}) => {
   const navigation = useNavigation();
   return (
-    <View style={{width: '90%', alignSelf: 'center', flexDirection: 'row'}}>
+    <View style={styles.wrapper}>
       <Searchbar
         placeholder="SEARCH"
         inputStyle={styles.input}
@@ -14,6 +14,9 @@ export const SearchAndFilter = ({searchQuery, onChangeText}) => {
         value={searchQuery}
         style={styles.container}
         icon={() => <Image source={SEARCH_ICON} />}
+        clearIcon={() => (
+          <Image source={SEARCH_CLEAR} style={{height: 18, width: 18}} />
+        )}
       />
       <Pressable
         style={styles.pressable}
@@ -25,6 +28,7 @@ export const SearchAndFilter = ({searchQuery, onChangeText}) => {
 };
 
 const styles = {
+  wrapper: {width: '90%', alignSelf: 'center', flexDirection: 'row'},
   input: {
     fontSize: 14,
     fontFamily: 'DMSans',
