@@ -12,6 +12,8 @@ import {apiService} from '../../services/apiService';
 import {useNavigation} from '@react-navigation/native';
 import {HOME} from '../../constants/Screen';
 import {THEME_PINK} from '../../constants/colorsandfonts';
+import {Image} from 'react-native';
+import {RESET_ICON} from '../../assets';
 
 export const Filter = () => {
   const {
@@ -168,6 +170,25 @@ export const Filter = () => {
               changeSelectedFilter('Size');
             }}>
             <Text>Size</Text>
+          </Pressable>
+          <Pressable
+            key={'Reset'}
+            style={[
+              styles.reset,
+              {
+                borderColor: selectedFilter === 'Size' ? THEME_PINK : 'white',
+                borderWidth: 1,
+              },
+            ]}
+            onPress={() => {
+              setSelectedBrands([]);
+              setSelectedGenders([]);
+              setSelectedSizes([]);
+              setSelectedFilter('Gender');
+              setCheckboxOpts(GENDER_ROLES);
+              setAllFilters([]);
+            }}>
+            <Image source={RESET_ICON} />
           </Pressable>
         </View>
         <ScrollView style={styles.checkboxcontainer}>

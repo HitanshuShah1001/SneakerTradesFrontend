@@ -17,6 +17,16 @@ export const styles = {
     height: 45,
     marginTop: 10,
   },
+  reset: {
+    width: '50%',
+    backgroundColor: 'white',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    height: 45,
+    marginTop: 10,
+  },
   checkboxcontainer: {
     width: '50%',
     backgroundColor: 'white',
