@@ -9,6 +9,7 @@ import {ProfileDetail} from '../../screens/profiledetail';
 import {SneakerRequestDetail} from '../../screens/sneakerrequestdetail';
 import {
   COINS_BALANCE_AND_RECHARGE,
+  FILTER_REQUEST_SCREEN,
   FILTER_SCREEN,
   MY_REQUEST_SCREEN,
   MY_UPLOAD_SCREEN,
@@ -17,9 +18,9 @@ import {
 } from '../../constants/Screen';
 import {Coinbalanceandrecharge} from '../../screens/coinbalanceandrecharge';
 import {Filter} from '../../screens/filter';
-import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {MyUploads} from '../../screens/myuploads';
 import {MyRequests} from '../../screens/myrequests';
+import {FilterRequests} from '../../screens/filterrequest/filterrequest';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -64,6 +65,7 @@ export const ActionScreens = () => (
       <Stack.Screen name={MY_UPLOAD_SCREEN} component={MyUploads} />
       <Stack.Screen name={MY_REQUEST_SCREEN} component={MyRequests} />
       <Stack.Screen name={FILTER_SCREEN} component={Filter} />
+      <Stack.Screen name={FILTER_REQUEST_SCREEN} component={FilterRequests} />
     </Stack.Navigator>
   </NavigationContainer>
 );

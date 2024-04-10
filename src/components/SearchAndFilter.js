@@ -2,8 +2,12 @@ import {Searchbar} from 'react-native-paper';
 import {FILTER_ICON, SEARCH_CLEAR, SEARCH_ICON} from '../assets';
 import {Image, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {FILTER_SCREEN} from '../constants/Screen';
-export const SearchAndFilter = ({searchQuery, onChangeText}) => {
+import {FILTER_REQUEST_SCREEN, FILTER_SCREEN} from '../constants/Screen';
+export const SearchAndFilter = ({
+  searchQuery,
+  onChangeText,
+  isFromRequestScreen = false,
+}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
@@ -20,7 +24,11 @@ export const SearchAndFilter = ({searchQuery, onChangeText}) => {
       />
       <Pressable
         style={styles.pressable}
-        onPress={() => navigation.navigate(FILTER_SCREEN)}>
+        onPress={() =>
+          navigation.navigate(
+            isFromRequestScreen ? FILTER_REQUEST_SCREEN : FILTER_SCREEN,
+          )
+        }>
         <Image source={FILTER_ICON} />
       </Pressable>
     </View>
