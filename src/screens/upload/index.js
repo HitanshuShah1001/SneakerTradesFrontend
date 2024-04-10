@@ -1,11 +1,10 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Pressable, Text, View, Image, Alert} from 'react-native';
-import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
+import {View, Alert} from 'react-native';
 import {Textinput} from '../../components/Textinput';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Scroller} from '../../components/Scroller';
 import {UPLOAD} from '../../constants/Screen';
-import {openImagePicker, removeImage} from '../../components/CameraPicker';
+import {removeImage} from '../../components/CameraPicker';
 import {styles} from './styles';
 import {
   BRANDS,
@@ -22,8 +21,6 @@ import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {UPLOAD_CALL, UPLOAD_REQUEST_CALL} from '../../constants/Apicall';
 import {
-  MIN_ONE_IMAGE,
-  MIN_THREE_IMAGES,
   SELECT_BRAND,
   SELECT_GENDER,
   SELECT_SIZE,
@@ -33,6 +30,13 @@ import {
 } from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {askForSourceInUpload} from '../../components/AskForSource';
+import {Imageselector} from './Imageselector';
+import {UploadPlaceholder} from '../../components/UploadPlaceholder';
+import {
+  areAllFieldsValid,
+  ResetFields,
+  UploadSneakerButton,
+} from './Uploadutils';
 
 export const Upload = () => {
   const {setLoading} = useContext(Context);
@@ -57,8 +61,11 @@ export const Upload = () => {
 
   const UploadSneaker = async () => {
     setLoading(true);
+    if (!areAllFieldsValid({Name, Gender, Type, Size})) {
+      setLoading(false);
+      return Alert.alert('Please fill the required fields');
+    }
     const uploadDetails = new FormData();
-
     uploadDetails.append('Name', Name);
     uploadDetails.append('Brand', Brand);
     uploadDetails.append('Gender', Gender);
@@ -88,52 +95,23 @@ export const Upload = () => {
 
     let token = await RetrieveTokenFromLocalStorage();
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
-    const res = await apiService.postformdata(Apicall, uploadDetails, {
+    const response = await apiService.postformdata(Apicall, uploadDetails, {
       Authorization: `Bearer ${token}`,
     });
     setLoading(false);
-    if (res) {
-      ResetFields();
+    if (response) {
+      ResetFields({
+        uploadedFor,
+        setBrand,
+        setGender,
+        setName,
+        setPrice,
+        setSize,
+        setType,
+        setUploadedFor,
+        setPhotos,
+      });
     }
-  };
-
-  const ResetFields = () => {
-    Alert.alert('Sneaker uploaded succesfully');
-    setBrand('');
-    setGender('');
-    setName('');
-    setPrice('');
-    setSize('');
-    setType('');
-    setUploadedFor(UPLOAD);
-    setPhotos(IMAGE_PLACEHOLDERS);
-  };
-
-  const Imageselector = ({index, image}) => {
-    return (
-      <View style={{width: '30%', alignItems: 'center'}}>
-        {image !== `` ? (
-          <>
-            <Pressable
-              style={{alignSelf: 'flex-end'}}
-              onPress={() => removeImage({Photos, setPhotos, index})}>
-              <Image source={CANCEL_ICON} style={{height: 10, width: 10}} />
-            </Pressable>
-            <Pressable
-              style={styles.photoupload}
-              onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
-              <Image source={{uri: image}} style={styles.selectedimage} />
-            </Pressable>
-          </>
-        ) : (
-          <Pressable
-            style={styles.photoupload}
-            onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
-            <Image source={PHOTO_UPLOAD} style={styles.placeholderimage} />
-          </Pressable>
-        )}
-      </View>
-    );
   };
 
   const Imageselectorcontainer = useCallback(() => {
@@ -145,6 +123,10 @@ export const Upload = () => {
               key={val.index}
               index={val.index}
               image={val.image}
+              Photos={Photos}
+              setPhotos={setPhotos}
+              removeImage={removeImage}
+              askForSourceInUpload={askForSourceInUpload}
             />
           );
         })}
@@ -156,24 +138,13 @@ export const Upload = () => {
     <Scroller>
       <Uploadchips uploadedFor={uploadedFor} setUploadedFor={setUploadedFor} />
       <Imageselectorcontainer />
-      <Text style={styles.imageplaceholder}>
-        {uploadedFor === UPLOAD ? MIN_THREE_IMAGES : MIN_ONE_IMAGE}
-      </Text>
+      <UploadPlaceholder uploadedFor={uploadedFor} />
       <Textinput
         placeholder={SNEAKER_NAME}
         customstyles={{width: '90%'}}
         custVal={Name}
         setCustVal={setName}
       />
-      {uploadedFor === UPLOAD && (
-        <Textinput
-          placeholder={SNEAKER_PRICE}
-          customstyles={{width: '90%'}}
-          custVal={Price}
-          setCustVal={setPrice}
-        />
-      )}
-
       <DropdownComponent
         placeholder={SELECT_BRAND}
         value={Brand}
@@ -186,6 +157,14 @@ export const Upload = () => {
         setValue={setGender}
         data={GENDER_ROLES_FOR_UPLOAD}
       />
+      {uploadedFor === UPLOAD && (
+        <Textinput
+          placeholder={SNEAKER_PRICE}
+          customstyles={{width: '90%'}}
+          custVal={Price}
+          setCustVal={setPrice}
+        />
+      )}
       <DropdownComponent
         placeholder={SELECT_SIZE}
         value={Size}
@@ -198,9 +177,7 @@ export const Upload = () => {
         setValue={setType}
         data={uploadedFor == UPLOAD ? TYPES : REQUEST_TYPES}
       />
-      <View style={{width: '100%', marginTop: 10}}>
-        <AuthenticationButton text={UPLOAD} onPress={() => UploadSneaker()} />
-      </View>
+      <UploadSneakerButton onPress={() => UploadSneaker()} />
     </Scroller>
   );
 };

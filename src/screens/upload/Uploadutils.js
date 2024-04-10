@@ -1,0 +1,48 @@
+import {View} from 'react-native';
+import {UPLOAD} from '../../constants/Choices';
+import {AuthenticationButton} from '../../components/Authenticationbutton';
+
+const isAnyFieldEmpty = fields => {
+  for (let field of fields) {
+    if (!field) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export const areAllFieldsValid = ({Name, Gender, Type, Size}) => {
+  return !isAnyFieldEmpty([Name, Gender, Type, Size]);
+};
+
+export const ResetFields = ({
+  uploadedFor,
+  setBrand,
+  setGender,
+  setName,
+  setPrice,
+  setSize,
+  setType,
+  setUploadedFor,
+  setPhotos,
+}) => {
+  const UPLOADORREQUEST =
+    uploadedFor === UPLOAD
+      ? `Sneaker uploaded succesfully`
+      : `Sneaker requested succesfully`;
+  Alert.alert(UPLOADORREQUEST);
+  setBrand('');
+  setGender('');
+  setName('');
+  setPrice('');
+  setSize('');
+  setType('');
+  setUploadedFor(UPLOAD);
+  setPhotos(IMAGE_PLACEHOLDERS);
+};
+
+export const UploadSneakerButton = ({onPress}) => (
+  <View style={{width: '100%', marginTop: 10}}>
+    <AuthenticationButton text={UPLOAD} onPress={onPress} />
+  </View>
+);

@@ -37,7 +37,7 @@ export const Home = () => {
       page,
       setValue: setSneakers,
       value: sneakers,
-      paginated,
+      paginated: paginated,
       searchQuery,
       selectedBrands,
       selectedGenders,
@@ -49,12 +49,12 @@ export const Home = () => {
     setRefreshing(true);
     setPage(1);
     setSneakers([]);
-    getSneakers();
+    getSneakers({paginated: false});
     setRefreshing(false);
   };
 
   useEffect(() => {
-    getSneakers();
+    getSneakers({paginated: false});
   }, [count]);
 
   useEffect(() => {

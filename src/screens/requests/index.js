@@ -32,7 +32,7 @@ export const Requests = () => {
     setRefreshing(true);
     setPage(1);
     setSneakerRequests([]);
-    getSneakerRequests();
+    getSneakerRequests({paginated: false});
     setRefreshing(false);
   };
 
@@ -51,7 +51,7 @@ export const Requests = () => {
     });
 
   useEffect(() => {
-    getSneakerRequests();
+    getSneakerRequests({paginated: false});
   }, [count]);
 
   useEffect(() => {
