@@ -1,6 +1,7 @@
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {UPLOAD} from '../../constants/Choices';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
+import {IMAGE_PLACEHOLDERS} from '../../constants/Labels';
 
 const isAnyFieldEmpty = fields => {
   for (let field of fields) {

@@ -1,7 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {View, Alert} from 'react-native';
 import {Textinput} from '../../components/Textinput';
-import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Scroller} from '../../components/Scroller';
 import {UPLOAD} from '../../constants/Screen';
 import {removeImage} from '../../components/CameraPicker';

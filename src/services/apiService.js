@@ -1,3 +1,4 @@
+import {Alert} from 'react-native';
 import {
   APPLICATION_JSON,
   BASE_URL,
@@ -18,7 +19,7 @@ export const responseHandler = async apiresponse => {
         RemoveUserFromLocalStorage(),
       ]);
     } else {
-      console.log(message);
+      Alert.alert(Data);
     }
   } else {
     return Data;
@@ -33,6 +34,7 @@ export const apiService = {
         body: JSON.stringify(body),
       });
       const apiresponse = await response.json();
+      console.log(apiresponse);
       responseHandler(apiresponse);
     } catch (error) {
       console.log(error);
