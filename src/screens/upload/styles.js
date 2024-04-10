@@ -52,8 +52,8 @@ export const styles = {
     width: '100%',
   },
   placeholderimage: {
-    height: '100%',
-    width: '100%',
+    height: 24,
+    width: 24,
     borderRadius: 12,
     resizeMode: 'contain',
   },
