@@ -15,6 +15,7 @@ export const getSneakersOrSneakerRequests = async ({
 }) => {
   setLoading(true);
   let token = await RetrieveTokenFromLocalStorage();
+
   const response = await apiService.post(
     apicall,
     {
@@ -25,7 +26,7 @@ export const getSneakersOrSneakerRequests = async ({
         Size: selectedSizes,
       },
       pagination: {
-        limit: 10,
+        limit: 1000,
         page,
       },
     },

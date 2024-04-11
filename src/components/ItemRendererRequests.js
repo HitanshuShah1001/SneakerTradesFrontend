@@ -32,11 +32,6 @@ export const ItemRendererSneakerRequests = ({
             />
           )}
           onEndReachedThreshold={0.01}
-          onEndReached={() => {
-            if (!loading) {
-              setPage(prevPage => prevPage + 1);
-            }
-          }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }

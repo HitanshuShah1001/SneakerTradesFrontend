@@ -34,7 +34,6 @@ export const apiService = {
         body: JSON.stringify(body),
       });
       const apiresponse = await response.json();
-      console.log(apiresponse);
       return responseHandler(apiresponse);
     } catch (error) {
       console.log(error);
@@ -48,7 +47,7 @@ export const apiService = {
         headers: HEADERS(headers),
       });
       const apiresponse = await response.json();
-      console.log(apiresponse, 'response in home');
+
       return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);

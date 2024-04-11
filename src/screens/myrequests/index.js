@@ -5,12 +5,11 @@ import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLo
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
-import {SearchAndFilter} from '../../components/SearchAndFilter';
-import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
 import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
+import {Search} from '../../components/Search';
 
 export const MyRequests = () => {
   const navigation = useNavigation();
@@ -50,13 +49,17 @@ export const MyRequests = () => {
 
   const Calltochangecount = debounce(() => setCount(!count), 5000);
 
-  // const onChangeInput = text => {
-  //   setSearchQuery(text);
-  //   Calltochangecount();
-  // };
+  const onChangeInput = text => {
+    setSearchQuery(text);
+    Calltochangecount();
+  };
 
   return (
     <SafeArea go_back text={MY_UPLOADS}>
+      <Search
+        searchQuery={searchQuery}
+        onChangeText={text => onChangeInput(text)}
+      />
       <ItemRendererSneakerRequests
         sneakers={sneakers}
         handleRefresh={handleRefresh}

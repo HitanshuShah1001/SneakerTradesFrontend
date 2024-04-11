@@ -5,11 +5,11 @@ import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLo
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
-import {SearchAndFilter} from '../../components/SearchAndFilter';
 import {debounce} from '../../utils/debounce';
 import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {GET_SNEAKERS_OWNED} from '../../constants/Apicall';
 import {MyUploadsItemRenderer} from '../../components/MyUploadsItemRenderer';
+import {Search} from '../../components/Search';
 
 export const MyUploads = () => {
   const navigation = useNavigation();
@@ -54,6 +54,10 @@ export const MyUploads = () => {
 
   return (
     <SafeArea go_back text={MY_UPLOADS}>
+      <Search
+        searchQuery={searchQuery}
+        onChangeText={text => onChangeInput(text)}
+      />
       <MyUploadsItemRenderer
         sneakers={sneakers}
         handleRefresh={handleRefresh}

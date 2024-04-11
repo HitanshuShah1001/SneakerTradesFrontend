@@ -1,7 +1,5 @@
 import React, {useContext, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {apiService} from '../../services/apiService';
-import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
@@ -56,12 +54,6 @@ export const Home = () => {
   useEffect(() => {
     getSneakers({paginated: false});
   }, [count]);
-
-  useEffect(() => {
-    if (page != 1) {
-      getSneakers({paginated: true});
-    }
-  }, [page]);
 
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});

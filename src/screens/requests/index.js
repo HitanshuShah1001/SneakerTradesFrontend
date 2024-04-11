@@ -54,12 +54,6 @@ export const Requests = () => {
     getSneakerRequests({paginated: false});
   }, [count]);
 
-  useEffect(() => {
-    if (page != 1) {
-      getSneakerRequests({paginated: true});
-    }
-  }, [page]);
-
   const Calltochangecount = debounce(() => setCount(!count), 500);
 
   const onChangeInput = text => {
