@@ -7,11 +7,9 @@ import {useContext} from 'react';
 
 export const ItemRendererSneakerRequests = ({
   sneakers,
-  setPage,
   refreshing,
   handleRefresh,
 }) => {
-  const {loading} = useContext(Context);
   const navigation = useNavigation();
   return (
     <>

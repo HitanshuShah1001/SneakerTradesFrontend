@@ -47,7 +47,6 @@ export const apiService = {
         headers: HEADERS(headers),
       });
       const apiresponse = await response.json();
-
       return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
