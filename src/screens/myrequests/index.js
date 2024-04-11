@@ -10,6 +10,7 @@ import {ItemRendererSneakers} from '../../components/ItemRenderer';
 import {debounce} from '../../utils/debounce';
 import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
+import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 
 export const MyRequests = () => {
   const navigation = useNavigation();
@@ -23,20 +24,12 @@ export const MyRequests = () => {
   const getSneakers = async () => {
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.get(
-      `sneakerrequests/requestscreated?page=${page}&limit=10`,
-      {
-        Authorization: `Bearer ${token}`,
-      },
-    );
-
-    const newData = response?.data || [];
-    setSneakers(prevData => [...prevData, ...newData]);
+    const response = await apiService.get(GET_SNEAKER_REQUESTS_CREATED, {
+      Authorization: `Bearer ${token}`,
+    });
+    const sneakerRequestData = response?.data || [];
+    setSneakers(sneakerRequestData);
     setLoading(false);
-  };
-
-  const getSneakersViaSearch = async () => {
-    console.log('Sneakers via search');
   };
 
   const handleRefresh = () => {
@@ -51,27 +44,19 @@ export const MyRequests = () => {
     getSneakers();
   }, [page]);
 
-  useEffect(() => {
-    getSneakersViaSearch();
-  }, [count]);
-
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});
   };
 
   const Calltochangecount = debounce(() => setCount(!count), 5000);
 
-  const onChangeInput = text => {
-    setSearchQuery(text);
-    Calltochangecount();
-  };
+  // const onChangeInput = text => {
+  //   setSearchQuery(text);
+  //   Calltochangecount();
+  // };
 
   return (
     <SafeArea go_back text={MY_UPLOADS}>
-      <SearchAndFilter
-        searchQuery={searchQuery}
-        onChangeText={text => onChangeInput(text)}
-      />
       <ItemRendererSneakerRequests
         sneakers={sneakers}
         handleRefresh={handleRefresh}

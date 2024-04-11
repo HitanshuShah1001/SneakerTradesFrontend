@@ -1,21 +1,17 @@
 import {FlatList, RefreshControl, View} from 'react-native';
 import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
-import {useContext} from 'react';
-import {Context} from '../navigation/BottomTab';
 
-export const ItemRendererSneakers = ({
+export const MyUploadsItemRenderer = ({
   sneakers,
   handleSneakerPress,
-  setPage,
   refreshing,
   handleRefresh,
 }) => {
-  const {loading} = useContext(Context);
   return (
     <>
       {sneakers?.length > 0 ? (
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, marginTop: 10}}>
           <FlatList
             data={sneakers}
             renderItem={({item: sneaker}) => (
@@ -29,16 +25,6 @@ export const ItemRendererSneakers = ({
                 onPress={() => handleSneakerPress(sneaker)}
               />
             )}
-            onScrollEndDrag={() => {
-              if (!loading) {
-                setPage(page => page + 1);
-              }
-            }}
-            onMomentumScrollEnd={() => {
-              if (!loading) {
-                setPage(page => page + 1);
-              }
-            }}
             initialNumToRender={10}
             refreshControl={
               <RefreshControl
