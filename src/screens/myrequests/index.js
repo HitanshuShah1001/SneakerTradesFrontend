@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
@@ -16,6 +16,7 @@ export const MyRequests = () => {
   const {setLoading} = useContext(Context);
   const [page, setPage] = useState(1);
   const [sneakers, setSneakers] = useState([]);
+  const [sneakersRequestsUsed, setSneakersRequestUsed] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [count, setCount] = useState(0);
@@ -28,6 +29,7 @@ export const MyRequests = () => {
     });
     const sneakerRequestData = response?.data || [];
     setSneakers(sneakerRequestData);
+    setSneakersRequestUsed(sneakerRequestData);
     setLoading(false);
   };
 
@@ -43,11 +45,24 @@ export const MyRequests = () => {
     getSneakers();
   }, [page]);
 
+  const filterSneakerRequest = () => {
+    console.log(searchQuery);
+    let filteredSneakerRequests = sneakers.filter(
+      sneaker =>
+        sneaker.Brand.includes(searchQuery) ||
+        sneaker.Name.includes(searchQuery),
+    );
+    setSneakersRequestUsed(filteredSneakerRequests);
+  };
+  useEffect(() => {
+    filterSneakerRequest();
+  }, [count]);
+
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});
   };
 
-  const Calltochangecount = debounce(() => setCount(!count), 5000);
+  const Calltochangecount = debounce(() => setCount(!count), 500);
 
   const onChangeInput = text => {
     setSearchQuery(text);
@@ -61,7 +76,7 @@ export const MyRequests = () => {
         onChangeText={text => onChangeInput(text)}
       />
       <ItemRendererSneakerRequests
-        sneakers={sneakers}
+        sneakers={sneakersRequestsUsed}
         handleRefresh={handleRefresh}
         handleSneakerPress={handleSneakerPress}
         setPage={setPage}

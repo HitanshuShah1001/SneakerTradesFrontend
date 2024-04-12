@@ -15,6 +15,7 @@ export const MyUploads = () => {
   const navigation = useNavigation();
   const {setLoading} = useContext(Context);
   const [sneakers, setSneakers] = useState([]);
+  const [sneakerUploadedUsed, setSneakerUploadedUsed] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [count, setCount] = useState(0);
@@ -27,12 +28,14 @@ export const MyUploads = () => {
     });
     const sneakers = response?.data || [];
     setSneakers(sneakers);
+    setSneakerUploadedUsed(sneakers);
     setLoading(false);
   };
 
   const handleRefresh = () => {
     setRefreshing(true);
     setSneakers([]);
+    setSneakerUploadedUsed([]);
     getSneakers();
     setRefreshing(false);
   };
@@ -45,12 +48,24 @@ export const MyUploads = () => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});
   };
 
-  const Calltochangecount = debounce(() => setCount(!count), 5000);
+  const Calltochangecount = debounce(() => setCount(!count), 500);
 
   const onChangeInput = text => {
     setSearchQuery(text);
     Calltochangecount();
   };
+
+  const filterSneakerRequest = () => {
+    let filteredSneakerRequests = sneakers.filter(
+      sneaker =>
+        sneaker.Brand.includes(searchQuery) ||
+        sneaker.Name.includes(searchQuery),
+    );
+    setSneakerUploadedUsed(filteredSneakerRequests);
+  };
+  useEffect(() => {
+    filterSneakerRequest();
+  }, [count]);
 
   return (
     <SafeArea go_back text={MY_UPLOADS}>
@@ -59,7 +74,7 @@ export const MyUploads = () => {
         onChangeText={text => onChangeInput(text)}
       />
       <MyUploadsItemRenderer
-        sneakers={sneakers}
+        sneakers={sneakerUploadedUsed}
         handleRefresh={handleRefresh}
         handleSneakerPress={handleSneakerPress}
         refreshing={refreshing}
