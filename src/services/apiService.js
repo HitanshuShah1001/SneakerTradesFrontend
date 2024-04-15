@@ -49,6 +49,7 @@ export const apiService = {
       const apiresponse = await response.json();
       return responseHandler(apiresponse);
     } catch (error) {
+      console.log(error, 'error');
       throw new Error(error.message);
     }
   },

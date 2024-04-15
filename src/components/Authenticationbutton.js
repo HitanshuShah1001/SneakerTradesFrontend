@@ -6,10 +6,11 @@ export const AuthenticationButton = ({
   text,
   showsignup = false,
   onPress = () => {},
+  customstyles = {},
 }) => {
   const navigation = useNavigation();
   return (
-    <View style={styles.pressablecontainer}>
+    <View style={[styles.pressablecontainer, {...customstyles}]}>
       <Pressable
         style={({pressed}) => [styles.pressable, pressed && {opacity: 0.5}]}
         onPress={onPress}>

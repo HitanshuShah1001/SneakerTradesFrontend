@@ -6,9 +6,13 @@ import {ContactInfo} from '../../components/ContactInfo';
 import {MY_PROFILE} from '../../constants/Buttontitles';
 import {EMAIL_ID, NAME, PHONE_NUMBER, USER_NAME} from '../../constants/Labels';
 import {PROFILE_ICON} from '../../assets';
+import {AuthenticationButton} from '../../components/Authenticationbutton';
+import {useNavigation} from '@react-navigation/native';
+import {UPDATE_PROFILE_SCREEN} from '../../constants/Screen';
 
 export const ProfileDetail = () => {
   const {user} = useContext(Context);
+  const navigation = useNavigation();
 
   return (
     <SafeArea go_back={true} text={MY_PROFILE}>
@@ -28,6 +32,11 @@ export const ProfileDetail = () => {
         <ContactInfo title={EMAIL_ID} information={user.Email} />
         <ContactInfo title={PHONE_NUMBER} information={user.Phone} />
       </View>
+      <AuthenticationButton
+        text={'Update Profile'}
+        customstyles={{marginTop: 20}}
+        onPress={() => navigation.navigate(UPDATE_PROFILE_SCREEN)}
+      />
     </SafeArea>
   );
 };

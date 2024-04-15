@@ -12,3 +12,4 @@ export const LOGIN_SCREEN = 'Login';
 export const COINS_BALANCE_AND_RECHARGE = 'CoinBalanceAndRecharge';
 export const FILTER_SCREEN = 'Filter';
 export const FILTER_REQUEST_SCREEN = 'FilterRequests';
+export const UPDATE_PROFILE_SCREEN = 'UpdateProfile';

@@ -15,12 +15,14 @@ import {
   MY_UPLOAD_SCREEN,
   PROFILE_DETAIL,
   SNEAKER_DETAIL,
+  UPDATE_PROFILE_SCREEN,
 } from '../../constants/Screen';
 import {Coinbalanceandrecharge} from '../../screens/coinbalanceandrecharge';
 import {Filter} from '../../screens/filter';
 import {MyUploads} from '../../screens/myuploads';
 import {MyRequests} from '../../screens/myrequests';
 import {FilterRequests} from '../../screens/filterrequest/filterrequest';
+import {UpdateProfile} from '../../screens/updateprofile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -66,6 +68,7 @@ export const ActionScreens = () => (
       <Stack.Screen name={MY_REQUEST_SCREEN} component={MyRequests} />
       <Stack.Screen name={FILTER_SCREEN} component={Filter} />
       <Stack.Screen name={FILTER_REQUEST_SCREEN} component={FilterRequests} />
+      <Stack.Screen name={UPDATE_PROFILE_SCREEN} component={UpdateProfile} />
     </Stack.Navigator>
   </NavigationContainer>
 );
