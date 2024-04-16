@@ -23,19 +23,14 @@ export const Home = () => {
     setRefreshing,
     count,
     setCount,
-    page,
-    setPage,
     searchQuery,
     setSearchQuery,
   } = useContext(SneakerContext);
 
-  const getSneakers = ({paginated = false}) =>
+  const getSneakers = () =>
     getSneakersOrSneakerRequests({
       setLoading,
-      page,
       setValue: setSneakers,
-      value: sneakers,
-      paginated: paginated,
       searchQuery,
       selectedBrands,
       selectedGenders,
@@ -45,14 +40,13 @@ export const Home = () => {
 
   const handleRefresh = () => {
     setRefreshing(true);
-    setPage(1);
     setSneakers([]);
-    getSneakers({paginated: false});
+    getSneakers();
     setRefreshing(false);
   };
 
   useEffect(() => {
-    getSneakers({paginated: false});
+    getSneakers();
   }, [count]);
 
   const handleSneakerPress = sneaker => {
@@ -76,7 +70,6 @@ export const Home = () => {
         sneakers={sneakers}
         handleRefresh={handleRefresh}
         handleSneakerPress={handleSneakerPress}
-        setPage={setPage}
         refreshing={refreshing}
       />
     </SafeArea>

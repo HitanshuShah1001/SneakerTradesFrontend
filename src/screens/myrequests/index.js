@@ -14,7 +14,6 @@ import {Search} from '../../components/Search';
 export const MyRequests = () => {
   const navigation = useNavigation();
   const {setLoading} = useContext(Context);
-  const [page, setPage] = useState(1);
   const [sneakers, setSneakers] = useState([]);
   const [sneakersRequestsUsed, setSneakersRequestUsed] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -35,7 +34,6 @@ export const MyRequests = () => {
 
   const handleRefresh = () => {
     setRefreshing(true);
-    setPage(1);
     setSneakers([]);
     getSneakers();
     setRefreshing(false);
@@ -43,7 +41,7 @@ export const MyRequests = () => {
 
   useEffect(() => {
     getSneakers();
-  }, [page]);
+  }, []);
 
   const filterSneakerRequest = () => {
     console.log(searchQuery);
@@ -57,10 +55,6 @@ export const MyRequests = () => {
   useEffect(() => {
     filterSneakerRequest();
   }, [count]);
-
-  const handleSneakerPress = sneaker => {
-    navigation.navigate(SNEAKER_DETAIL, {sneaker});
-  };
 
   const Calltochangecount = debounce(() => setCount(!count), 500);
 
@@ -78,8 +72,6 @@ export const MyRequests = () => {
       <ItemRendererSneakerRequests
         sneakers={sneakersRequestsUsed}
         handleRefresh={handleRefresh}
-        handleSneakerPress={handleSneakerPress}
-        setPage={setPage}
         refreshing={refreshing}
       />
     </SafeArea>

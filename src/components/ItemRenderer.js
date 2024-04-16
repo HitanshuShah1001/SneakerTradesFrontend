@@ -5,7 +5,6 @@ import {EmptyView} from './EmptyView';
 export const ItemRendererSneakers = ({
   sneakers,
   handleSneakerPress,
-  setPage,
   refreshing,
   handleRefresh,
 }) => {
@@ -20,7 +19,7 @@ export const ItemRendererSneakers = ({
                 key={sneaker?.Name}
                 name={sneaker?.Name}
                 brand={sneaker?.Brand}
-                price={100}
+                price={sneaker?.Price}
                 source={sneaker?.Photos[0]}
                 type={sneaker?.Type}
                 onPress={() => handleSneakerPress(sneaker)}

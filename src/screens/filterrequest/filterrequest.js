@@ -106,10 +106,6 @@ export const FilterRequests = () => {
           Brand: selectedBrands,
           Size: selectedSizes,
         },
-        pagination: {
-          limit: 10,
-          page: 1,
-        },
       },
       {
         Authorization: `Bearer ${token}`,

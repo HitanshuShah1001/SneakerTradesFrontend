@@ -1,6 +1,4 @@
 import React, {useContext, useEffect} from 'react';
-import {apiService} from '../../services/apiService';
-import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {SearchAndFilter} from '../../components/SearchAndFilter';
@@ -22,36 +20,30 @@ export const Requests = () => {
     setRefreshing,
     count,
     setCount,
-    page,
-    setPage,
     searchQuery,
     setSearchQuery,
   } = useContext(SneakerRequestContext);
 
   const handleRefresh = () => {
     setRefreshing(true);
-    setPage(1);
     setSneakerRequests([]);
-    getSneakerRequests({paginated: false});
+    getSneakerRequests();
     setRefreshing(false);
   };
 
-  const getSneakerRequests = ({paginated = false}) =>
+  const getSneakerRequests = () =>
     getSneakersOrSneakerRequests({
       setLoading,
-      page,
       setValue: setSneakerRequests,
-      value: sneakerrequests,
       searchQuery,
       selectedBrands,
       selectedGenders,
       selectedSizes,
       apicall: GET_SNEAKER_REQUESTS,
-      paginated,
     });
 
   useEffect(() => {
-    getSneakerRequests({paginated: false});
+    getSneakerRequests();
   }, [count]);
 
   const Calltochangecount = debounce(() => setCount(!count), 500);
@@ -70,7 +62,6 @@ export const Requests = () => {
       />
       <ItemRendererSneakerRequests
         sneakers={sneakerrequests}
-        setPage={setPage}
         refreshing={refreshing}
         handleRefresh={handleRefresh}
       />

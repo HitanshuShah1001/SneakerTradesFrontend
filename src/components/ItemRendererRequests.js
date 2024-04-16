@@ -2,8 +2,6 @@ import {FlatList, RefreshControl} from 'react-native';
 import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
 import {useNavigation} from '@react-navigation/native';
-import {Context} from '../navigation/BottomTab';
-import {useContext} from 'react';
 
 export const ItemRendererSneakerRequests = ({
   sneakers,
@@ -29,7 +27,6 @@ export const ItemRendererSneakerRequests = ({
               }
             />
           )}
-          onEndReachedThreshold={0.01}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
