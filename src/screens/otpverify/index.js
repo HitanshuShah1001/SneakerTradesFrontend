@@ -20,7 +20,8 @@ export const OTPverify = props => {
   const navigateToHome = async () => {
     if (cameFromSignUp) {
       setLoading(true);
-      const {Username, Name, Phone, Email, ProfilePhoto} = userDataForSignUp;
+      const {Username, Name, Phone, Email, ProfilePhoto, Gender} =
+        userDataForSignUp;
       const formData = new FormData();
       formData.append('Username', Username);
       formData.append('Name', Name);
@@ -31,6 +32,7 @@ export const OTPverify = props => {
         type: ProfilePhoto.type,
         name: ProfilePhoto.fileName,
       });
+      formData.append('Gender', Gender);
       const response = await apiService.postformdata(SIGN_UP_CALL, formData);
       setUser(response.user);
       await Promise.allSettled([

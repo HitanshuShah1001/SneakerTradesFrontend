@@ -44,7 +44,6 @@ export const MyRequests = () => {
   }, []);
 
   const filterSneakerRequest = () => {
-    console.log(searchQuery);
     let filteredSneakerRequests = sneakers.filter(
       sneaker =>
         sneaker.Brand.includes(searchQuery) ||

@@ -20,12 +20,12 @@ import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
 import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
-import {openImagePickerForProfilePhoto} from '../../components/CameraPicker';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
+
 export const SignUp = () => {
   const {setLoading} = useContext(Context);
   const navigation = useNavigation();
-  const [value, setValue] = useState(null);
+  const [gender, setGender] = useState(null);
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [emailId, setEmailId] = useState('');
@@ -33,7 +33,7 @@ export const SignUp = () => {
   const [profilephoto, setProfilePhoto] = useState(PROFILE_PHOTO_PLACEHOLDER);
 
   const registerUser = async () => {
-    if (!username || !name || !emailId || !phone || !value) {
+    if (!username || !name || !emailId || !phone || !gender) {
       return Alert.alert(FILL_DETAILS);
     }
     setLoading(true);
@@ -43,6 +43,7 @@ export const SignUp = () => {
       Email: emailId,
       Phone: phone,
       ProfilePhoto: profilephoto,
+      Gender: gender,
     };
     setLoading(false);
     navigation.navigate(OTP_VERIFY, {userDataForSignUp, cameFromSignUp: true});
@@ -88,8 +89,8 @@ export const SignUp = () => {
           setCustVal={setPhone}
         />
         <DropdownComponent
-          value={value}
-          setValue={setValue}
+          gender={gender}
+          setGender={setGender}
           data={GENDER_ROLES}
           placeholder={SELECT_GENDER}
         />
