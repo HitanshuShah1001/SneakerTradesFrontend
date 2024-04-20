@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {Context} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
 import {Image, View} from 'react-native';
@@ -14,6 +14,9 @@ export const ProfileDetail = () => {
   const {user} = useContext(Context);
   const navigation = useNavigation();
 
+  useEffect(() => {
+    console.log(user);
+  }, []);
   return (
     <SafeArea go_back={true} text={MY_PROFILE}>
       {user.ProfilePhoto !== '' ? (

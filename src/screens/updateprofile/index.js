@@ -11,7 +11,7 @@ import {
 } from '../../constants/Labels';
 import {UPDATE_PROFILE} from '../../constants/Buttontitles';
 import DropdownComponent from '../../components/Dropdown';
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
@@ -19,6 +19,7 @@ import {PROFILE_ICON} from '../../assets';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {UPDATE_PROFILE_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
+import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const UpdateProfile = () => {
   const {user, setUser} = useContext(Context);
@@ -40,7 +41,7 @@ export const UpdateProfile = () => {
     formData.append('Name', name);
     formData.append('Email', emailId);
     formData.append('Phone', phone);
-    if (profilephoto !== user?.ProfilePhoto) {
+    if (profilephoto?.uri != undefined) {
       formData.append('ProfilePhoto', {
         uri: profilephoto.uri,
         type: profilephoto.type,
@@ -54,9 +55,7 @@ export const UpdateProfile = () => {
       UPDATE_PROFILE_CALL,
       formData,
     );
-    console.log(response, 'repsone');
-    setUser(response.user);
-    setLoading(false);
+    StoreUserInLocalStorage({userData: response}), setLoading(false);
   };
 
   const handleImagePickerPress = () => {
