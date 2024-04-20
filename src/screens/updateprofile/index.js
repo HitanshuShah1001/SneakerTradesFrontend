@@ -17,11 +17,11 @@ import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
 import {PROFILE_ICON} from '../../assets';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
-import {UPDATE_PROFILE} from '../../constants/Apicall';
+import {UPDATE_PROFILE_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
 
 export const UpdateProfile = () => {
-  const {user} = useContext(Context);
+  const {user, setUser} = useContext(Context);
   const {setLoading} = useContext(Context);
   const [gender, setGender] = useState(user?.Gender || null);
   const [username, setUsername] = useState(user.Username);
@@ -30,7 +30,7 @@ export const UpdateProfile = () => {
   const [phone, setPhone] = useState(user.Phone);
   const [profilephoto, setProfilePhoto] = useState(user?.ProfilePhoto);
 
-  const registerUser = async () => {
+  const updateUserDetails = async () => {
     if (!username || !name || !emailId || !phone || !gender) {
       return Alert.alert(FILL_DETAILS);
     }
@@ -50,7 +50,11 @@ export const UpdateProfile = () => {
       formData.append('ProfilePhoto', profilephoto);
     }
     formData.append('Gender', gender);
-    const response = await apiService.postformdata(UPDATE_PROFILE, formData);
+    const response = await apiService.patchformdata(
+      UPDATE_PROFILE_CALL,
+      formData,
+    );
+    console.log(response, 'repsone');
     setUser(response.user);
     setLoading(false);
   };
@@ -58,12 +62,18 @@ export const UpdateProfile = () => {
   const handleImagePickerPress = () => {
     askForSourceDuringSignUp({setProfilePhoto});
   };
+
   return (
     <SafeArea go_back={true}>
       <View style={{flex: 0.9, alignItems: 'center'}}>
         <Pressable onPress={handleImagePickerPress}>
-          {user.ProfilePhoto !== '' ? (
-            <Image source={{uri: user.ProfilePhoto}} style={styles.image} />
+          {user.ProfilePhoto != '' || profilephoto.image !== undefined ? (
+            <Image
+              source={{
+                uri: user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image,
+              }}
+              style={styles.image}
+            />
           ) : (
             <Image
               source={PROFILE_ICON}
@@ -89,15 +99,15 @@ export const UpdateProfile = () => {
           setCustVal={setPhone}
         />
         <DropdownComponent
-          gender={gender}
-          setGender={setGender}
+          value={gender}
+          setValue={setGender}
           data={GENDER_ROLES}
           placeholder={SELECT_GENDER}
         />
       </View>
       <AuthenticationButton
         text={UPDATE_PROFILE}
-        onPress={() => registerUser()}
+        onPress={() => updateUserDetails()}
       />
     </SafeArea>
   );

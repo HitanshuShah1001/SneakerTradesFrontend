@@ -4,10 +4,14 @@ import {
   BASE_URL,
   GET,
   HEADERS,
+  PATCH,
   POST,
   PUT,
 } from '../constants/ApiParams';
-import {RemoveTokenFromLocalStorage} from '../utils/GetDeleteStoreTokenInLocalStorage';
+import {
+  RemoveTokenFromLocalStorage,
+  RetrieveTokenFromLocalStorage,
+} from '../utils/GetDeleteStoreTokenInLocalStorage';
 import {RemoveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const responseHandler = async apiresponse => {
@@ -60,6 +64,23 @@ export const apiService = {
         body,
         headers: {
           ...headers,
+        },
+      });
+      const apiresponse = await response.json();
+      return responseHandler(apiresponse);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  patchformdata: async (endpoint, body, headers = {}) => {
+    try {
+      const token = await RetrieveTokenFromLocalStorage();
+      const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        method: PATCH,
+        body,
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${token}`,
         },
       });
       const apiresponse = await response.json();
