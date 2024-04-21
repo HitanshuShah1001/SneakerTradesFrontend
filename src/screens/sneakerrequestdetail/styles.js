@@ -3,19 +3,18 @@ export const styles = {
     width: '90%',
     alignSelf: 'center',
     flex: 1,
-    justifyContent: 'space-around',
   },
   mainImage: {
-    height: '30%',
+    height: '70%',
     width: '100%',
     marginTop: 10,
     borderRadius: 12,
-    resizeMode: 'contain',
   },
   thumbnailContainer: {
     flexDirection: 'row',
     marginTop: 15,
     flexWrap: 'wrap',
+    flex: 1,
   },
   thumbnailImage: {
     height: 60,

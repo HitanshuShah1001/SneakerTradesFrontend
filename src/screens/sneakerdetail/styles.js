@@ -3,10 +3,9 @@ export const styles = {
     width: '90%',
     alignSelf: 'center',
     flex: 1,
-    justifyContent: 'space-around',
   },
   mainImage: {
-    height: '30%',
+    height: '70%',
     width: '100%',
     marginTop: 10,
     borderRadius: 12,
@@ -21,4 +20,6 @@ export const styles = {
     width: 60,
     resizeMode: 'contain',
   },
+  detailsContainer: {flex: 1, paddingVertical: 10},
+  imagecontainer: {flex: 1, paddingTop: 10},
 };

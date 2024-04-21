@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {Image, Pressable, View, SafeAreaView} from 'react-native';
 import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
 import {styles} from './styles';
@@ -19,22 +19,32 @@ export const SneakerDetail = props => {
     setSelectedSneakerImage(photo);
   };
 
-  return (
-    <SafeAreaView style={{flex: 1}}>
-      {loading && <LoadingIndicator />}
-      <Header go_back={true} />
-      <View style={styles.container}>
-        <Image source={{uri: selectedSneakerImage}} style={styles.mainImage} />
+  const ImageContainer = useCallback(
+    () => (
+      <View style={styles.imagecontainer}>
+        <Image
+          source={{uri: selectedSneakerImage}}
+          style={styles.mainImage}
+          resizeMode="contain"
+        />
         <View style={styles.thumbnailContainer}>
           {sneaker.Photos.map((photo, index) => (
             <Pressable
               key={index}
               onPress={() => handleImagePress(photo)}
-              style={{marginLeft: 8}}>
+              style={{marginRight: 8}}>
               <Image source={{uri: photo}} style={styles.thumbnailImage} />
             </Pressable>
           ))}
         </View>
+      </View>
+    ),
+    [selectedSneakerImage],
+  );
+
+  const DetailsContainer = useCallback(() => {
+    return (
+      <View style={styles.detailsContainer}>
         <Sneakerdetailstext
           Name={sneaker.Name}
           Brand={sneaker.Brand}
@@ -47,6 +57,17 @@ export const SneakerDetail = props => {
           Phone={sneaker.OwnerDetails.Phone}
           Email={sneaker.OwnerDetails.Email}
         />
+      </View>
+    );
+  }, []);
+
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      {loading && <LoadingIndicator />}
+      <Header go_back={true} />
+      <View style={styles.container}>
+        <ImageContainer />
+        <DetailsContainer />
       </View>
     </SafeAreaView>
   );
