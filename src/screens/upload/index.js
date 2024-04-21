@@ -93,9 +93,7 @@ export const Upload = () => {
     }
     let token = await RetrieveTokenFromLocalStorage();
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
-    const response = await apiService.postformdata(Apicall, uploadDetails, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiService.postformdata(Apicall, uploadDetails);
     setLoading(false);
     if (response) {
       ResetFields({

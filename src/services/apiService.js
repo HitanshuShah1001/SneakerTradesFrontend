@@ -2,6 +2,7 @@ import {Alert} from 'react-native';
 import {
   APPLICATION_JSON,
   BASE_URL,
+  DELETE,
   GET,
   HEADERS,
   PATCH,
@@ -14,120 +15,124 @@ import {
 } from '../utils/GetDeleteStoreTokenInLocalStorage';
 import {RemoveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
-export const responseHandler = async apiresponse => {
-  const {status, Data} = apiresponse || {};
-  if (status === 'Fail') {
-    if (Data?.message == 'jwt expired') {
-      return await Promise.allSettled([
-        RemoveTokenFromLocalStorage(),
-        RemoveUserFromLocalStorage(),
-      ]);
+class ApiService {
+  async responseHandler(apiresponse) {
+    const {status, Data} = apiresponse || {};
+    if (status === 'Fail') {
+      if (Data?.message === 'jwt expired') {
+        return await Promise.allSettled([
+          RemoveTokenFromLocalStorage(),
+          RemoveUserFromLocalStorage(),
+        ]);
+      } else {
+        Alert.alert(Data);
+      }
     } else {
-      Alert.alert(Data);
+      return Data;
     }
-  } else {
-    return Data;
   }
-};
-export const apiService = {
-  get: async (endpoint, headers = {}, body) => {
+
+  async get(endpoint) {
     try {
+      const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: GET,
-        headers: HEADERS(headers),
-        body: JSON.stringify(body),
+        headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return responseHandler(apiresponse);
+      return this.responseHandler(apiresponse);
     } catch (error) {
       console.log(error);
     }
-  },
-  post: async (endpoint, body, headers = {}) => {
+  }
+
+  async post(endpoint, body, headers = {}) {
     try {
+      const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: POST,
         body: JSON.stringify(body),
-        headers: HEADERS(headers),
+        headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return responseHandler(apiresponse);
+      return this.responseHandler(apiresponse);
     } catch (error) {
       console.log(error, 'error');
       throw new Error(error.message);
     }
-  },
-  postformdata: async (endpoint, body, headers = {}) => {
+  }
+
+  async postformdata(endpoint, body) {
     try {
+      const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: POST,
         body,
-        headers: {
-          ...headers,
-        },
+        headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
       return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
-  },
-  patchformdata: async (endpoint, body, headers = {}) => {
+  }
+  async patchformdata(endpoint, body, headers = {}) {
     try {
       const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: PATCH,
         body,
-        headers: {
-          ...headers,
-          Authorization: `Bearer ${token}`,
-        },
+        headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
       return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
-  },
-  put: async (endpoint, body, headers = {}) => {
+  }
+  async put(endpoint, body) {
     try {
+      const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: PUT,
         body: JSON.stringify(body),
-        headers: HEADERS(headers),
+        headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
       return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
-  },
-  patchWithoutBody: async (token, endpoint, headers = {}) => {
+  }
+  async patchWithoutBody(endpoint) {
     try {
+      const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': APPLICATION_JSON,
-        },
+        method: PATCH,
+        headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
-
       const apiresponse = await response.json();
       return responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error);
     }
-  },
-  delete: async (endpoint, headers = {}) => {
+  }
+  async delete(endpoint, headers = {}) {
     try {
+      const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
-        method: 'DELETE',
-        headers: HEADERS(headers),
+        method: DELETE,
+        headers: {...HEADERS(headers), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
       return responseHandler(apiresponse);
     } catch (error) {
+      console.log(error, 'error orecievd');
       throw new Error(error.message);
     }
-  },
-};
+  }
+
+  // Other methods like postformdata, patchformdata, put, patchWithoutBody, delete
+}
+
+export const apiService = new ApiService();

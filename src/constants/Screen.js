@@ -3,6 +3,7 @@ export const REQUESTS = 'Requests';
 export const UPLOAD = 'Upload';
 export const PROFILE = 'Profile';
 export const SNEAKER_DETAIL = 'SneakerDetail';
+export const SNEAKER_UPLOADED_DETAIL = 'UploadedSneakerDetail';
 export const OTP_VERIFY = 'OtpVerify';
 export const PROFILE_DETAIL = 'ProfileDetail';
 export const MY_UPLOAD_SCREEN = 'MyUploads';

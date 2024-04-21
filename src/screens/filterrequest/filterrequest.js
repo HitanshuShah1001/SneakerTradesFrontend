@@ -97,20 +97,14 @@ export const FilterRequests = () => {
   const ApplyFilter = async () => {
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.post(
-      GET_SNEAKER_REQUESTS,
-      {
-        searchQuery,
-        filters: {
-          Gender: selectedGenders,
-          Brand: selectedBrands,
-          Size: selectedSizes,
-        },
+    const response = await apiService.post(GET_SNEAKER_REQUESTS, {
+      searchQuery,
+      filters: {
+        Gender: selectedGenders,
+        Brand: selectedBrands,
+        Size: selectedSizes,
       },
-      {
-        Authorization: `Bearer ${token}`,
-      },
-    );
+    });
     setSneakerRequests(response.data);
     navigation.navigate(REQUESTS);
     setLoading(false);

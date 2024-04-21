@@ -23,9 +23,7 @@ export const MyRequests = () => {
   const getSneakers = async () => {
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.get(GET_SNEAKER_REQUESTS_CREATED, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiService.get(GET_SNEAKER_REQUESTS_CREATED);
     const sneakerRequestData = response?.data || [];
     setSneakers(sneakerRequestData);
     setSneakersRequestUsed(sneakerRequestData);

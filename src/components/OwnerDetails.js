@@ -15,7 +15,7 @@ export const OwnerDetails = ({Name, Email, Phone}) => {
 const styles = {
   detailsContainer: {
     alignItems: 'flex-start',
-    marginTop: 15,
+    marginVertical: 20,
   },
   name: {
     fontSize: 20,

@@ -12,20 +12,14 @@ export const getSneakersOrSneakerRequests = async ({
 }) => {
   setLoading(true);
   let token = await RetrieveTokenFromLocalStorage();
-  const response = await apiService.post(
-    apicall,
-    {
-      searchQuery,
-      filters: {
-        Gender: selectedGenders,
-        Brand: selectedBrands,
-        Size: selectedSizes,
-      },
+  const response = await apiService.post(apicall, {
+    searchQuery,
+    filters: {
+      Gender: selectedGenders,
+      Brand: selectedBrands,
+      Size: selectedSizes,
     },
-    {
-      Authorization: `Bearer ${token}`,
-    },
-  );
+  });
   setValue(response.data);
   setLoading(false);
 };

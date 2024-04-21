@@ -4,7 +4,7 @@ import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
-import {SNEAKER_DETAIL} from '../../constants/Screen';
+import {SNEAKER_UPLOADED_DETAIL} from '../../constants/Screen';
 import {debounce} from '../../utils/debounce';
 import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {GET_SNEAKERS_OWNED} from '../../constants/Apicall';
@@ -23,9 +23,7 @@ export const MyUploads = () => {
   const getUploadedSneakers = async () => {
     setLoading(true);
     let token = await RetrieveTokenFromLocalStorage();
-    const response = await apiService.get(GET_SNEAKERS_OWNED, {
-      Authorization: `Bearer ${token}`,
-    });
+    const response = await apiService.get(GET_SNEAKERS_OWNED);
     const sneakers = response?.data || [];
     setSneakers(sneakers);
     setSneakerUploadedUsed(sneakers);
@@ -45,7 +43,7 @@ export const MyUploads = () => {
   }, []);
 
   const handleSneakerPress = sneaker => {
-    navigation.navigate(SNEAKER_DETAIL, {sneaker});
+    navigation.navigate(SNEAKER_UPLOADED_DETAIL, {sneaker});
   };
 
   const Calltochangecount = debounce(() => setCount(!count), 500);

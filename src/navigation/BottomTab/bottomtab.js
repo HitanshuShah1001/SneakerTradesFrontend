@@ -15,6 +15,7 @@ import {
   MY_UPLOAD_SCREEN,
   PROFILE_DETAIL,
   SNEAKER_DETAIL,
+  SNEAKER_UPLOADED_DETAIL,
   UPDATE_PROFILE_SCREEN,
 } from '../../constants/Screen';
 import {Coinbalanceandrecharge} from '../../screens/coinbalanceandrecharge';
@@ -23,6 +24,7 @@ import {MyUploads} from '../../screens/myuploads';
 import {MyRequests} from '../../screens/myrequests';
 import {FilterRequests} from '../../screens/filterrequest/filterrequest';
 import {UpdateProfile} from '../../screens/updateprofile';
+import {MyUploadSneakerDetail} from '../../screens/myuploadsneakerdetail';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -36,7 +38,7 @@ function MyTabs() {
           name={name}
           component={component}
           options={{
-            tabBarIcon: ({color, focused}) =>
+            tabBarIcon: ({focused}) =>
               focused ? (
                 <Tabbaricon source={fo_icon} />
               ) : (
@@ -55,6 +57,10 @@ export const ActionScreens = () => (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="MainTabs" component={MyTabs} />
       <Stack.Screen name={SNEAKER_DETAIL} component={SneakerDetail} />
+      <Stack.Screen
+        name={SNEAKER_UPLOADED_DETAIL}
+        component={MyUploadSneakerDetail}
+      />
       <Stack.Screen
         name={'SneakerRequestDetail'}
         component={SneakerRequestDetail}
