@@ -76,7 +76,7 @@ export const Upload = () => {
       uploadDetails.append('Location', 2.22);
       uploadDetails.append('Price', Price);
       Photos.forEach(photo => {
-        if (photo.uri !== '') {
+        if (photo.uri) {
           uploadDetails.append('Photos', {
             uri: photo.uri,
             type: photo.type,
@@ -91,7 +91,6 @@ export const Upload = () => {
         name: Photos[0].fileName,
       });
     }
-
     let token = await RetrieveTokenFromLocalStorage();
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
     const response = await apiService.postformdata(Apicall, uploadDetails, {
