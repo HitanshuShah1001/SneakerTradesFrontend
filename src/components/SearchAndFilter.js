@@ -18,9 +18,11 @@ export const SearchAndFilter = ({
         value={searchQuery}
         style={styles.container}
         icon={() => <Image source={SEARCH_ICON} />}
-        clearIcon={() => (
-          <Image source={SEARCH_CLEAR} style={{height: 18, width: 18}} />
-        )}
+        clearIcon={() =>
+          searchQuery ? (
+            <Image source={SEARCH_CLEAR} style={{height: 18, width: 18}} />
+          ) : null
+        }
       />
       <Pressable
         style={styles.pressable}
