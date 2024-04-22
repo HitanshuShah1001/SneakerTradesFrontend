@@ -5,6 +5,7 @@ import {styles} from './styles';
 import {ActionChip} from '../../components/ActionChip';
 import {Header} from '../../components/Header';
 import {OwnerDetails} from '../../components/OwnerDetails';
+import {ViewWrapper} from '../../components/ViewWrapper';
 
 export const SneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -13,14 +14,14 @@ export const SneakerRequestDetail = props => {
     <SafeAreaView style={{flex: 1}}>
       <Header go_back={true} />
       <View style={styles.container}>
-        <View style={{flex: 1}}>
+        <ViewWrapper>
           <Image
             source={{uri: sneaker?.Photo ?? ''}}
             style={styles.mainImage}
             resizeMode="contain"
           />
-        </View>
-        <View style={{flex: 1}}>
+        </ViewWrapper>
+        <ViewWrapper>
           <Sneakerdetailstext
             Name={sneaker.Name}
             Brand={sneaker.Brand}
@@ -33,7 +34,7 @@ export const SneakerRequestDetail = props => {
             Phone={sneaker.RequestorDetails.Phone}
             Email={sneaker.RequestorDetails.Email}
           />
-        </View>
+        </ViewWrapper>
       </View>
     </SafeAreaView>
   );

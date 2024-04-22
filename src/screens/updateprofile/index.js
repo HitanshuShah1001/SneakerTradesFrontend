@@ -11,7 +11,7 @@ import {
 } from '../../constants/Labels';
 import {UPDATE_PROFILE} from '../../constants/Buttontitles';
 import DropdownComponent from '../../components/Dropdown';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useState} from 'react';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
@@ -22,7 +22,7 @@ import {apiService} from '../../services/apiService';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const UpdateProfile = () => {
-  const {user, setUser} = useContext(Context);
+  const {user} = useContext(Context);
   const {setLoading} = useContext(Context);
   const [gender, setGender] = useState(user?.Gender || null);
   const [username, setUsername] = useState(user.Username);

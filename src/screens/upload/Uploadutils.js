@@ -2,6 +2,7 @@ import {Alert, View} from 'react-native';
 import {UPLOAD} from '../../constants/Choices';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {IMAGE_PLACEHOLDERS} from '../../constants/Labels';
+import {styles} from './styles';
 
 const isAnyFieldEmpty = fields => {
   for (let field of fields) {
@@ -43,7 +44,7 @@ export const ResetFields = ({
 };
 
 export const UploadSneakerButton = ({onPress}) => (
-  <View style={{width: '100%', marginTop: 10}}>
+  <View style={styles.uploadbutton}>
     <AuthenticationButton text={UPLOAD} onPress={onPress} />
   </View>
 );

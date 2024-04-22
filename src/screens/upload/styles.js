@@ -58,4 +58,7 @@ export const styles = {
     resizeMode: 'contain',
   },
   selectedimage: {height: '100%', width: '100%', borderRadius: 12},
+  imageselectorwrapper: {width: '30%', alignItems: 'center'},
+  cancel_icon: {height: 10, width: 10},
+  uploadbutton: {width: '100%', marginTop: 10},
 };

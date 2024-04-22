@@ -11,7 +11,6 @@ import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 import {Search} from '../../components/Search';
 
 export const MyRequests = () => {
-  const navigation = useNavigation();
   const {setLoading} = useContext(Context);
   const [sneakers, setSneakers] = useState([]);
   const [sneakersRequestsUsed, setSneakersRequestUsed] = useState([]);

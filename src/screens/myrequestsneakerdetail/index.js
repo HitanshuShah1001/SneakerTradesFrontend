@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {DELETE_SNEAKER_REQUEST_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
 import {Context} from '../../navigation/BottomTab';
+import {ViewWrapper} from '../../components/ViewWrapper';
 
 export const MySneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -28,14 +29,14 @@ export const MySneakerRequestDetail = props => {
     <SafeAreaView style={{flex: 1}}>
       <Header go_back={true} />
       <View style={styles.container}>
-        <View style={{flex: 1}}>
+        <ViewWrapper>
           <Image
             source={{uri: sneaker?.Photo ?? ''}}
             style={styles.mainImage}
             resizeMode="contain"
           />
-        </View>
-        <View style={{flex: 1}}>
+        </ViewWrapper>
+        <ViewWrapper>
           <Sneakerdetailstext
             Name={sneaker.Name}
             Brand={sneaker.Brand}
@@ -52,7 +53,7 @@ export const MySneakerRequestDetail = props => {
             text={'DELETE'}
             onPress={() => deleteSneaker()}
           />
-        </View>
+        </ViewWrapper>
       </View>
     </SafeAreaView>
   );
