@@ -4,7 +4,6 @@ import {apiService} from '../../services/apiService';
 import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
-import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {debounce} from '../../utils/debounce';
 import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';

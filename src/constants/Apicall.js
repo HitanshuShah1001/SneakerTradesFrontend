@@ -8,3 +8,4 @@ export const GET_SNEAKER_REQUESTS = `sneakerrequests/requests`;
 export const GET_SNEAKERS_OWNED = `sneaker/getsneakersowned`;
 export const GET_SNEAKER_REQUESTS_CREATED = `sneakerrequests/requestscreated`;
 export const DELETE_SNEAKER_CALL = id => `sneaker/delete/${id}`;
+export const DELETE_SNEAKER_REQUEST_CALL = id => `sneakerrequests/delete/${id}`;
