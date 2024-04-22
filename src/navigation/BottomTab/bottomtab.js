@@ -11,10 +11,13 @@ import {
   COINS_BALANCE_AND_RECHARGE,
   FILTER_REQUEST_SCREEN,
   FILTER_SCREEN,
+  MAIN_TABS,
   MY_REQUEST_SCREEN,
   MY_UPLOAD_SCREEN,
   PROFILE_DETAIL,
   SNEAKER_DETAIL,
+  SNEAKER_REQUEST_DETAIL,
+  SNEAKER_REQUEST_UPLOADED_DETAIL,
   SNEAKER_UPLOADED_DETAIL,
   UPDATE_PROFILE_SCREEN,
 } from '../../constants/Screen';
@@ -25,6 +28,7 @@ import {MyRequests} from '../../screens/myrequests';
 import {FilterRequests} from '../../screens/filterrequest/filterrequest';
 import {UpdateProfile} from '../../screens/updateprofile';
 import {MyUploadSneakerDetail} from '../../screens/myuploadsneakerdetail';
+import {MySneakerRequestDetail} from '../../screens/myrequestsneakerdetail';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -55,14 +59,18 @@ function MyTabs() {
 export const ActionScreens = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="MainTabs" component={MyTabs} />
+      <Stack.Screen name={MAIN_TABS} component={MyTabs} />
       <Stack.Screen name={SNEAKER_DETAIL} component={SneakerDetail} />
       <Stack.Screen
         name={SNEAKER_UPLOADED_DETAIL}
         component={MyUploadSneakerDetail}
       />
       <Stack.Screen
-        name={'SneakerRequestDetail'}
+        name={SNEAKER_REQUEST_UPLOADED_DETAIL}
+        component={MySneakerRequestDetail}
+      />
+      <Stack.Screen
+        name={SNEAKER_REQUEST_DETAIL}
         component={SneakerRequestDetail}
       />
       <Stack.Screen name={PROFILE_DETAIL} component={ProfileDetail} />

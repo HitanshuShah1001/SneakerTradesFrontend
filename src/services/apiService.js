@@ -71,7 +71,7 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return responseHandler(apiresponse);
+      return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -85,7 +85,7 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return responseHandler(apiresponse);
+      return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -99,7 +99,7 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return responseHandler(apiresponse);
+      return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -112,7 +112,7 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return responseHandler(apiresponse);
+      return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error);
     }
@@ -125,7 +125,7 @@ class ApiService {
         headers: {...HEADERS(headers), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return responseHandler(apiresponse);
+      return this.responseHandler(apiresponse);
     } catch (error) {
       console.log(error, 'error orecievd');
       throw new Error(error.message);

@@ -13,6 +13,7 @@ import {DELETE_SNEAKER_CALL, LOGIN_CALL} from '../../constants/Apicall';
 
 export const MyUploadSneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
+  const {setLoading} = useContext(Context);
   const [selectedSneakerImage, setSelectedSneakerImage] = useState(
     sneaker.Photos[0],
   );
@@ -23,8 +24,9 @@ export const MyUploadSneakerDetail = props => {
   };
 
   const deleteSneaker = async () => {
+    setLoading(true);
     const response = await apiService.delete(DELETE_SNEAKER_CALL(sneaker?._id));
-    console.log(response, 'resposone received from my upload sneaker detail');
+    setLoading(false);
   };
 
   const ImageContainer = useCallback(
