@@ -1,22 +1,19 @@
 import {useContext, useEffect} from 'react';
 import {Context} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
-import {Image, View} from 'react-native';
-import {ContactInfo} from '../../components/ContactInfo';
+import {Image} from 'react-native';
 import {MY_PROFILE} from '../../constants/Buttontitles';
-import {EMAIL_ID, NAME, PHONE_NUMBER, USER_NAME} from '../../constants/Labels';
 import {PROFILE_ICON} from '../../assets';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {useNavigation} from '@react-navigation/native';
 import {UPDATE_PROFILE_SCREEN} from '../../constants/Screen';
+import {styles} from './styles';
+import {ContactInfoWrapper} from './ContactInfo';
 
 export const ProfileDetail = () => {
   const {user} = useContext(Context);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
   return (
     <SafeArea go_back={true} text={MY_PROFILE}>
       {user.ProfilePhoto !== '' ? (
@@ -28,13 +25,7 @@ export const ProfileDetail = () => {
           resizeMode="contain"
         />
       )}
-
-      <View style={styles.contactcontainer}>
-        <ContactInfo title={USER_NAME} information={user.Username} />
-        <ContactInfo title={NAME} information={user.Name} />
-        <ContactInfo title={EMAIL_ID} information={user.Email} />
-        <ContactInfo title={PHONE_NUMBER} information={user.Phone} />
-      </View>
+      <ContactInfoWrapper user={user} />
       <AuthenticationButton
         text={'Update Profile'}
         customstyles={{marginTop: 20}}
@@ -42,22 +33,4 @@ export const ProfileDetail = () => {
       />
     </SafeArea>
   );
-};
-
-const styles = {
-  image: {
-    height: '30%',
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: 12,
-    borderRadius: 12,
-  },
-  placeholder_image: {
-    height: '20%',
-    width: '80%',
-    alignSelf: 'center',
-    marginTop: 12,
-    borderRadius: 12,
-  },
-  contactcontainer: {width: '90%', alignSelf: 'center', marginTop: 20},
 };

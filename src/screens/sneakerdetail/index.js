@@ -7,6 +7,7 @@ import {Header} from '../../components/Header';
 import {OwnerDetails} from '../../components/OwnerDetails';
 import {Context} from '../../navigation/BottomTab';
 import {LoadingIndicator} from '../../components/SafeArea';
+import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
 
 export const SneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -62,13 +63,13 @@ export const SneakerDetail = props => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaWrapper>
       {loading && <LoadingIndicator />}
       <Header go_back={true} />
       <View style={styles.container}>
         <ImageContainer />
         <DetailsContainer />
       </View>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, THEME_PINK} from '../constants/colorsandfonts';
 
 export const ActionChip = ({text}) => {
@@ -9,7 +9,7 @@ export const ActionChip = ({text}) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   chip: {
     width: 70,
     height: 30,
@@ -21,4 +21,4 @@ const styles = {
     marginTop: 15,
   },
   text: {fontSize: 20, fontWeight: FONT_WEIGHT_BOLD, color: THEME_PINK},
-};
+});

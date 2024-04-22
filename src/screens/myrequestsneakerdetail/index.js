@@ -11,6 +11,7 @@ import {DELETE_SNEAKER_REQUEST_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
 import {Context} from '../../navigation/BottomTab';
 import {ViewWrapper} from '../../components/ViewWrapper';
+import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
 
 export const MySneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -26,7 +27,7 @@ export const MySneakerRequestDetail = props => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaWrapper>
       <Header go_back={true} />
       <View style={styles.container}>
         <ViewWrapper>
@@ -55,6 +56,6 @@ export const MySneakerRequestDetail = props => {
           />
         </ViewWrapper>
       </View>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   );
 };

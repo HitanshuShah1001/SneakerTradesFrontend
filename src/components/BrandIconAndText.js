@@ -1,4 +1,4 @@
-import {Image, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {BRAND_ICON, SNEAKER_TRADES_TEXT} from '../assets';
 
 export const Brandiconandtext = () => (
@@ -8,7 +8,7 @@ export const Brandiconandtext = () => (
   </View>
 );
 
-const styles = {
+const styles = StyleSheet.create({
   text: {marginTop: 20},
   container: {alignItems: 'center', flex: 0.3},
-};
+});

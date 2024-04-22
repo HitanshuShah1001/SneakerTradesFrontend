@@ -6,12 +6,13 @@ import {ActionChip} from '../../components/ActionChip';
 import {Header} from '../../components/Header';
 import {OwnerDetails} from '../../components/OwnerDetails';
 import {ViewWrapper} from '../../components/ViewWrapper';
+import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
 
 export const SneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaWrapper>
       <Header go_back={true} />
       <View style={styles.container}>
         <ViewWrapper>
@@ -36,6 +37,6 @@ export const SneakerRequestDetail = props => {
           />
         </ViewWrapper>
       </View>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   );
 };

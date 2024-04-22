@@ -3,6 +3,7 @@ import {ActivityIndicator, SafeAreaView, View, StyleSheet} from 'react-native';
 import {Header} from './Header';
 import {useContext} from 'react';
 import {Context} from '../navigation/BottomTab';
+import {SafeAreaWrapper} from './SafeAreaWrapper';
 
 export const LoadingIndicator = () => {
   return (
@@ -16,7 +17,7 @@ export const SafeArea = ({children, go_back = false, text}) => {
   const {loading} = useContext(Context);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaWrapper>
       <Header go_back={go_back} text={text} />
       {loading && <LoadingIndicator />}
       <View
@@ -27,7 +28,7 @@ export const SafeArea = ({children, go_back = false, text}) => {
         ]}>
         {children}
       </View>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   );
 };
 

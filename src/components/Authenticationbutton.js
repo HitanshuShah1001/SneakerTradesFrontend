@@ -1,4 +1,4 @@
-import {Pressable, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, THEME_PINK} from '../constants/colorsandfonts';
 import {useNavigation} from '@react-navigation/native';
 import {SIGN_UP_SCREEN} from '../constants/Screen';
@@ -30,7 +30,7 @@ export const AuthenticationButton = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   pressablecontainer: {
     flex: 0.16,
     alignItems: 'center',
@@ -57,4 +57,4 @@ const styles = {
     marginLeft: 4,
     textDecorationLine: 'underline',
   },
-};
+});

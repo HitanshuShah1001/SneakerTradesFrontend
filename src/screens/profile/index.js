@@ -21,6 +21,7 @@ import {
   RemoveUserFromLocalStorage,
   RetrieveUserFromLocalStorage,
 } from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {styles} from './styles';
 
 export const Profile = () => {
   const navigation = useNavigation();
@@ -81,13 +82,3 @@ export const Profile = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  accountContainer: {
-    marginBottom: 10,
-  },
-});

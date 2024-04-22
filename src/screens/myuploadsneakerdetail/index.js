@@ -10,6 +10,7 @@ import {LoadingIndicator} from '../../components/SafeArea';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {apiService} from '../../services/apiService';
 import {DELETE_SNEAKER_CALL, LOGIN_CALL} from '../../constants/Apicall';
+import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
 
 export const MyUploadSneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -73,13 +74,13 @@ export const MyUploadSneakerDetail = props => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaWrapper>
       {loading && <LoadingIndicator />}
       <Header go_back={true} />
       <View style={styles.container}>
         <ImageContainer />
         <DetailsContainer />
       </View>
-    </SafeAreaView>
+    </SafeAreaWrapper>
   );
 };
