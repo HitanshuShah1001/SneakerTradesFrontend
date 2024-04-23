@@ -139,18 +139,21 @@ export const Upload = () => {
         customstyles={{width: '90%'}}
         custVal={Name}
         setCustVal={setName}
+        is_mandatory
       />
       <DropdownComponent
         placeholder={SELECT_BRAND}
         value={Brand}
         setValue={setBrand}
         data={BRANDS}
+        is_mandatory
       />
       <DropdownComponent
         placeholder={SELECT_GENDER}
         value={Gender}
         setValue={setGender}
         data={GENDER_ROLES_FOR_UPLOAD}
+        is_mandatory
       />
       {uploadedFor === UPLOAD && (
         <Textinput
@@ -170,6 +173,7 @@ export const Upload = () => {
         placeholder={SELECT_TYPE}
         value={Type}
         setValue={setType}
+        is_mandatory
         data={uploadedFor == UPLOAD ? TYPES : REQUEST_TYPES}
       />
       <UploadSneakerButton onPress={() => UploadSneaker()} />

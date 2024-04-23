@@ -10,13 +10,18 @@ const DropdownComponent = ({
   data,
   search = false,
   placeholder = SELECT_ITEM,
+  is_mandatory = false,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 
   return (
     <View style={styles.container}>
       <Dropdown
-        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+        style={[
+          styles.dropdown,
+          isFocus && {borderColor: 'blue'},
+          is_mandatory && {borderWidth: 1.2},
+        ]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
