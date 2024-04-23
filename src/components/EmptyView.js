@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
 import {FONT_SIZE, FONT_WEIGHT_BOLD} from '../constants/colorsandfonts';
 import {ViewWrapper} from './ViewWrapper';
 
