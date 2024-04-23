@@ -27,11 +27,13 @@ export const OTPverify = props => {
       formData.append('Name', Name);
       formData.append('Email', Email);
       formData.append('Phone', Phone);
-      formData.append('ProfilePhoto', {
-        uri: ProfilePhoto.uri,
-        type: ProfilePhoto.type,
-        name: ProfilePhoto.fileName,
-      });
+      if (ProfilePhoto.uri) {
+        formData.append('ProfilePhoto', {
+          uri: ProfilePhoto.uri,
+          type: ProfilePhoto.type,
+          name: ProfilePhoto.fileName,
+        });
+      }
       formData.append('Gender', Gender);
       const response = await apiService.postformdata(SIGN_UP_CALL, formData);
       setUser(response.user);

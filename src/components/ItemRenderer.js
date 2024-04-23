@@ -1,6 +1,7 @@
 import {FlatList, RefreshControl, View} from 'react-native';
 import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
+import {ViewWrapper} from './ViewWrapper';
 
 export const ItemRendererSneakers = ({
   sneakers,
@@ -11,7 +12,7 @@ export const ItemRendererSneakers = ({
   return (
     <>
       {sneakers?.length > 0 ? (
-        <View style={{flex: 1}}>
+        <ViewWrapper>
           <FlatList
             data={sneakers}
             renderItem={({item: sneaker}) => (
@@ -33,7 +34,7 @@ export const ItemRendererSneakers = ({
               />
             }
           />
-        </View>
+        </ViewWrapper>
       ) : (
         <EmptyView />
       )}

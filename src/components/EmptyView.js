@@ -1,12 +1,21 @@
 import {Text} from 'react-native';
 import {FONT_SIZE, FONT_WEIGHT_BOLD} from '../constants/colorsandfonts';
 import {ViewWrapper} from './ViewWrapper';
+import {useContext} from 'react';
+import {Context} from '../navigation/BottomTab';
 
-export const EmptyView = ({text = 'No Sneakers Found'}) => (
-  <ViewWrapper
-    customstyles={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <Text style={{fontSize: FONT_SIZE, fontWeight: FONT_WEIGHT_BOLD}}>
-      {text}
-    </Text>
-  </ViewWrapper>
-);
+export const EmptyView = ({text = 'No Sneakers Found'}) => {
+  const {loading} = useContext(Context);
+  if (loading) {
+    return null;
+  } else {
+    return (
+      <ViewWrapper
+        customstyles={{justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{fontSize: FONT_SIZE, fontWeight: FONT_WEIGHT_BOLD}}>
+          {text}
+        </Text>
+      </ViewWrapper>
+    );
+  }
+};

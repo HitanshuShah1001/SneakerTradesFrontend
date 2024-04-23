@@ -20,6 +20,7 @@ const DropdownComponent = ({
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
+        containerStyle={{height: 170}}
         iconStyle={styles.iconStyle}
         data={data}
         placeholder={placeholder}

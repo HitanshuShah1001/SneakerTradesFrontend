@@ -13,5 +13,5 @@ export const ContactInfo = ({title, information}) => {
 const styles = StyleSheet.create({
   container: {marginTop: 20},
   title: {fontWeight: 400, fontSize: 12, color: TITLE_COLOR},
-  information: {fontWeight: 400, fontSize: 18, color: '#00000'},
+  information: {fontWeight: 400, fontSize: 18, color: '#000000'},
 });

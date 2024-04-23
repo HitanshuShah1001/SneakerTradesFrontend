@@ -17,7 +17,11 @@ export const ProfileDetail = () => {
   return (
     <SafeArea go_back={true} text={MY_PROFILE}>
       {user.ProfilePhoto !== '' ? (
-        <Image source={{uri: user.ProfilePhoto}} style={styles.image} />
+        <Image
+          source={{uri: user.ProfilePhoto}}
+          style={styles.image}
+          resizeMode="contain"
+        />
       ) : (
         <Image
           source={PROFILE_ICON}

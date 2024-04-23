@@ -89,8 +89,8 @@ export const SignUp = () => {
           setCustVal={setPhone}
         />
         <DropdownComponent
-          gender={gender}
-          setGender={setGender}
+          value={gender}
+          setValue={setGender}
           data={GENDER_ROLES}
           placeholder={SELECT_GENDER}
         />
