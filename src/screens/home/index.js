@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
@@ -13,6 +13,7 @@ import {GET_SNEAKER_FOR_PURCHASE_AND_BORROW} from '../../constants/Apicall';
 export const Home = () => {
   const navigation = useNavigation();
   const {setLoading} = useContext(Context);
+  const isFocused = useIsFocused();
   const {
     sneakers,
     setSneakers,
@@ -47,7 +48,7 @@ export const Home = () => {
 
   useEffect(() => {
     getSneakers();
-  }, [count]);
+  }, [count, isFocused]);
 
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});

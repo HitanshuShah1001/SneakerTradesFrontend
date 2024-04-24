@@ -1,6 +1,5 @@
 import {Alert} from 'react-native';
 import {
-  APPLICATION_JSON,
   BASE_URL,
   DELETE,
   GET,
@@ -24,8 +23,6 @@ class ApiService {
           RemoveTokenFromLocalStorage(),
           RemoveUserFromLocalStorage(),
         ]);
-      } else {
-        Alert.alert(Data);
       }
     } else {
       return Data;
@@ -57,7 +54,6 @@ class ApiService {
       const apiresponse = await response.json();
       return this.responseHandler(apiresponse);
     } catch (error) {
-      console.log(error, 'error');
       throw new Error(error.message);
     }
   }
@@ -125,14 +121,15 @@ class ApiService {
         headers: {...HEADERS(headers), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      return this.responseHandler(apiresponse);
+      const {status} = apiresponse || {};
+      if (status === 'Success') {
+        return Alert.alert('Deleted Succesfully');
+      }
+      return;
     } catch (error) {
-      console.log(error, 'error orecievd');
       throw new Error(error.message);
     }
   }
-
-  // Other methods like postformdata, patchformdata, put, patchWithoutBody, delete
 }
 
 export const apiService = new ApiService();

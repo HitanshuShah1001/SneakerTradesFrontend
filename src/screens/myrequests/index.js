@@ -1,14 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {apiService} from '../../services/apiService';
-import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {debounce} from '../../utils/debounce';
-import {MY_UPLOADS} from '../../constants/Buttontitles';
+import {MY_REQUESTS} from '../../constants/Buttontitles';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 import {Search} from '../../components/Search';
+import {useIsFocused} from '@react-navigation/native';
 
 export const MyRequests = () => {
   const {setLoading} = useContext(Context);
@@ -17,10 +16,11 @@ export const MyRequests = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [count, setCount] = useState(0);
+  const isFocused = useIsFocused();
 
   const getSneakers = async () => {
     setLoading(true);
-    let token = await RetrieveTokenFromLocalStorage();
+
     const response = await apiService.get(GET_SNEAKER_REQUESTS_CREATED);
     const sneakerRequestData = response?.data || [];
     setSneakers(sneakerRequestData);
@@ -37,7 +37,7 @@ export const MyRequests = () => {
 
   useEffect(() => {
     getSneakers();
-  }, []);
+  }, [isFocused]);
 
   const filterSneakerRequest = () => {
     let filteredSneakerRequests = sneakers.filter(
@@ -59,7 +59,7 @@ export const MyRequests = () => {
   };
 
   return (
-    <SafeArea go_back text={MY_UPLOADS}>
+    <SafeArea go_back text={MY_REQUESTS}>
       <Search
         searchQuery={searchQuery}
         onChangeText={text => onChangeInput(text)}

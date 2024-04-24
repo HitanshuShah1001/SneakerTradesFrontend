@@ -7,9 +7,11 @@ import {SneakerRequestContext} from '../sneakercontext/SneakerRequestContext';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 import {getSneakersOrSneakerRequests} from '../../services/getSneakersAndRequests';
 import {GET_SNEAKER_REQUESTS} from '../../constants/Apicall';
+import {useIsFocused} from '@react-navigation/native';
 
 export const Requests = () => {
   const {setLoading} = useContext(Context);
+  const isFocused = useIsFocused();
   const {
     sneakerrequests,
     setSneakerRequests,
@@ -44,7 +46,7 @@ export const Requests = () => {
 
   useEffect(() => {
     getSneakerRequests();
-  }, [count]);
+  }, [count, isFocused]);
 
   const Calltochangecount = debounce(() => setCount(!count), 500);
 

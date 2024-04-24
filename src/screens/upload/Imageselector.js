@@ -22,7 +22,11 @@ export const Imageselector = ({
         <Pressable
           style={styles.photoupload}
           onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
-          <Image source={{uri: image}} style={styles.selectedimage} />
+          <Image
+            source={{uri: image}}
+            style={styles.selectedimage}
+            resizeMode="contain"
+          />
         </Pressable>
       </>
     ),
