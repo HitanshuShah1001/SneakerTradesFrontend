@@ -1,5 +1,6 @@
 export const HOME_ICON = require('./home_icon.png');
 export const REQUESTS_ICON = require('./request_icon.png');
+export const PROFILE_PLACEHOLDER_ICON = require('./profile_icon_placeholder.png');
 export const PROFILE_ICON = require('./profile_icon.png');
 export const UPLOAD_ICON = require('./upload_icon.png');
 export const SNEAKER_TRADES_TEXT = require('./sneaker_trades_text.png');

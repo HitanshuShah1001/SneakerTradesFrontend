@@ -3,7 +3,7 @@ import {Context} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
 import {Image} from 'react-native';
 import {MY_PROFILE} from '../../constants/Buttontitles';
-import {PROFILE_ICON} from '../../assets';
+import {PROFILE_ICON, PROFILE_PLACEHOLDER_ICON} from '../../assets';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {useNavigation} from '@react-navigation/native';
 import {UPDATE_PROFILE_SCREEN} from '../../constants/Screen';
@@ -24,7 +24,7 @@ export const ProfileDetail = () => {
         />
       ) : (
         <Image
-          source={PROFILE_ICON}
+          source={PROFILE_PLACEHOLDER_ICON}
           style={styles.placeholder_image}
           resizeMode="contain"
         />
