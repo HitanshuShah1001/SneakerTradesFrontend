@@ -5,11 +5,13 @@ export const CreateOrderForRazorPay = async () => {
   const requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body,
+    body: JSON.stringify(body),
   };
-
-  fetch(CREATE_ORDER_RAZORPAY, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+  try {
+    let response = await fetch(CREATE_ORDER_RAZORPAY, requestOptions);
+    let textualresponse = await response.text();
+    return textualresponse;
+  } catch (e) {
+    console.log(error, 'Error');
+  }
 };

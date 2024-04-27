@@ -13,6 +13,7 @@ myHeaders.append(
 );
 
 export const generateRazorpayOptions = ({prefill = {}, order_id}) => {
+  console.log(order_id);
   return {
     description: 'Sneaker Trades Premium Subscription!',
     image: 'https://ibb.co/jyLvCGZ',

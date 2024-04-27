@@ -86,12 +86,17 @@ export const Upload = () => {
         }
       });
     } else {
+      if (!Photos[0].uri) {
+        setLoading(false);
+        return Alert.alert('Please upload an image');
+      }
       uploadDetails.append('Photo', {
         uri: Photos[0].uri,
         type: Photos[0].type,
         name: Photos[0].fileName,
       });
     }
+    console.log('In her');
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
     const response = await apiService.postformdata(Apicall, uploadDetails);
     if (response === UPGRADE_FOR_MORE_REQUEST_UPLOAD) {
