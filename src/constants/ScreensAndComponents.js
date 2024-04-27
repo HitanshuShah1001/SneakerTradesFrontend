@@ -3,10 +3,13 @@ import {tabScreens} from './Bottomtab';
 import {
   FILTER_REQUEST_SCREEN,
   FILTER_SCREEN,
+  LOGIN_SCREEN,
   MAIN_TABS,
   MY_REQUEST_SCREEN,
   MY_UPLOAD_SCREEN,
+  OTP_VERIFY,
   PROFILE_DETAIL,
+  SIGN_UP_SCREEN,
   SNEAKER_DETAIL,
   SNEAKER_REQUEST_DETAIL,
   SNEAKER_REQUEST_UPLOADED_DETAIL,
@@ -24,6 +27,9 @@ import {Filter} from '../screens/filter';
 import {FilterRequests} from '../screens/filterrequest/filterrequest';
 import {UpdateProfile} from '../screens/updateprofile';
 import {Tabbaricon} from '../components/Tabbaricon';
+import {Login} from '../screens/login';
+import {SignUp} from '../screens/signup';
+import {OTPverify} from '../screens/otpverify';
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -61,4 +67,10 @@ export const ScreensAndComponents = [
   {name: FILTER_SCREEN, component: Filter},
   {name: FILTER_REQUEST_SCREEN, component: FilterRequests},
   {name: UPDATE_PROFILE_SCREEN, component: UpdateProfile},
+];
+
+export const AuthScreenComponents = [
+  {name: LOGIN_SCREEN, component: Login},
+  {name: SIGN_UP_SCREEN, component: SignUp},
+  {name: OTP_VERIFY, component: OTPverify},
 ];

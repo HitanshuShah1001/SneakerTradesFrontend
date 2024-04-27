@@ -1,17 +1,14 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Login} from '../../screens/login';
-import {SignUp} from '../../screens/signup';
-import {OTPverify} from '../../screens/otpverify';
-import {LOGIN_SCREEN, OTP_VERIFY, SIGN_UP_SCREEN} from '../../constants/Screen';
+import {AuthScreenComponents} from '../../constants/ScreensAndComponents';
 const Stack = createStackNavigator();
 export const AuthNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name={LOGIN_SCREEN} component={Login} />
-        <Stack.Screen name={SIGN_UP_SCREEN} component={SignUp} />
-        <Stack.Screen name={OTP_VERIFY} component={OTPverify} />
+        {AuthScreenComponents.map(({name, component, index}) => (
+          <Stack.Screen name={name} component={component} key={index} />
+        ))}
       </Stack.Navigator>
     </NavigationContainer>
   );
