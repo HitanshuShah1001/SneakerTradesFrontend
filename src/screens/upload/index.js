@@ -17,7 +17,6 @@ import {
 import {Uploadchips} from '../../components/Chips';
 import DropdownComponent from '../../components/Dropdown';
 import {apiService} from '../../services/apiService';
-import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {UPLOAD_CALL, UPLOAD_REQUEST_CALL} from '../../constants/Apicall';
 import {
   SELECT_BRAND,
@@ -36,6 +35,8 @@ import {
   ResetFields,
   UploadSneakerButton,
 } from './Uploadutils';
+import {UPGRADE_FOR_MORE_REQUEST_UPLOAD} from '../../constants/Backendresponses';
+import {askForPremiumSubs} from '../../components/AskForPremiumSubs';
 
 export const Upload = () => {
   const {setLoading} = useContext(Context);
@@ -93,8 +94,12 @@ export const Upload = () => {
     }
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
     const response = await apiService.postformdata(Apicall, uploadDetails);
-    setLoading(false);
-    if (response) {
+    if (response === UPGRADE_FOR_MORE_REQUEST_UPLOAD) {
+      //Handle the razorpay logic here
+      setLoading(false);
+      askForPremiumSubs();
+    } else {
+      setLoading(false);
       ResetFields({
         uploadedFor,
         setBrand,

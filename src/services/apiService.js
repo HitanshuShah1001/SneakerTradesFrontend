@@ -24,8 +24,7 @@ class ApiService {
           RemoveUserFromLocalStorage(),
         ]);
       } else {
-        if (Data === 'Upgrade to premium to upload create more requests!')
-          Alert.alert(Data);
+        return Data;
       }
     } else {
       return Data;
