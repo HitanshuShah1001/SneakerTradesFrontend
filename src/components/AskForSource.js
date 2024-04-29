@@ -20,7 +20,7 @@ export const askForSourceInUpload = ({index, Photos, setPhotos}) => {
           Photos,
           setPhotos,
           index,
-          source: 'GALLERY',
+          source: GALLERY_LABEL,
         }),
     },
 

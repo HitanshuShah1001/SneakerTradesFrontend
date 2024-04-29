@@ -4,13 +4,13 @@ import {Imageselector} from './Imageselector';
 import {useCallback} from 'react';
 
 export const Imageselectorcontainer = useCallback(
-  ({Photos, setPhotos, removeImage, askForSourceInUpload}) => {
+  ({Photos, setPhotos, removeImage}) => {
     return (
       <View style={styles.imageselectorcontainer}>
-        {Photos.map(val => {
+        {Photos.map((val, index) => {
           return (
             <Imageselector
-              key={val.index}
+              key={index}
               index={val.index}
               image={val.image}
               Photos={Photos}

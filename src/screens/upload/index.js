@@ -122,10 +122,10 @@ export const Upload = () => {
   const Imageselectorcontainer = useCallback(() => {
     return (
       <View style={styles.imageselectorcontainer}>
-        {Photos.map(val => {
+        {Photos.map((val, index) => {
           return (
             <Imageselector
-              key={val.index}
+              key={index}
               index={val.index}
               image={val.image}
               Photos={Photos}

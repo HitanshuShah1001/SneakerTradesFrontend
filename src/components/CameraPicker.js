@@ -1,16 +1,26 @@
 import {Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {GALLERY_LABEL} from '../constants/Labels';
 
-const options = (selectionLimit = 1) => ({
+const options = (length = 5) => ({
   mediaType: 'photo',
   includeBase64: false,
   maxHeight: 2000,
   maxWidth: 2000,
-  selectionLimit: 6,
+  selectionLimit: 5,
 });
 
+const SetImageObject = (imageUri, fileName, type) => {
+  let indiObj = {};
+  indiObj.uri = imageUri;
+  indiObj.fileName = fileName;
+  indiObj.type = type;
+  indiObj.image = imageUri;
+  return indiObj;
+};
+
 export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
-  if (source === 'GALLERY') {
+  if (source === GALLERY_LABEL) {
     launchImageLibrary(options(), response => {
       if (response.didCancel) {
       } else if (response.error) {
@@ -18,11 +28,7 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
         let imageUri = response.uri || response.assets[0]?.uri;
         let fileName = response.fileName || response.assets[0]?.fileName;
         let type = response.uri || response.assets[0]?.type;
-        let indiObj = {};
-        indiObj.uri = imageUri;
-        indiObj.fileName = fileName;
-        indiObj.type = type;
-        indiObj.image = imageUri;
+        let indiObj = SetImageObject(imageUri, fileName, type);
         setProfilePhoto(indiObj);
       }
     });
@@ -34,11 +40,7 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
         let imageUri = response.uri || response.assets[0]?.uri;
         let fileName = response.fileName || response.assets[0]?.fileName;
         let type = response.uri || response.assets[0]?.type;
-        let indiObj = {};
-        indiObj.uri = imageUri;
-        indiObj.fileName = fileName;
-        indiObj.type = type;
-        indiObj.image = imageUri;
+        let indiObj = SetImageObject(imageUri, fileName, type);
         setProfilePhoto(indiObj);
       }
     });
@@ -46,12 +48,11 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
 };
 
 export const openImagePicker = ({Photos, setPhotos, index, source}) => {
-  console.log(Photos, 'Phots received as parameter');
-  if (source === 'GALLERY') {
+  if (source === GALLERY_LABEL) {
     launchImageLibrary(options(), response => {
       let {didCancel, errorMessage, errorCode} = response || {};
       if (didCancel) {
-        Alert.alert('User canceelled');
+        Alert.alert('User cancelled');
       } else if (errorMessage) {
         Alert.alert(errorMessage);
       } else if (errorCode) {
@@ -91,43 +92,52 @@ export const openImagePicker = ({Photos, setPhotos, index, source}) => {
       } else if (errorCode) {
         Alert.alert(errorCode);
       } else {
-        let imageUri = response.uri || response.assets[0]?.uri;
-        let fileName = response.fileName || response.assets[0]?.fileName;
-        let type = response.uri || response.assets[0]?.type;
-        let newImages = [];
-        for (let img of Photos) {
-          let indiObj = {};
-          indiObj.index = img.index;
-          if (img.index == index) {
-            indiObj.uri = imageUri;
-            indiObj.fileName = fileName;
-            indiObj.type = type;
-            indiObj.image = imageUri;
-          } else {
-            indiObj.image = img.image;
-            indiObj.uri = img.uri;
-            indiObj.fileName = img.fileName;
-            indiObj.type = img.type;
+        let Images = [...Photos];
+        let photoArrayIndex = 0;
+        let responseArrayIndex = 0;
+        while (
+          photoArrayIndex < 6 &&
+          responseArrayIndex < response?.assets?.length
+        ) {
+          if (Images[photoArrayIndex]?.uri == '') {
+            Images[photoArrayIndex].image =
+              response?.assets[responseArrayIndex]?.uri;
+            Images[photoArrayIndex].type =
+              response?.assets[responseArrayIndex]?.type;
+            Images[photoArrayIndex].uri =
+              response?.assets[responseArrayIndex]?.uri;
+            Images[photoArrayIndex].fileName =
+              response?.assets[responseArrayIndex]?.fileName;
+            Images[photoArrayIndex].index = photoArrayIndex;
+            responseArrayIndex += 1;
           }
-          newImages.push(indiObj);
+          photoArrayIndex += 1;
         }
-        setPhotos(newImages);
+        setPhotos(Images);
       }
     });
   }
 };
 
 export const removeImage = ({Photos, setPhotos, index}) => {
-  let newImages = [];
-  for (let img of Photos) {
-    let indiObj = {};
-    indiObj.index = img.index;
-    if (img.index == index) {
-      indiObj.image = ``;
-    } else {
-      indiObj.image = img.image;
-    }
-    newImages.push(indiObj);
+  console.log(Photos, 'Photos incoming');
+  const newImagesBeforeRemovedElement = Photos.slice(0, index);
+  const newImagesAfterRemovedElement = Photos.slice(index + 1);
+  let photosConcatenated = newImagesBeforeRemovedElement.concat(
+    newImagesAfterRemovedElement,
+  );
+  console.log(Photos, 'Photos after remocal');
+  let lengthOfPhotosConcatenated = photosConcatenated.length;
+  while (lengthOfPhotosConcatenated < 6) {
+    let obj = {};
+    obj.fileName = '';
+    obj.image = '';
+    obj.index = lengthOfPhotosConcatenated - 1;
+    obj.type = '';
+    obj.uri = '';
+    photosConcatenated.push(obj);
+    lengthOfPhotosConcatenated += 1;
   }
-  setPhotos(newImages);
+
+  setPhotos(photosConcatenated);
 };
