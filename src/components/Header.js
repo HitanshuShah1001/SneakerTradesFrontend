@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Dimensions, Image, Pressable, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FONT_WEIGHT_NORMAL, THEME_PINK} from '../constants/colorsandfonts';
 import {BACK_ICON, BRAND_ICON} from '../assets';
@@ -14,7 +14,7 @@ export const Header = ({text, go_back = false}) => {
   return (
     <View style={styles.container}>
       {go_back ? (
-        <Pressable onPress={handleGoBack}>
+        <Pressable onPress={handleGoBack} style={{zIndex: 2}}>
           <Image source={BACK_ICON} />
         </Pressable>
       ) : (
@@ -42,8 +42,9 @@ const styles = {
     fontWeight: FONT_WEIGHT_NORMAL,
     fontSize: 20,
     color: THEME_PINK,
-    flex: 1,
     textAlign: 'center',
+    position: 'absolute',
+    width: Dimensions.get('window').width * 0.9,
   },
   image: {
     height: 45,

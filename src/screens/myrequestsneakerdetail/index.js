@@ -12,6 +12,7 @@ import {apiService} from '../../services/apiService';
 import {Context} from '../../navigation/BottomTab';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
+import {MY_REQUEST_SCREEN} from '../../constants/Screen';
 
 export const MySneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -23,7 +24,7 @@ export const MySneakerRequestDetail = props => {
       DELETE_SNEAKER_REQUEST_CALL(sneaker?._id),
     );
     setLoading(false);
-    navigation.goBack();
+    navigation.navigate(MY_REQUEST_SCREEN);
   };
 
   return (

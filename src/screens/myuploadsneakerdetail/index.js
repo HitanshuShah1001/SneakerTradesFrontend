@@ -11,9 +11,12 @@ import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {apiService} from '../../services/apiService';
 import {DELETE_SNEAKER_CALL, LOGIN_CALL} from '../../constants/Apicall';
 import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
+import {useNavigation} from '@react-navigation/native';
+import {MY_UPLOAD_SCREEN, PROFILE} from '../../constants/Screen';
 
 export const MyUploadSneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
+  const navigation = useNavigation();
   const {setLoading} = useContext(Context);
   const [selectedSneakerImage, setSelectedSneakerImage] = useState(
     sneaker.Photos[0],
@@ -27,6 +30,9 @@ export const MyUploadSneakerDetail = props => {
   const deleteSneaker = async () => {
     setLoading(true);
     const response = await apiService.delete(DELETE_SNEAKER_CALL(sneaker?._id));
+    if (response === 'Deleted Succesfully') {
+      navigation.navigate(MY_UPLOAD_SCREEN);
+    }
     setLoading(false);
   };
 

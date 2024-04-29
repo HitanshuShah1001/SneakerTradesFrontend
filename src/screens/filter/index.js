@@ -114,7 +114,7 @@ export const Filter = () => {
       <View style={styles.mainContainer}>
         <View style={{width: '35%', marginLeft: 8}}>
           <Pressable
-            key={'Genders'}
+            key={'Brands'}
             style={[
               styles.pressable,
               {

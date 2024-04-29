@@ -27,7 +27,6 @@ import {
   SNEAKER_PRICE,
 } from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
-import {askForSourceInUpload} from '../../components/AskForSource';
 import {Imageselector} from './Imageselector';
 import {UploadPlaceholder} from '../../components/UploadPlaceholder';
 import {
@@ -37,7 +36,6 @@ import {
 } from './Uploadutils';
 import {UPGRADE_FOR_MORE_REQUEST_UPLOAD} from '../../constants/Backendresponses';
 import {askForPremiumSubs} from '../../components/AskForPremiumSubs';
-import {REQUEST} from '../../constants/Choices';
 
 export const Upload = () => {
   const {setLoading} = useContext(Context);

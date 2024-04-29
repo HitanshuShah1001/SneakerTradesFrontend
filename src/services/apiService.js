@@ -125,7 +125,7 @@ class ApiService {
       const apiresponse = await response.json();
       const {status} = apiresponse || {};
       if (status === 'Success') {
-        return Alert.alert('Deleted Succesfully');
+        return 'Deleted Succesfully';
       }
       return;
     } catch (error) {
