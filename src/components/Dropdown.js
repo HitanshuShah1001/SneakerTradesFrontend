@@ -39,6 +39,7 @@ const DropdownComponent = ({
           setValue(item.value);
           setIsFocus(false);
         }}
+        dropdownPosition="top"
       />
     </View>
   );
