@@ -35,7 +35,7 @@ export const MyUploads = () => {
     setRefreshing(true);
     setSneakers([]);
     setSneakerUploadedUsed([]);
-    getSneakers();
+    getUploadedSneakers();
     setRefreshing(false);
   };
 

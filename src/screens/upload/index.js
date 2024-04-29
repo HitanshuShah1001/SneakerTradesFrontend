@@ -58,7 +58,7 @@ export const Upload = () => {
     } else {
       setPhotos(REQUEST_IMAGE_PLACEHOLDER);
     }
-  }, [uploadedFor]);
+  }, [uploadedFor, setLoading]);
 
   const UploadSneaker = async () => {
     setLoading(true);
@@ -100,10 +100,10 @@ export const Upload = () => {
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
     const response = await apiService.postformdata(Apicall, uploadDetails);
     if (response === UPGRADE_FOR_MORE_REQUEST_UPLOAD) {
-      //Handle the razorpay logic here
       setLoading(false);
       askForPremiumSubs();
     } else {
+      console.log('In here');
       setLoading(false);
       ResetFields({
         uploadedFor,
@@ -114,8 +114,10 @@ export const Upload = () => {
         setSize,
         setType,
         setUploadedFor,
-        setPhotos,
       });
+      setPhotos(
+        uploadedFor === UPLOAD ? IMAGE_PLACEHOLDERS : REQUEST_IMAGE_PLACEHOLDER,
+      );
     }
   };
 

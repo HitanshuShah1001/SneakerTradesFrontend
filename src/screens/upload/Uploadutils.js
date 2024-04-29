@@ -26,7 +26,6 @@ export const ResetFields = ({
   setSize,
   setType,
   setUploadedFor,
-  setPhotos,
 }) => {
   const UPLOADORREQUEST =
     uploadedFor === UPLOAD
@@ -40,7 +39,6 @@ export const ResetFields = ({
   setSize('');
   setType('');
   setUploadedFor(UPLOAD);
-  setPhotos(IMAGE_PLACEHOLDERS);
 };
 
 export const UploadSneakerButton = ({onPress}) => (
