@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 export const ActionScreens = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      {ScreensAndComponents.map(({name, component, index}) => (
+      {ScreensAndComponents.map(({name, component}, index) => (
         <Stack.Screen name={name} component={component} key={index} />
       ))}
     </Stack.Navigator>
