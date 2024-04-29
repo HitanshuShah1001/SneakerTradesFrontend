@@ -131,7 +131,6 @@ export const Upload = () => {
               Photos={Photos}
               setPhotos={setPhotos}
               removeImage={removeImage}
-              max_select={uploadedFor === REQUEST ? 1 : 6}
             />
           );
         })}

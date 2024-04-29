@@ -11,12 +11,7 @@ const Cancel_option = {
   text: CANCEL_LABEL,
   onPress: () => {},
 };
-export const askForSourceInUpload = ({
-  index,
-  Photos,
-  setPhotos,
-  max_select = 1,
-}) => {
+export const askForSourceInUpload = ({index, Photos, setPhotos}) => {
   Alert.alert(SELECT_SOURCE_LABEL, '', [
     {
       text: GALLERY_LABEL,
@@ -26,7 +21,6 @@ export const askForSourceInUpload = ({
           setPhotos,
           index,
           source: 'GALLERY',
-          max_select,
         }),
     },
 

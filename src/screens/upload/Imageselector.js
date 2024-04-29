@@ -10,7 +10,6 @@ export const Imageselector = ({
   removeImage,
   Photos,
   setPhotos,
-  max_select,
 }) => {
   const ImageSelectedAlongWithRemoveOption = useCallback(
     () => (
@@ -22,9 +21,7 @@ export const Imageselector = ({
         </Pressable>
         <Pressable
           style={styles.photoupload}
-          onPress={() =>
-            askForSourceInUpload({index, Photos, setPhotos, max_select})
-          }>
+          onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
           <Image source={{uri: image}} style={styles.selectedimage} />
         </Pressable>
       </>
@@ -36,9 +33,7 @@ export const Imageselector = ({
     () => (
       <Pressable
         style={styles.photoupload}
-        onPress={() =>
-          askForSourceInUpload({index, Photos, setPhotos, max_select})
-        }>
+        onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
         <Image source={PHOTO_UPLOAD} style={styles.placeholderimage} />
       </Pressable>
     ),

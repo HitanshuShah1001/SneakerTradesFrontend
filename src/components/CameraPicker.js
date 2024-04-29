@@ -6,7 +6,7 @@ const options = (selectionLimit = 1) => ({
   includeBase64: false,
   maxHeight: 2000,
   maxWidth: 2000,
-  selectionLimit: selectionLimit,
+  selectionLimit: 6,
 });
 
 export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
@@ -45,16 +45,10 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
   }
 };
 
-export const openImagePicker = ({
-  Photos,
-  setPhotos,
-  index,
-  source,
-  max_select,
-}) => {
-  console.log(max_select);
+export const openImagePicker = ({Photos, setPhotos, index, source}) => {
+  console.log(Photos, 'Phots received as parameter');
   if (source === 'GALLERY') {
-    launchImageLibrary(options(max_select), response => {
+    launchImageLibrary(options(), response => {
       let {didCancel, errorMessage, errorCode} = response || {};
       if (didCancel) {
         Alert.alert('User canceelled');
@@ -63,27 +57,28 @@ export const openImagePicker = ({
       } else if (errorCode) {
         Alert.alert(errorCode);
       } else {
-        let imageUri = response.uri || response.assets[0]?.uri;
-        let fileName = response.fileName || response.assets[0]?.fileName;
-        let type = response.uri || response.assets[0]?.type;
-        let newImages = [];
-        for (let img of Photos) {
-          let indiObj = {};
-          indiObj.index = img.index;
-          if (img.index == index) {
-            indiObj.uri = imageUri;
-            indiObj.fileName = fileName;
-            indiObj.type = type;
-            indiObj.image = imageUri;
-          } else {
-            indiObj.image = img.image;
-            indiObj.uri = img.uri;
-            indiObj.fileName = img.fileName;
-            indiObj.type = img.type;
+        let Images = [...Photos];
+        let photoArrayIndex = 0;
+        let responseArrayIndex = 0;
+        while (
+          photoArrayIndex < 6 &&
+          responseArrayIndex < response?.assets?.length
+        ) {
+          if (Images[photoArrayIndex]?.uri == '') {
+            Images[photoArrayIndex].image =
+              response?.assets[responseArrayIndex]?.uri;
+            Images[photoArrayIndex].type =
+              response?.assets[responseArrayIndex]?.type;
+            Images[photoArrayIndex].uri =
+              response?.assets[responseArrayIndex]?.uri;
+            Images[photoArrayIndex].fileName =
+              response?.assets[responseArrayIndex]?.fileName;
+            Images[photoArrayIndex].index = photoArrayIndex;
+            responseArrayIndex += 1;
           }
-          newImages.push(indiObj);
+          photoArrayIndex += 1;
         }
-        setPhotos(newImages);
+        setPhotos(Images);
       }
     });
   } else {
