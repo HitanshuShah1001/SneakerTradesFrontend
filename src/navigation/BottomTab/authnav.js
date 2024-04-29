@@ -6,7 +6,7 @@ export const AuthNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        {AuthScreenComponents.map(({name, component, index}) => (
+        {AuthScreenComponents.map(({name, component}, index) => (
           <Stack.Screen name={name} component={component} key={index} />
         ))}
       </Stack.Navigator>

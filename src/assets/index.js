@@ -18,3 +18,7 @@ export const FILTER_ICON = require('../assets/filter_icon.png');
 export const USER_UPLOAD_ICON = require('../assets/user_icon.png');
 export const SEARCH_CLEAR = require('../assets/closed_icon.png');
 export const RESET_ICON = require('../assets/reset_icon.png');
+export const ANIMATOR_SNEAKER_SETS = [
+  require('./animator.json'),
+  require('./animator-2.json'),
+];
