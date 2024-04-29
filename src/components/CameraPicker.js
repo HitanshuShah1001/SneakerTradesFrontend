@@ -1,16 +1,17 @@
 import {Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-const options = {
+const options = (selectionLimit = 1) => ({
   mediaType: 'photo',
   includeBase64: false,
   maxHeight: 2000,
   maxWidth: 2000,
-};
+  selectionLimit: selectionLimit,
+});
 
 export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
   if (source === 'GALLERY') {
-    launchImageLibrary(options, response => {
+    launchImageLibrary(options(), response => {
       if (response.didCancel) {
       } else if (response.error) {
       } else {
@@ -44,9 +45,16 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
   }
 };
 
-export const openImagePicker = ({Photos, setPhotos, index, source}) => {
+export const openImagePicker = ({
+  Photos,
+  setPhotos,
+  index,
+  source,
+  max_select,
+}) => {
+  console.log(max_select);
   if (source === 'GALLERY') {
-    launchImageLibrary(options, response => {
+    launchImageLibrary(options(max_select), response => {
       let {didCancel, errorMessage, errorCode} = response || {};
       if (didCancel) {
         Alert.alert('User canceelled');

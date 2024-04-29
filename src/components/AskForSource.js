@@ -11,12 +11,23 @@ const Cancel_option = {
   text: CANCEL_LABEL,
   onPress: () => {},
 };
-export const askForSourceInUpload = ({index, Photos, setPhotos}) =>
+export const askForSourceInUpload = ({
+  index,
+  Photos,
+  setPhotos,
+  max_select = 1,
+}) => {
   Alert.alert(SELECT_SOURCE_LABEL, '', [
     {
       text: GALLERY_LABEL,
       onPress: () =>
-        openImagePicker({Photos, setPhotos, index, source: 'GALLERY'}),
+        openImagePicker({
+          Photos,
+          setPhotos,
+          index,
+          source: 'GALLERY',
+          max_select,
+        }),
     },
 
     {
@@ -26,6 +37,7 @@ export const askForSourceInUpload = ({index, Photos, setPhotos}) =>
     },
     Cancel_option,
   ]);
+};
 
 export const askForSourceDuringSignUp = ({setProfilePhoto}) =>
   Alert.alert(SELECT_SOURCE_LABEL, '', [

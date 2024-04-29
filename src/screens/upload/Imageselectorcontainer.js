@@ -16,7 +16,6 @@ export const Imageselectorcontainer = useCallback(
               Photos={Photos}
               setPhotos={setPhotos}
               removeImage={removeImage}
-              askForSourceInUpload={askForSourceInUpload}
             />
           );
         })}

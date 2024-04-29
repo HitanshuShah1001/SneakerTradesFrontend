@@ -2,6 +2,7 @@ import {Image, Pressable, View} from 'react-native';
 import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
 import {styles} from './styles';
 import {useCallback} from 'react';
+import {askForSourceInUpload} from '../../components/AskForSource';
 
 export const Imageselector = ({
   index,
@@ -9,7 +10,7 @@ export const Imageselector = ({
   removeImage,
   Photos,
   setPhotos,
-  askForSourceInUpload,
+  max_select,
 }) => {
   const ImageSelectedAlongWithRemoveOption = useCallback(
     () => (
@@ -21,12 +22,10 @@ export const Imageselector = ({
         </Pressable>
         <Pressable
           style={styles.photoupload}
-          onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
-          <Image
-            source={{uri: image}}
-            style={styles.selectedimage}
-            resizeMode="contain"
-          />
+          onPress={() =>
+            askForSourceInUpload({index, Photos, setPhotos, max_select})
+          }>
+          <Image source={{uri: image}} style={styles.selectedimage} />
         </Pressable>
       </>
     ),
@@ -37,7 +36,9 @@ export const Imageselector = ({
     () => (
       <Pressable
         style={styles.photoupload}
-        onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
+        onPress={() =>
+          askForSourceInUpload({index, Photos, setPhotos, max_select})
+        }>
         <Image source={PHOTO_UPLOAD} style={styles.placeholderimage} />
       </Pressable>
     ),

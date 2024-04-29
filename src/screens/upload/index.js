@@ -37,6 +37,7 @@ import {
 } from './Uploadutils';
 import {UPGRADE_FOR_MORE_REQUEST_UPLOAD} from '../../constants/Backendresponses';
 import {askForPremiumSubs} from '../../components/AskForPremiumSubs';
+import {REQUEST} from '../../constants/Choices';
 
 export const Upload = () => {
   const {setLoading} = useContext(Context);
@@ -96,7 +97,6 @@ export const Upload = () => {
         name: Photos[0].fileName,
       });
     }
-    console.log('In her');
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
     const response = await apiService.postformdata(Apicall, uploadDetails);
     if (response === UPGRADE_FOR_MORE_REQUEST_UPLOAD) {
@@ -131,7 +131,7 @@ export const Upload = () => {
               Photos={Photos}
               setPhotos={setPhotos}
               removeImage={removeImage}
-              askForSourceInUpload={askForSourceInUpload}
+              max_select={uploadedFor === REQUEST ? 1 : 6}
             />
           );
         })}
