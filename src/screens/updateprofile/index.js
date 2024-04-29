@@ -7,6 +7,7 @@ import {
   GENDER_ROLES,
   NAME,
   PHONE_NUMBER,
+  PROFILE_PHOTO_PLACEHOLDER,
   USER_NAME,
 } from '../../constants/Labels';
 import {UPDATE_PROFILE} from '../../constants/Buttontitles';
@@ -15,7 +16,7 @@ import {useContext, useState} from 'react';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
-import {PROFILE_ICON} from '../../assets';
+import {PROFILE_ICON, PROFILE_PLACEHOLDER_ICON} from '../../assets';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {UPDATE_PROFILE_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
@@ -66,7 +67,7 @@ export const UpdateProfile = () => {
     <SafeArea go_back={true}>
       <View style={{flex: 0.9, alignItems: 'center'}}>
         <Pressable onPress={handleImagePickerPress}>
-          {user.ProfilePhoto != '' || profilephoto.image !== undefined ? (
+          {user.ProfilePhoto || profilephoto.image ? (
             <Image
               source={{
                 uri: user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image,
@@ -75,7 +76,7 @@ export const UpdateProfile = () => {
             />
           ) : (
             <Image
-              source={PROFILE_ICON}
+              source={PROFILE_PLACEHOLDER_ICON}
               style={styles.placeholder_image}
               resizeMode="contain"
             />

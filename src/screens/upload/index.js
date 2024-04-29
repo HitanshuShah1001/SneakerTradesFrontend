@@ -126,7 +126,7 @@ export const Upload = () => {
           return (
             <Imageselector
               key={index}
-              index={val.index}
+              index={index}
               image={val.image}
               Photos={Photos}
               setPhotos={setPhotos}

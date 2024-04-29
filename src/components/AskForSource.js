@@ -26,8 +26,7 @@ export const askForSourceInUpload = ({index, Photos, setPhotos}) => {
 
     {
       text: CAMERA_LABEL,
-      onPress: () =>
-        openImagePicker({Photos, setPhotos, index, source: 'CAMERA'}),
+      onPress: () => openImagePicker({Photos, setPhotos, source: 'CAMERA'}),
     },
     Cancel_option,
   ]);

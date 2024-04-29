@@ -47,7 +47,7 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
   }
 };
 
-export const openImagePicker = ({Photos, setPhotos, index, source}) => {
+export const openImagePicker = ({Photos, setPhotos, source}) => {
   if (source === GALLERY_LABEL) {
     launchImageLibrary(options(), response => {
       let {didCancel, errorMessage, errorCode} = response || {};
@@ -74,7 +74,6 @@ export const openImagePicker = ({Photos, setPhotos, index, source}) => {
               response?.assets[responseArrayIndex]?.uri;
             Images[photoArrayIndex].fileName =
               response?.assets[responseArrayIndex]?.fileName;
-            Images[photoArrayIndex].index = photoArrayIndex;
             responseArrayIndex += 1;
           }
           photoArrayIndex += 1;
@@ -108,7 +107,6 @@ export const openImagePicker = ({Photos, setPhotos, index, source}) => {
               response?.assets[responseArrayIndex]?.uri;
             Images[photoArrayIndex].fileName =
               response?.assets[responseArrayIndex]?.fileName;
-            Images[photoArrayIndex].index = photoArrayIndex;
             responseArrayIndex += 1;
           }
           photoArrayIndex += 1;
@@ -126,13 +124,11 @@ export const removeImage = ({Photos, setPhotos, index}) => {
   let photosConcatenated = newImagesBeforeRemovedElement.concat(
     newImagesAfterRemovedElement,
   );
-  console.log(Photos, 'Photos after remocal');
   let lengthOfPhotosConcatenated = photosConcatenated.length;
   while (lengthOfPhotosConcatenated < 6) {
     let obj = {};
     obj.fileName = '';
     obj.image = '';
-    obj.index = lengthOfPhotosConcatenated - 1;
     obj.type = '';
     obj.uri = '';
     photosConcatenated.push(obj);
