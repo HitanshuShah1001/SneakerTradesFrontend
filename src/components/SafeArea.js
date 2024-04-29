@@ -6,21 +6,18 @@ import {Context} from '../navigation/BottomTab';
 import {SafeAreaWrapper} from './SafeAreaWrapper';
 import {Animation} from './Animator';
 
+export const LoadingIndicator = () => (
+  <View style={[styles.loadingContainer, StyleSheet.absoluteFillObject]}>
+    <Animation />
+  </View>
+);
 export const SafeArea = ({children, go_back = false, text}) => {
   const {loading} = useContext(Context);
 
-  const AnimatedIndicator = useCallback(
-    () => (
-      <View style={[styles.loadingContainer, StyleSheet.absoluteFillObject]}>
-        <Animation />
-      </View>
-    ),
-    [],
-  );
   return (
     <SafeAreaWrapper>
       <Header go_back={go_back} text={text} />
-      {loading && <AnimatedIndicator />}
+      {loading && <LoadingIndicator />}
       <View
         style={[
           styles.content,
