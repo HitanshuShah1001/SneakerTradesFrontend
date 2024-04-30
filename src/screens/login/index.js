@@ -13,6 +13,7 @@ import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLo
 import {Context} from '../../navigation/BottomTab';
 import {LOGIN_CALL} from '../../constants/Apicall';
 import {setNotificationTimer} from '../../components/NotificationTimer';
+import {ENTER_TEN_DIGIT_MOBILE_NUMBER} from '../../constants/Placeholders';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -40,7 +41,7 @@ export const Login = () => {
       <Brandiconandtext />
       <View style={styles.inputcontainer}>
         <Textinput
-          placeholder="Enter your 10 Digit Mobile Number"
+          placeholder={ENTER_TEN_DIGIT_MOBILE_NUMBER}
           custVal={Phone}
           setCustVal={setPhone}
         />
