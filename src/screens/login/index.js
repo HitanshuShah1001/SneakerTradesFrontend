@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react';
-import {Alert, View} from 'react-native';
+import {View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
@@ -7,12 +7,12 @@ import {useNavigation} from '@react-navigation/native';
 import {SafeArea} from '../../components/SafeArea';
 import {apiService} from '../../services/apiService';
 import {OTP_VERIFY} from '../../constants/Screen';
-import {NO_USER_FOUND} from '../../constants/Messages';
 import {GENERATE_OTP} from '../../constants/Buttontitles';
 import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {Context} from '../../navigation/BottomTab';
 import {LOGIN_CALL} from '../../constants/Apicall';
+import {setNotificationTimer} from '../../components/NotificationTimer';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -28,6 +28,7 @@ export const Login = () => {
       await Promise.allSettled([
         StoreTokenInLocalStorage({token: response.token}),
         StoreUserInLocalStorage({userData: response.user}),
+        setNotificationTimer(),
       ]);
       navigation.navigate(OTP_VERIFY, {
         userData: {...response.user, token: response.token},

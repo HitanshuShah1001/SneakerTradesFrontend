@@ -10,6 +10,7 @@ import {apiService} from '../../services/apiService';
 import {SIGN_UP_CALL} from '../../constants/Apicall';
 import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {setNotificationTimer} from '../../components/NotificationTimer';
 
 export const OTPverify = props => {
   const {setUser, setLoading} = useContext(Context);
@@ -40,6 +41,7 @@ export const OTPverify = props => {
       await Promise.allSettled([
         StoreTokenInLocalStorage({token: response.token}),
         StoreUserInLocalStorage({userData: response.user}),
+        setNotificationTimer(),
       ]);
       Alert.alert('User created succesfully!');
       setLoading(false);

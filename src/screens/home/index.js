@@ -9,6 +9,7 @@ import {debounce} from '../../utils/debounce';
 import {SneakerContext} from '../sneakercontext/SneakerContext';
 import {getSneakersOrSneakerRequests} from '../../services/getSneakersAndRequests';
 import {GET_SNEAKER_FOR_PURCHASE_AND_BORROW} from '../../constants/Apicall';
+import notifee from '@notifee/react-native';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -27,6 +28,12 @@ export const Home = () => {
     searchQuery,
     setSearchQuery,
   } = useContext(SneakerContext);
+
+  useEffect(() => {
+    notifee
+      .getTriggerNotifications()
+      .then(ids => console.log('All trigger notifications: ', ids));
+  }, []);
 
   const getSneakers = () =>
     getSneakersOrSneakerRequests({
