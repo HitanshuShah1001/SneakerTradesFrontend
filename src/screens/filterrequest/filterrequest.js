@@ -193,10 +193,12 @@ export const FilterRequests = () => {
               }}
               style={{
                 marginTop: 4,
-                borderRadius: 8,
                 backgroundColor: allFilters.includes(opt.value)
-                  ? 'grey'
+                  ? THEME_PINK
                   : 'white',
+              }}
+              labelStyle={{
+                color: allFilters.includes(opt.value) ? 'white' : 'black',
               }}
             />
           ))}

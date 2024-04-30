@@ -1,6 +1,6 @@
 import {Platform, Pressable, ScrollView, Text, View} from 'react-native';
 import {SafeArea} from '../../components/SafeArea';
-import {useCallback, useContext, useState} from 'react';
+import {useCallback, useContext} from 'react';
 import {BRANDS, GENDER_ROLES, SIZES} from '../../constants/Labels';
 import {Checkbox} from 'react-native-paper';
 import {styles} from './styles';
@@ -192,8 +192,6 @@ export const Filter = () => {
               }}
               style={{
                 marginTop: 4,
-                borderRadius: 12,
-                marginHorizontal: 10,
                 backgroundColor: allFilters.includes(opt.value)
                   ? THEME_PINK
                   : 'white',
