@@ -1,4 +1,4 @@
-import {Alert, Image, Pressable, View} from 'react-native';
+import {Alert, Image, Pressable, View, StyleSheet} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
@@ -21,6 +21,8 @@ import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
 import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
+import {ViewWrapper} from '../../components/ViewWrapper';
+import {styles} from './styles';
 
 export const SignUp = () => {
   const {setLoading} = useContext(Context);
@@ -52,22 +54,27 @@ export const SignUp = () => {
   const handleImagePickerPress = () => {
     askForSourceDuringSignUp({setProfilePhoto});
   };
+
+  const ProfilePhoto = () => (
+    <View style={styles.profilephotowrapper}>
+      <Pressable onPress={() => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER)}>
+        <Image source={CANCEL_ICON} style={styles.canceliconimage} />
+      </Pressable>
+      <Image
+        source={{uri: profilephoto.uri}}
+        style={styles.image}
+        resizeMode="stretch"
+      />
+    </View>
+  );
+
   return (
     <SafeArea go_back={true}>
       <Brandiconandtext />
-      <View style={{flex: 0.9, alignItems: 'center'}}>
+      <ViewWrapper customstyles={{flex: 0.9, alignItems: 'center'}}>
         <Pressable onPress={handleImagePickerPress}>
           {profilephoto.uri ? (
-            <View style={{width: 100, height: 100}}>
-              <Pressable
-                onPress={() => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER)}>
-                <Image
-                  source={CANCEL_ICON}
-                  style={{height: 10, width: 10, alignSelf: 'flex-end'}}
-                />
-              </Pressable>
-              <Image source={{uri: profilephoto.uri}} style={styles.image} />
-            </View>
+            <ProfilePhoto />
           ) : (
             <Image source={USER_UPLOAD_ICON} style={styles.image} />
           )}
@@ -94,12 +101,8 @@ export const SignUp = () => {
           data={GENDER_ROLES}
           placeholder={SELECT_GENDER}
         />
-      </View>
+      </ViewWrapper>
       <AuthenticationButton text={SIGN_UP} onPress={() => registerUser()} />
     </SafeArea>
   );
-};
-
-const styles = {
-  image: {height: 80, width: 80, borderRadius: 12, alignSelf: 'center'},
 };
