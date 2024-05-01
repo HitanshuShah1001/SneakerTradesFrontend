@@ -7,6 +7,8 @@ import {
   PATCH,
   POST,
   PUT,
+  STATUS_FAIL,
+  STATUS_SUCCESS,
 } from '../constants/ApiParams';
 import {
   RemoveTokenFromLocalStorage,
@@ -17,7 +19,7 @@ import {RemoveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLo
 class ApiService {
   async responseHandler(apiresponse) {
     const {status, Data, message} = apiresponse || {};
-    if (status === 'Fail') {
+    if (status === STATUS_FAIL) {
       if (Data?.message === 'jwt expired') {
         return await Promise.allSettled([
           RemoveTokenFromLocalStorage(),
@@ -129,7 +131,7 @@ class ApiService {
       });
       const apiresponse = await response.json();
       const {status} = apiresponse || {};
-      if (status === 'Success') {
+      if (status === STATUS_SUCCESS) {
         return 'Deleted Succesfully';
       }
       return;

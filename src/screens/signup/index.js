@@ -31,7 +31,7 @@ import {apiService} from '../../services/apiService';
 import {CHECK_IF_USERNAME_EXISTS} from '../../constants/Apicall';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {STRETCH} from '../../constants/InputOptions';
-import {isValidEmail} from '../../utils/RegexTests';
+import {isValidEmail, isValidPhone} from '../../utils/RegexTests';
 
 export const SignUp = () => {
   const {setLoading} = useContext(Context);
@@ -44,6 +44,9 @@ export const SignUp = () => {
   const [profilephoto, setProfilePhoto] = useState(PROFILE_PHOTO_PLACEHOLDER);
 
   const registerUser = async () => {
+    if (!isValidPhone(phone)) {
+      return AlertMessage('Enter a valid phone');
+    }
     if (!username || !name || !emailId || !phone || !gender) {
       return AlertMessage(FILL_DETAILS);
     } else if (!isValidEmail(emailId)) {

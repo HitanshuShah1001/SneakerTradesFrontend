@@ -14,6 +14,9 @@ import {Context} from '../../navigation/BottomTab';
 import {LOGIN_CALL} from '../../constants/Apicall';
 import {setNotificationTimer} from '../../components/NotificationTimer';
 import {ENTER_TEN_DIGIT_MOBILE_NUMBER} from '../../constants/Placeholders';
+import {AlertMessage} from '../../utils/Alertmessage';
+import {STATUS_FAIL} from '../../constants/ApiParams';
+import {styles} from './styles';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -24,8 +27,11 @@ export const Login = () => {
     const response = await apiService.post(LOGIN_CALL, {
       Phone,
     });
-    setLoading(false);
-    if (response) {
+    if (response.status === STATUS_FAIL) {
+      setLoading(false);
+      return AlertMessage(response.Data);
+    } else {
+      setLoading(false);
       await Promise.allSettled([
         StoreTokenInLocalStorage({token: response.token}),
         StoreUserInLocalStorage({userData: response.user}),
@@ -53,8 +59,4 @@ export const Login = () => {
       />
     </SafeArea>
   );
-};
-
-const styles = {
-  inputcontainer: {flex: 0.6, alignItems: 'center'},
 };
