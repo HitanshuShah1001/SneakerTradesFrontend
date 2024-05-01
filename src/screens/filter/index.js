@@ -6,7 +6,6 @@ import {Checkbox} from 'react-native-paper';
 import {styles} from './styles';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {SneakerContext} from '../sneakercontext/SneakerContext';
-import {RetrieveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {Context} from '../../navigation/BottomTab';
 import {apiService} from '../../services/apiService';
 import {useNavigation} from '@react-navigation/native';
@@ -95,7 +94,6 @@ export const Filter = () => {
 
   const ApplyFilter = async () => {
     setLoading(true);
-    let token = await RetrieveTokenFromLocalStorage();
     const response = await apiService.post(`sneaker/forpurchaseandborrow`, {
       searchQuery,
       filters: {
@@ -104,7 +102,7 @@ export const Filter = () => {
         Size: selectedSizes,
       },
     });
-    setSneakers(response.data);
+    setSneakers(response.Data.data);
     navigation.navigate(HOME);
     setLoading(false);
   };
