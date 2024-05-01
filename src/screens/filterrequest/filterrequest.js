@@ -96,7 +96,6 @@ export const FilterRequests = () => {
 
   const ApplyFilter = async () => {
     setLoading(true);
-    let token = await RetrieveTokenFromLocalStorage();
     const response = await apiService.post(GET_SNEAKER_REQUESTS, {
       searchQuery,
       filters: {
@@ -105,7 +104,7 @@ export const FilterRequests = () => {
         Size: selectedSizes,
       },
     });
-    setSneakerRequests(response.data);
+    setSneakerRequests(response.Data.data);
     navigation.navigate(REQUESTS);
     setLoading(false);
   };
