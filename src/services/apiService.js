@@ -16,7 +16,7 @@ import {RemoveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLo
 
 class ApiService {
   async responseHandler(apiresponse) {
-    const {status, Data} = apiresponse || {};
+    const {status, Data, message} = apiresponse || {};
     if (status === 'Fail') {
       if (Data?.message === 'jwt expired') {
         return await Promise.allSettled([
@@ -24,10 +24,14 @@ class ApiService {
           RemoveUserFromLocalStorage(),
         ]);
       } else {
-        return Data;
+        return {status, Data};
       }
     } else {
-      return Data;
+      if (message) {
+        Alert.alert(message);
+      } else {
+        return Data;
+      }
     }
   }
 
@@ -69,6 +73,7 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
+      console.log(apiresponse);
       return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);

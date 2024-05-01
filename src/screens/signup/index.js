@@ -1,4 +1,4 @@
-import {Alert, Image, Pressable, View, StyleSheet} from 'react-native';
+import {Alert, Image, Pressable, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
@@ -14,15 +14,24 @@ import {
 } from '../../constants/Labels';
 import {SIGN_UP} from '../../constants/Buttontitles';
 import DropdownComponent from '../../components/Dropdown';
-import {useContext, useState} from 'react';
+import {useCallback, useContext, useState} from 'react';
 import {OTP_VERIFY} from '../../constants/Screen';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
-import {FILL_DETAILS} from '../../constants/Messages';
+import {
+  ENTER_A_VALID_EMAIL,
+  FILL_DETAILS,
+  USERNAME_ALREADY_EXISTS,
+} from '../../constants/Messages';
 import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {styles} from './styles';
+import {apiService} from '../../services/apiService';
+import {CHECK_IF_USERNAME_EXISTS} from '../../constants/Apicall';
+import {AlertMessage} from '../../utils/Alertmessage';
+import {STRETCH} from '../../constants/InputOptions';
+import {isValidEmail} from '../../utils/RegexTests';
 
 export const SignUp = () => {
   const {setLoading} = useContext(Context);
@@ -36,7 +45,15 @@ export const SignUp = () => {
 
   const registerUser = async () => {
     if (!username || !name || !emailId || !phone || !gender) {
-      return Alert.alert(FILL_DETAILS);
+      return AlertMessage(FILL_DETAILS);
+    } else if (!isValidEmail(emailId)) {
+      return AlertMessage(ENTER_A_VALID_EMAIL);
+    }
+    const response = await apiService.post(CHECK_IF_USERNAME_EXISTS, {
+      Username: username,
+    });
+    if (response === USERNAME_ALREADY_EXISTS) {
+      return AlertMessage(USERNAME_ALREADY_EXISTS);
     }
     setLoading(true);
     const userDataForSignUp = {
@@ -55,17 +72,20 @@ export const SignUp = () => {
     askForSourceDuringSignUp({setProfilePhoto});
   };
 
-  const ProfilePhoto = () => (
-    <View style={styles.profilephotowrapper}>
-      <Pressable onPress={() => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER)}>
-        <Image source={CANCEL_ICON} style={styles.canceliconimage} />
-      </Pressable>
-      <Image
-        source={{uri: profilephoto.uri}}
-        style={styles.image}
-        resizeMode="stretch"
-      />
-    </View>
+  const ProfilePhoto = useCallback(
+    () => (
+      <View style={styles.profilephotowrapper}>
+        <Pressable onPress={() => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER)}>
+          <Image source={CANCEL_ICON} style={styles.canceliconimage} />
+        </Pressable>
+        <Image
+          source={{uri: profilephoto.uri}}
+          style={styles.image}
+          resizeMode={STRETCH}
+        />
+      </View>
+    ),
+    [profilephoto],
   );
 
   return (
@@ -94,6 +114,7 @@ export const SignUp = () => {
           placeholder={PHONE_NUMBER}
           custVal={phone}
           setCustVal={setPhone}
+          inputMode={'numeric'}
         />
         <DropdownComponent
           value={gender}

@@ -42,14 +42,19 @@ export const OTPverify = props => {
       }
       formData.append('Gender', Gender);
       const response = await apiService.postformdata(SIGN_UP_CALL, formData);
-      setUser(response.user);
-      await Promise.allSettled([
-        StoreTokenInLocalStorage({token: response.token}),
-        StoreUserInLocalStorage({userData: response.user}),
-        setNotificationTimer(),
-      ]);
-      Alert.alert('User created succesfully!');
-      setLoading(false);
+      if (response.status === 'Fail') {
+        setLoading(false);
+        return Alert.alert(response.Data);
+      } else {
+        setUser(response.user);
+        await Promise.allSettled([
+          StoreTokenInLocalStorage({token: response.token}),
+          StoreUserInLocalStorage({userData: response.user}),
+          setNotificationTimer(),
+        ]);
+        Alert.alert('User created succesfully!');
+        setLoading(false);
+      }
     } else {
       setUser(userData);
       return await Promise.allSettled([

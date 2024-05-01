@@ -8,6 +8,7 @@ export const Textinput = ({
   setCustVal,
   inputMode,
   is_mandatory = false,
+  props,
 }) => {
   return (
     <TextInput
@@ -21,6 +22,7 @@ export const Textinput = ({
         setCustVal(val);
       }}
       inputMode={inputMode}
+      {...props}
     />
   );
 };

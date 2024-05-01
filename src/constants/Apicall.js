@@ -6,6 +6,7 @@ export const UPLOAD_REQUEST_CALL = 'sneakerrequests/createrequest';
 export const GET_SNEAKER_FOR_PURCHASE_AND_BORROW = `sneaker/forpurchaseandborrow`;
 export const GET_SNEAKER_REQUESTS = `sneakerrequests/requests`;
 export const GET_SNEAKERS_OWNED = `sneaker/getsneakersowned`;
+export const CHECK_IF_USERNAME_EXISTS = `user/usernameexists`;
 export const GET_SNEAKER_REQUESTS_CREATED = `sneakerrequests/requestscreated`;
 export const SAVE_SUBSCRIPTION_DETAILS = `usersubscription/savesubscriptiondetails`;
 export const CREATE_ORDER_RAZORPAY = `https://api.razorpay.com/v1/orders`;

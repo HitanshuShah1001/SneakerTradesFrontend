@@ -22,7 +22,7 @@ export const Login = () => {
   const checkIfUserExists = async () => {
     setLoading(true);
     const response = await apiService.post(LOGIN_CALL, {
-      Phone: `${Phone}`,
+      Phone,
     });
     setLoading(false);
     if (response) {
