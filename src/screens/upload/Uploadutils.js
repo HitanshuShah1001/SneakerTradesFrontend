@@ -3,6 +3,7 @@ import {UPLOAD} from '../../constants/Choices';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {IMAGE_PLACEHOLDERS} from '../../constants/Labels';
 import {styles} from './styles';
+import {AlertMessage} from '../../utils/Alertmessage';
 
 const isAnyFieldEmpty = fields => {
   for (let field of fields) {
@@ -31,7 +32,7 @@ export const ResetFields = ({
     uploadedFor === UPLOAD
       ? `Sneaker uploaded succesfully`
       : `Sneaker requested succesfully`;
-  Alert.alert(UPLOADORREQUEST);
+  AlertMessage(UPLOADORREQUEST);
   setBrand('');
   setGender('');
   setName('');

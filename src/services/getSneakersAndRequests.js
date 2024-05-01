@@ -20,6 +20,6 @@ export const getSneakersOrSneakerRequests = async ({
       Size: selectedSizes,
     },
   });
-  setValue(response.data);
+  setValue(response.Data.data);
   setLoading(false);
 };

@@ -33,12 +33,12 @@ export const Login = () => {
     } else {
       setLoading(false);
       await Promise.allSettled([
-        StoreTokenInLocalStorage({token: response.token}),
-        StoreUserInLocalStorage({userData: response.user}),
+        StoreTokenInLocalStorage({token: response.Data.token}),
+        StoreUserInLocalStorage({userData: response.Data.user}),
         setNotificationTimer(),
       ]);
       navigation.navigate(OTP_VERIFY, {
-        userData: {...response.user, token: response.token},
+        userData: {...response.Data.user, token: response.Data.token},
       });
     }
   };

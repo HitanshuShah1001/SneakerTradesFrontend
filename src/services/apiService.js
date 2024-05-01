@@ -1,4 +1,3 @@
-import {Alert} from 'react-native';
 import {
   BASE_URL,
   DELETE,
@@ -20,7 +19,7 @@ class ApiService {
   async responseHandler(apiresponse) {
     const {status, Data, message} = apiresponse || {};
     if (status === STATUS_FAIL) {
-      if (Data?.message === 'jwt expired') {
+      if (['jwt expired', 'jwt malformed'].includes(Data?.message)) {
         return await Promise.allSettled([
           RemoveTokenFromLocalStorage(),
           RemoveUserFromLocalStorage(),
@@ -29,11 +28,7 @@ class ApiService {
         return {status, Data};
       }
     } else {
-      if (message) {
-        Alert.alert(message);
-      } else {
-        return Data;
-      }
+      return {status, Data, message};
     }
   }
 

@@ -24,7 +24,7 @@ export const MyUploads = () => {
   const getUploadedSneakers = async () => {
     setLoading(true);
     const response = await apiService.get(GET_SNEAKERS_OWNED);
-    const sneakers = response?.data || [];
+    const sneakers = response?.Data?.data || [];
     setSneakers(sneakers);
     setSneakerUploadedUsed(sneakers);
     setLoading(false);

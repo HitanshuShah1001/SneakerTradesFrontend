@@ -36,6 +36,9 @@ import {
 } from './Uploadutils';
 import {UPGRADE_FOR_MORE_REQUEST_UPLOAD} from '../../constants/Backendresponses';
 import {askForPremiumSubs} from '../../components/AskForPremiumSubs';
+import {AlertMessage} from '../../utils/Alertmessage';
+import {PLEASE_FILL_ALL_THE_FIELDS} from '../../constants/Messages';
+import {STATUS_FAIL} from '../../constants/ApiParams';
 
 export const Upload = () => {
   const {setLoading} = useContext(Context);
@@ -62,7 +65,7 @@ export const Upload = () => {
     setLoading(true);
     if (!areAllFieldsValid({Name, Gender, Type, Size})) {
       setLoading(false);
-      return Alert.alert('Please fill the required fields');
+      return AlertMessage(PLEASE_FILL_ALL_THE_FIELDS);
     }
     const uploadDetails = new FormData();
     uploadDetails.append('Name', Name);
@@ -97,12 +100,12 @@ export const Upload = () => {
     }
     const Apicall = uploadedFor === UPLOAD ? UPLOAD_CALL : UPLOAD_REQUEST_CALL;
     const response = await apiService.postformdata(Apicall, uploadDetails);
-    if (response === UPGRADE_FOR_MORE_REQUEST_UPLOAD) {
-      setLoading(false);
-      askForPremiumSubs();
+    setLoading(false);
+    if (response.status === STATUS_FAIL) {
+      if (response.Data === UPGRADE_FOR_MORE_REQUEST_UPLOAD) {
+        askForPremiumSubs();
+      }
     } else {
-      console.log('In here');
-      setLoading(false);
       ResetFields({
         uploadedFor,
         setBrand,

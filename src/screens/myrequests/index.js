@@ -22,7 +22,7 @@ export const MyRequests = () => {
     setLoading(true);
 
     const response = await apiService.get(GET_SNEAKER_REQUESTS_CREATED);
-    const sneakerRequestData = response?.data || [];
+    const sneakerRequestData = response?.Data?.data || [];
     setSneakers(sneakerRequestData);
     setSneakersRequestUsed(sneakerRequestData);
     setLoading(false);

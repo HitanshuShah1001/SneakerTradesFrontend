@@ -12,7 +12,7 @@ export const ItemRendererSneakerRequests = ({
   const navigation = useNavigation();
   return (
     <>
-      {sneakers.length > 0 ? (
+      {sneakers?.length > 0 ? (
         <FlatList
           data={sneakers}
           renderItem={({item: sneaker}) => (
