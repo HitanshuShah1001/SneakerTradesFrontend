@@ -13,7 +13,7 @@ import notifee from '@notifee/react-native';
 
 export const Home = () => {
   const navigation = useNavigation();
-  const {setLoading} = useContext(Context);
+  const {setLoading} = useContext(Context) || {};
   const isFocused = useIsFocused();
   const {
     sneakers,
