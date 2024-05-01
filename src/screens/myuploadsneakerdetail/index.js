@@ -12,7 +12,7 @@ import {apiService} from '../../services/apiService';
 import {DELETE_SNEAKER_CALL, LOGIN_CALL} from '../../constants/Apicall';
 import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
 import {useNavigation} from '@react-navigation/native';
-import {MY_UPLOAD_SCREEN, PROFILE} from '../../constants/Screen';
+import {MY_UPLOAD_SCREEN} from '../../constants/Screen';
 
 export const MyUploadSneakerDetail = props => {
   const sneaker = props.route.params.sneaker;

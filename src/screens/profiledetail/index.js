@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {Context} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
 import {Image} from 'react-native';

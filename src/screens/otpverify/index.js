@@ -14,7 +14,6 @@ import {setNotificationTimer} from '../../components/NotificationTimer';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {Text} from 'react-native-paper';
 import {styles} from './styles';
-import {IMAGE_PLACEHOLDERS} from '../../constants/Labels';
 
 export const OTPverify = props => {
   const {setUser, setLoading} = useContext(Context);
@@ -74,12 +73,15 @@ export const OTPverify = props => {
   const ResendOtpOption = useCallback(() => {
     return (
       <View style={styles.resendOtpContainer}>
-        {showtryagaintext && (
-          <Text style={styles.tryagain}>Try again in {timeleft} seconds</Text>
+        {showtryagaintext ? (
+          <Text style={styles.tryagain}>
+            Resend again in {timeleft} seconds
+          </Text>
+        ) : (
+          <Pressable style={styles.pressableresendwrapper} onPress={() => {}}>
+            <Text style={styles.otpsendagaintext}>Resend OTP</Text>
+          </Pressable>
         )}
-        <Pressable style={styles.pressableresendwrapper}>
-          <Text style={styles.otpsendagaintext}>Resend OTP</Text>
-        </Pressable>
       </View>
     );
   }, [timeleft, showtryagaintext]);

@@ -1,4 +1,6 @@
-export const styles = {
+import {StyleSheet} from 'react-native';
+
+export const styles = StyleSheet.create({
   container: {
     width: '90%',
     alignSelf: 'center',
@@ -22,4 +24,4 @@ export const styles = {
   },
   detailsContainer: {flex: 1, paddingTop: 10},
   imagecontainer: {flex: 0.8, paddingTop: 10},
-};
+});
