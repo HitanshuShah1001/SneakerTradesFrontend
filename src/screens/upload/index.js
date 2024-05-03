@@ -34,7 +34,10 @@ import {
   ResetFields,
   UploadSneakerButton,
 } from './Uploadutils';
-import {UPGRADE_FOR_MORE_REQUEST_UPLOAD} from '../../constants/Backendresponses';
+import {
+  UPGRADE_FOR_MORE_REQUEST_UPLOAD,
+  UPGRADE_TO_PREMIUM_STATUSES,
+} from '../../constants/Backendresponses';
 import {askForPremiumSubs} from '../../components/AskForPremiumSubs';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {PLEASE_FILL_ALL_THE_FIELDS} from '../../constants/Messages';
@@ -102,7 +105,8 @@ export const Upload = () => {
     const response = await apiService.postformdata(Apicall, uploadDetails);
     setLoading(false);
     if (response.status === STATUS_FAIL) {
-      if (response.Data === UPGRADE_FOR_MORE_REQUEST_UPLOAD) {
+      console.log(response.Data);
+      if (UPGRADE_TO_PREMIUM_STATUSES.includes(response?.Data)) {
         askForPremiumSubs();
       }
     } else {

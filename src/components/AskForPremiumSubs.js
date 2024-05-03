@@ -1,9 +1,10 @@
-import {Alert} from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
 import {generateRazorpayOptions} from '../services/Razorpay/Constants';
 import {CreateOrderForRazorPay} from '../services/Razorpay/CreateOrder';
 import {apiService} from '../services/apiService';
 import {SAVE_SUBSCRIPTION_DETAILS} from '../constants/Apicall';
+import {AlertMessage} from '../utils/Alertmessage';
+import {Alert} from 'react-native';
 
 export const askForPremiumSubs = () =>
   Alert.alert('Do you want to upgrade to premium', '', [
@@ -20,7 +21,8 @@ export const askForPremiumSubs = () =>
             SAVE_SUBSCRIPTION_DETAILS,
             paymentdetailstosave,
           );
-          Alert.alert('You have subscribed succesfully');
+          console.log(userresponse);
+          AlertMessage('You have subscribed succesfully');
         } catch (e) {
           alert(`Error: ${e.code} | ${e.description}`);
         }

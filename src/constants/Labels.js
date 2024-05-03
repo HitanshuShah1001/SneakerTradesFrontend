@@ -50,7 +50,7 @@ export const SIZES = [
   {label: `8`, value: 8},
   {label: `9`, value: 9},
   {label: `10`, value: 10},
-];
+].reverse();
 
 export const TYPES = [
   {label: `Lend`, value: 'lend'},

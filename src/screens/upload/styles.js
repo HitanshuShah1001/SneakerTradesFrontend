@@ -1,6 +1,7 @@
+import {StyleSheet} from 'react-native';
 import {PLACEHOLDER_COLOR, THEME_PINK} from '../../constants/colorsandfonts';
 
-export const styles = {
+export const styles = StyleSheet.create({
   container: {
     minHeight: 60, // Set a minimum height to ensure it's scrollable
     paddingTop: 5,
@@ -60,5 +61,5 @@ export const styles = {
   selectedimage: {height: '100%', width: '100%', borderRadius: 12},
   imageselectorwrapper: {width: '30%', alignItems: 'center'},
   cancel_icon: {height: 10, width: 10},
-  uploadbutton: {width: '100%', marginTop: 10},
-};
+  uploadbutton: {width: '100%', marginVertical: 10},
+});
