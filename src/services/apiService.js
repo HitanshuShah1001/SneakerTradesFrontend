@@ -46,7 +46,7 @@ class ApiService {
     }
   }
 
-  async post(endpoint, body, headers = {}) {
+  async post(endpoint, body) {
     try {
       const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
@@ -57,6 +57,7 @@ class ApiService {
       const apiresponse = await response.json();
       return this.responseHandler(apiresponse);
     } catch (error) {
+      console.log(error, 'error message');
       throw new Error(error.message);
     }
   }
@@ -70,7 +71,6 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      console.log(apiresponse);
       return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);

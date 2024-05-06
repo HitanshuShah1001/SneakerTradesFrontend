@@ -55,20 +55,25 @@ export const SignUp = () => {
     const response = await apiService.post(CHECK_IF_USERNAME_EXISTS, {
       Username: username,
     });
-    if (response === USERNAME_ALREADY_EXISTS) {
+    console.log(response);
+    if (response.Data === USERNAME_ALREADY_EXISTS) {
       return AlertMessage(USERNAME_ALREADY_EXISTS);
+    } else {
+      setLoading(true);
+      const userDataForSignUp = {
+        Username: username,
+        Name: name,
+        Email: emailId,
+        Phone: phone,
+        ProfilePhoto: profilephoto,
+        Gender: gender,
+      };
+      setLoading(false);
+      navigation.navigate(OTP_VERIFY, {
+        userDataForSignUp,
+        cameFromSignUp: true,
+      });
     }
-    setLoading(true);
-    const userDataForSignUp = {
-      Username: username,
-      Name: name,
-      Email: emailId,
-      Phone: phone,
-      ProfilePhoto: profilephoto,
-      Gender: gender,
-    };
-    setLoading(false);
-    navigation.navigate(OTP_VERIFY, {userDataForSignUp, cameFromSignUp: true});
   };
 
   const handleImagePickerPress = () => {

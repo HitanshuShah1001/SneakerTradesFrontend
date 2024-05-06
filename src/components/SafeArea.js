@@ -8,7 +8,7 @@ import {Animation} from './Animator';
 
 export const LoadingIndicator = () => (
   <View style={[styles.loadingContainer, StyleSheet.absoluteFillObject]}>
-    <Animation />
+    <ActivityIndicator />
   </View>
 );
 export const SafeArea = ({children, go_back = false, text}) => {

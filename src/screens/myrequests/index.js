@@ -7,7 +7,6 @@ import {MY_REQUESTS} from '../../constants/Buttontitles';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 import {Search} from '../../components/Search';
-import {useIsFocused} from '@react-navigation/native';
 
 export const MyRequests = () => {
   const {setLoading} = useContext(Context);
@@ -16,7 +15,6 @@ export const MyRequests = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [count, setCount] = useState(0);
-  const isFocused = useIsFocused();
 
   const getSneakers = async () => {
     setLoading(true);
@@ -37,7 +35,7 @@ export const MyRequests = () => {
 
   useEffect(() => {
     getSneakers();
-  }, [isFocused]);
+  }, []);
 
   const filterSneakerRequest = () => {
     let filteredSneakerRequests = sneakers.filter(

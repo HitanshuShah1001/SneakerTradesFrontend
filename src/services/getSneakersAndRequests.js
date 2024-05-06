@@ -1,3 +1,4 @@
+import {STATUS_SUCCESS} from '../constants/ApiParams';
 import {RetrieveTokenFromLocalStorage} from '../utils/GetDeleteStoreTokenInLocalStorage';
 import {apiService} from './apiService';
 
@@ -11,7 +12,6 @@ export const getSneakersOrSneakerRequests = async ({
   apicall,
 }) => {
   setLoading(true);
-  let token = await RetrieveTokenFromLocalStorage();
   const response = await apiService.post(apicall, {
     searchQuery,
     filters: {
@@ -20,6 +20,8 @@ export const getSneakersOrSneakerRequests = async ({
       Size: selectedSizes,
     },
   });
-  setValue(response.Data.data);
+  if (response.status === STATUS_SUCCESS) {
+    setValue(response.Data.data);
+  }
   setLoading(false);
 };

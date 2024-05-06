@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
@@ -14,7 +14,6 @@ import notifee from '@notifee/react-native';
 export const Home = () => {
   const navigation = useNavigation();
   const {setLoading} = useContext(Context) || {};
-  const isFocused = useIsFocused();
   const {
     sneakers,
     setSneakers,
@@ -55,7 +54,7 @@ export const Home = () => {
 
   useEffect(() => {
     getSneakers();
-  }, [count, isFocused]);
+  }, [count]);
 
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});

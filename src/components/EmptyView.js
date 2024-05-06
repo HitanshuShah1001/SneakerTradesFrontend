@@ -10,12 +10,14 @@ export const EmptyView = ({text = 'No Sneakers Found'}) => {
     return null;
   } else {
     return (
-      <ViewWrapper
-        customstyles={{justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: FONT_SIZE, fontWeight: FONT_WEIGHT_BOLD}}>
-          {text}
-        </Text>
-      </ViewWrapper>
+      <Text
+        style={{
+          fontSize: FONT_SIZE,
+          fontWeight: FONT_WEIGHT_BOLD,
+          textAlign: 'center',
+        }}>
+        {text}
+      </Text>
     );
   }
 };

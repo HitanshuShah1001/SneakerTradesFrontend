@@ -9,7 +9,6 @@ import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {GET_SNEAKERS_OWNED} from '../../constants/Apicall';
 import {MyUploadsItemRenderer} from '../../components/MyUploadsItemRenderer';
 import {Search} from '../../components/Search';
-import {useIsFocused} from '@react-navigation/native';
 
 export const MyUploads = () => {
   const navigation = useNavigation();
@@ -19,7 +18,6 @@ export const MyUploads = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [count, setCount] = useState(0);
-  const isFocused = useIsFocused();
 
   const getUploadedSneakers = async () => {
     setLoading(true);
@@ -40,7 +38,7 @@ export const MyUploads = () => {
 
   useEffect(() => {
     getUploadedSneakers();
-  }, [isFocused]);
+  }, []);
 
   const handleSneakerPress = sneaker => {
     navigation.navigate(SNEAKER_UPLOADED_DETAIL, {sneaker});

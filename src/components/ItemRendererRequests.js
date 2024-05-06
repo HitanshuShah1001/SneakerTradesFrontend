@@ -3,6 +3,7 @@ import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
 import {useNavigation} from '@react-navigation/native';
 import {SNEAKER_REQUEST_DETAIL} from '../constants/Screen';
+import {returnStyleForEmptyData} from '../utils/StyleForEmptyData';
 
 export const ItemRendererSneakerRequests = ({
   sneakers,
@@ -12,29 +13,27 @@ export const ItemRendererSneakerRequests = ({
   const navigation = useNavigation();
   return (
     <>
-      {sneakers?.length > 0 ? (
-        <FlatList
-          data={sneakers}
-          renderItem={({item: sneaker}) => (
-            <Sneakercard
-              key={sneaker?.Name}
-              name={sneaker?.Name}
-              brand={sneaker?.Brand}
-              price={100}
-              source={sneaker?.Photo}
-              type={sneaker?.Type}
-              onPress={() =>
-                navigation.navigate(SNEAKER_REQUEST_DETAIL, {sneaker})
-              }
-            />
-          )}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-          }
-        />
-      ) : (
-        <EmptyView text="No Requests Found" />
-      )}
+      <FlatList
+        data={sneakers}
+        contentContainerStyle={returnStyleForEmptyData(sneakers)}
+        renderItem={({item: sneaker}) => (
+          <Sneakercard
+            key={sneaker?.Name}
+            name={sneaker?.Name}
+            brand={sneaker?.Brand}
+            price={100}
+            source={sneaker?.Photo}
+            type={sneaker?.Type}
+            onPress={() =>
+              navigation.navigate(SNEAKER_REQUEST_DETAIL, {sneaker})
+            }
+          />
+        )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        ListEmptyComponent={() => <EmptyView text="No Requests Found" />}
+      />
     </>
   );
 };

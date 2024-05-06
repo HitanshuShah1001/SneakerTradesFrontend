@@ -48,8 +48,8 @@ export const OTPverify = props => {
       } else {
         setUser(response.user);
         await Promise.allSettled([
-          StoreTokenInLocalStorage({token: response.token}),
-          StoreUserInLocalStorage({userData: response.user}),
+          StoreTokenInLocalStorage({token: response.Data.token}),
+          StoreUserInLocalStorage({userData: response.Data.user}),
           setNotificationTimer(),
         ]);
         Alert.alert('User created succesfully!');
