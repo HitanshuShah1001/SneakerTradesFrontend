@@ -4,7 +4,6 @@ import {Header} from './Header';
 import {useContext} from 'react';
 import {Context} from '../navigation/BottomTab';
 import {SafeAreaWrapper} from './SafeAreaWrapper';
-import {Animation} from './Animator';
 
 export const LoadingIndicator = () => (
   <View style={[styles.loadingContainer, StyleSheet.absoluteFillObject]}>
