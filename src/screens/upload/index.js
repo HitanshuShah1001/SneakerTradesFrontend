@@ -160,6 +160,7 @@ export const Upload = () => {
         setValue={setBrand}
         data={BRANDS}
         is_mandatory
+        search
       />
       <DropdownComponent
         placeholder={SELECT_GENDER}
@@ -174,6 +175,7 @@ export const Upload = () => {
           customstyles={{width: '90%'}}
           custVal={Price}
           setCustVal={setPrice}
+          is_mandatory
         />
       )}
       <DropdownComponent
@@ -181,6 +183,7 @@ export const Upload = () => {
         value={Size}
         setValue={setSize}
         data={SIZES}
+        is_mandatory
       />
       <DropdownComponent
         placeholder={SELECT_TYPE}

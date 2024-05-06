@@ -2,12 +2,13 @@ import {Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {GALLERY_LABEL} from '../constants/Labels';
 
-const options = (length = 5) => ({
+const options = (length = 1) => ({
   mediaType: 'photo',
   includeBase64: false,
   maxHeight: 2000,
   maxWidth: 2000,
-  selectionLimit: 5,
+  selectionLimit: length,
+  quality: 0.3,
 });
 
 const SetImageObject = (imageUri, fileName, type) => {
@@ -49,7 +50,13 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
 
 export const openImagePicker = ({Photos, setPhotos, source}) => {
   if (source === GALLERY_LABEL) {
-    launchImageLibrary(options(), response => {
+    let length = 6;
+    let indextoiterate = 0;
+    while (Photos[indextoiterate].uri != '' && indextoiterate != 6) {
+      length -= 1;
+      indextoiterate += 1;
+    }
+    launchImageLibrary(options(length), response => {
       let {didCancel, errorMessage, errorCode} = response || {};
       if (didCancel) {
         Alert.alert('User cancelled');
@@ -118,7 +125,6 @@ export const openImagePicker = ({Photos, setPhotos, source}) => {
 };
 
 export const removeImage = ({Photos, setPhotos, index}) => {
-  console.log(Photos, 'Photos incoming');
   const newImagesBeforeRemovedElement = Photos.slice(0, index);
   const newImagesAfterRemovedElement = Photos.slice(index + 1);
   let photosConcatenated = newImagesBeforeRemovedElement.concat(

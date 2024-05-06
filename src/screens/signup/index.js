@@ -1,4 +1,4 @@
-import {Alert, Image, Pressable, View} from 'react-native';
+import {Image, Pressable, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
@@ -21,14 +21,14 @@ import {Context} from '../../navigation/BottomTab';
 import {
   ENTER_A_VALID_EMAIL,
   FILL_DETAILS,
-  USERNAME_ALREADY_EXISTS,
+  SIGNUP_FIELDS_EXISTS,
 } from '../../constants/Messages';
 import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {styles} from './styles';
 import {apiService} from '../../services/apiService';
-import {CHECK_IF_USERNAME_EXISTS} from '../../constants/Apicall';
+import {CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS} from '../../constants/Apicall';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {STRETCH} from '../../constants/InputOptions';
 import {isValidEmail, isValidPhone} from '../../utils/RegexTests';
@@ -52,12 +52,16 @@ export const SignUp = () => {
     } else if (!isValidEmail(emailId)) {
       return AlertMessage(ENTER_A_VALID_EMAIL);
     }
-    const response = await apiService.post(CHECK_IF_USERNAME_EXISTS, {
-      Username: username,
-    });
-    console.log(response);
-    if (response.Data === USERNAME_ALREADY_EXISTS) {
-      return AlertMessage(USERNAME_ALREADY_EXISTS);
+    const response = await apiService.post(
+      CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS,
+      {
+        Username: username,
+        Phone: phone,
+        Email: emailId,
+      },
+    );
+    if (SIGNUP_FIELDS_EXISTS.includes(response?.Data)) {
+      return AlertMessage(response.Data);
     } else {
       setLoading(true);
       const userDataForSignUp = {
@@ -111,24 +115,33 @@ export const SignUp = () => {
           placeholder={USER_NAME}
           custVal={username}
           setCustVal={setUsername}
+          is_mandatory
         />
-        <Textinput placeholder={NAME} custVal={name} setCustVal={setName} />
+        <Textinput
+          placeholder={NAME}
+          custVal={name}
+          setCustVal={setName}
+          is_mandatory
+        />
         <Textinput
           placeholder={EMAIL_ID}
           custVal={emailId}
           setCustVal={setEmailId}
+          is_mandatory
         />
         <Textinput
           placeholder={PHONE_NUMBER}
           custVal={phone}
           setCustVal={setPhone}
           inputMode={'numeric'}
+          is_mandatory
         />
         <DropdownComponent
           value={gender}
           setValue={setGender}
           data={GENDER_ROLES}
           placeholder={SELECT_GENDER}
+          is_mandatory
         />
       </ViewWrapper>
       <AuthenticationButton text={SIGN_UP} onPress={() => registerUser()} />

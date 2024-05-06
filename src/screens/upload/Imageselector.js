@@ -19,9 +19,7 @@ export const Imageselector = ({
           onPress={() => removeImage({Photos, setPhotos, index})}>
           <Image source={CANCEL_ICON} style={styles.cancel_icon} />
         </Pressable>
-        <Pressable
-          style={styles.photoupload}
-          onPress={() => askForSourceInUpload({index, Photos, setPhotos})}>
+        <Pressable style={styles.photoupload} onPress={() => {}}>
           <Image
             source={{uri: image}}
             style={styles.selectedimage}
