@@ -7,7 +7,6 @@ import {
   GENDER_ROLES,
   NAME,
   PHONE_NUMBER,
-  PROFILE_PHOTO_PLACEHOLDER,
   USER_NAME,
 } from '../../constants/Labels';
 import {UPDATE_PROFILE} from '../../constants/Buttontitles';
@@ -16,7 +15,7 @@ import {useContext, useState} from 'react';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
-import {PROFILE_ICON, PROFILE_PLACEHOLDER_ICON} from '../../assets';
+import {PROFILE_PLACEHOLDER_ICON} from '../../assets';
 import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {UPDATE_PROFILE_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
@@ -56,7 +55,8 @@ export const UpdateProfile = () => {
       UPDATE_PROFILE_CALL,
       formData,
     );
-    StoreUserInLocalStorage({userData: response}), setLoading(false);
+    StoreUserInLocalStorage({userData: response.Data});
+    setLoading(false);
   };
 
   const handleImagePickerPress = () => {

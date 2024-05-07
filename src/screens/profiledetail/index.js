@@ -2,7 +2,7 @@ import {useContext} from 'react';
 import {Context} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
 import {Image} from 'react-native';
-import {MY_PROFILE} from '../../constants/Buttontitles';
+import {MY_PROFILE, UPDATE_PROFILE} from '../../constants/Buttontitles';
 import {PROFILE_PLACEHOLDER_ICON} from '../../assets';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {useNavigation} from '@react-navigation/native';
@@ -31,7 +31,7 @@ export const ProfileDetail = () => {
       )}
       <ContactInfoWrapper user={user} />
       <AuthenticationButton
-        text={'Update Profile'}
+        text={UPDATE_PROFILE}
         customstyles={{marginTop: 20}}
         onPress={() => navigation.navigate(UPDATE_PROFILE_SCREEN)}
       />
