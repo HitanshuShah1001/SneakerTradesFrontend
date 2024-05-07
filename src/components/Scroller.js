@@ -6,11 +6,11 @@ import {SafeAreaWrapper} from './SafeAreaWrapper';
 import {LoadingIndicator} from './SafeArea';
 import {SNEAKER_TRADES} from '../constants/Labels';
 
-export const Scroller = ({children}) => {
+export const Scroller = ({children, go_back = false}) => {
   const {loading} = useContext(Context);
   return (
     <SafeAreaWrapper>
-      <Header text={SNEAKER_TRADES} />
+      <Header text={SNEAKER_TRADES} go_back={go_back} />
       {loading && <LoadingIndicator />}
       <ScrollView
         contentContainerStyle={{

@@ -1,6 +1,7 @@
 import {Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {GALLERY_LABEL} from '../constants/Labels';
+import {REQUEST, UPLOAD} from '../constants/Choices';
 
 const options = (length = 1) => ({
   mediaType: 'photo',
@@ -48,13 +49,21 @@ export const openImagePickerForProfilePhoto = ({setProfilePhoto, source}) => {
   }
 };
 
-export const openImagePicker = ({Photos, setPhotos, source}) => {
+export const openImagePicker = ({
+  Photos,
+  setPhotos,
+  source,
+  uploadedFor = REQUEST,
+}) => {
   if (source === GALLERY_LABEL) {
-    let length = 6;
-    let indextoiterate = 0;
-    while (Photos[indextoiterate].uri != '' && indextoiterate != 6) {
-      length -= 1;
-      indextoiterate += 1;
+    let length = 1;
+    if (uploadedFor === UPLOAD) {
+      length = 6;
+      let indextoiterate = 0;
+      while (Photos[indextoiterate].uri != '' && indextoiterate != 6) {
+        length -= 1;
+        indextoiterate += 1;
+      }
     }
     launchImageLibrary(options(length), response => {
       let {didCancel, errorMessage, errorCode} = response || {};

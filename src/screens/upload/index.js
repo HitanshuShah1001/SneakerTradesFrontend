@@ -135,6 +135,7 @@ export const Upload = () => {
               Photos={Photos}
               setPhotos={setPhotos}
               removeImage={removeImage}
+              uploadedFor={uploadedFor}
             />
           );
         })}
