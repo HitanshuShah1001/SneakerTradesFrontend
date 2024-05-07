@@ -10,6 +10,10 @@ import {
   STATUS_SUCCESS,
 } from '../constants/ApiParams';
 import {
+  DELETED_SUCCESFULLY,
+  TOKEN_EXPIRED_STATUSES,
+} from '../constants/Backendresponses';
+import {
   RemoveTokenFromLocalStorage,
   RetrieveTokenFromLocalStorage,
 } from '../utils/GetDeleteStoreTokenInLocalStorage';
@@ -19,7 +23,7 @@ class ApiService {
   async responseHandler(apiresponse) {
     const {status, Data, message} = apiresponse || {};
     if (status === STATUS_FAIL) {
-      if (['jwt expired', 'jwt malformed'].includes(Data?.message)) {
+      if (TOKEN_EXPIRED_STATUSES.includes(Data?.message)) {
         return await Promise.allSettled([
           RemoveTokenFromLocalStorage(),
           RemoveUserFromLocalStorage(),
@@ -41,9 +45,7 @@ class ApiService {
       });
       const apiresponse = await response.json();
       return this.responseHandler(apiresponse);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   async post(endpoint, body) {
@@ -57,7 +59,6 @@ class ApiService {
       const apiresponse = await response.json();
       return this.responseHandler(apiresponse);
     } catch (error) {
-      console.log(error, 'error message');
       throw new Error(error.message);
     }
   }
@@ -127,7 +128,7 @@ class ApiService {
       const apiresponse = await response.json();
       const {status} = apiresponse || {};
       if (status === STATUS_SUCCESS) {
-        return 'Deleted Succesfully';
+        return DELETED_SUCCESFULLY;
       }
       return;
     } catch (error) {

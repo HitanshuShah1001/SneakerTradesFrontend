@@ -5,11 +5,17 @@ import {apiService} from '../services/apiService';
 import {SAVE_SUBSCRIPTION_DETAILS} from '../constants/Apicall';
 import {AlertMessage} from '../utils/Alertmessage';
 import {Alert} from 'react-native';
+import {
+  DO_YOU_WANT_TO_UPGRADE_TO_PREMIUM,
+  NO_LABEL,
+  YES_LABEL,
+  YOU_HAVE_SUBSCRIBED_SUCCESFULLY,
+} from '../constants/Razorpay';
 
 export const askForPremiumSubs = () =>
-  Alert.alert('Do you want to upgrade to premium', '', [
+  Alert.alert(DO_YOU_WANT_TO_UPGRADE_TO_PREMIUM, '', [
     {
-      text: 'YES',
+      text: YES_LABEL,
       onPress: async () => {
         try {
           const order_details = await CreateOrderForRazorPay();
@@ -21,8 +27,7 @@ export const askForPremiumSubs = () =>
             SAVE_SUBSCRIPTION_DETAILS,
             paymentdetailstosave,
           );
-          console.log(userresponse);
-          AlertMessage('You have subscribed succesfully');
+          AlertMessage(YOU_HAVE_SUBSCRIBED_SUCCESFULLY);
         } catch (e) {
           alert(`Error: ${e.code} | ${e.description}`);
         }
@@ -30,7 +35,7 @@ export const askForPremiumSubs = () =>
     },
 
     {
-      text: 'NO',
+      text: NO_LABEL,
       onPress: () => {},
     },
   ]);

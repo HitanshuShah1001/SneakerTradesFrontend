@@ -15,7 +15,7 @@ export const ItemRendererSneakers = ({
       <ViewWrapper>
         <FlatList
           data={sneakers}
-          // contentContainerStyle={returnStyleForEmptyData(sneakers)}
+          contentContainerStyle={returnStyleForEmptyData(sneakers)}
           renderItem={({item: sneaker}) => (
             <Sneakercard
               key={sneaker?.Name}
@@ -31,6 +31,7 @@ export const ItemRendererSneakers = ({
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
+          ListEmptyComponent={() => <EmptyView text="No Sneakers Found" />}
         />
       </ViewWrapper>
     </>

@@ -7,6 +7,7 @@ import {MY_REQUESTS} from '../../constants/Buttontitles';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 import {Search} from '../../components/Search';
+import {SNEAKER_REQUEST_UPLOADED_DETAIL} from '../../constants/Screen';
 
 export const MyRequests = () => {
   const {setLoading} = useContext(Context);
@@ -66,6 +67,7 @@ export const MyRequests = () => {
         sneakers={sneakersRequestsUsed}
         handleRefresh={handleRefresh}
         refreshing={refreshing}
+        navigateto={SNEAKER_REQUEST_UPLOADED_DETAIL}
       />
     </SafeArea>
   );

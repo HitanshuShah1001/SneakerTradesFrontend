@@ -6,3 +6,5 @@ export const UPGRADE_TO_PREMIUM_STATUSES = [
   UPGRADE_FOR_MORE_REQUEST_UPLOAD,
   UPGRADE_FOR_MORE_SNEAKER_UPLOAD,
 ];
+export const DELETED_SUCCESFULLY = 'Deleted Succesfully';
+export const TOKEN_EXPIRED_STATUSES = ['jwt expired', 'jwt malformed'];

@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, TITLE_COLOR} from '../constants/colorsandfonts';
 
 export const OwnerDetails = ({Name, Email, Phone}) => {
@@ -12,7 +12,7 @@ export const OwnerDetails = ({Name, Email, Phone}) => {
     </View>
   );
 };
-const styles = {
+const styles = StyleSheet.create({
   detailsContainer: {
     alignItems: 'flex-start',
     marginVertical: 20,
@@ -34,4 +34,4 @@ const styles = {
     fontWeight: '400',
     color: TITLE_COLOR,
   },
-};
+});

@@ -1,4 +1,4 @@
-import {Image, Pressable} from 'react-native';
+import {Image, Pressable, StyleSheet} from 'react-native';
 import {
   FONT_SIZE,
   FONT_WEIGHT_BOLD,
@@ -20,7 +20,7 @@ export const Sneakerimages = ({Photos, setSelectedSneakerImage}) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
@@ -63,4 +63,4 @@ const styles = {
     fontWeight: '400',
     color: TITLE_COLOR,
   },
-};
+});

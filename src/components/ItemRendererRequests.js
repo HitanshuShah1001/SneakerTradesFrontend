@@ -9,6 +9,7 @@ export const ItemRendererSneakerRequests = ({
   sneakers,
   refreshing,
   handleRefresh,
+  navigateto = SNEAKER_REQUEST_DETAIL,
 }) => {
   const navigation = useNavigation();
   return (
@@ -24,9 +25,7 @@ export const ItemRendererSneakerRequests = ({
             price={100}
             source={sneaker?.Photo}
             type={sneaker?.Type}
-            onPress={() =>
-              navigation.navigate(SNEAKER_REQUEST_DETAIL, {sneaker})
-            }
+            onPress={() => navigation.navigate(navigateto, {sneaker})}
           />
         )}
         refreshControl={

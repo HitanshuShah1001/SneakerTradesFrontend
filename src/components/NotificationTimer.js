@@ -1,8 +1,4 @@
-import notifee, {
-  RepeatFrequency,
-  TimestampTrigger,
-  TriggerType,
-} from '@notifee/react-native';
+import notifee, {RepeatFrequency, TriggerType} from '@notifee/react-native';
 
 export const reminderNotificationObj = {
   id: `Reminde-Notification`,
@@ -12,6 +8,7 @@ export const reminderNotificationObj = {
     channelId: 'general',
   },
 };
+
 export const setNotificationTimer = async () => {
   try {
     await notifee.requestPermission();

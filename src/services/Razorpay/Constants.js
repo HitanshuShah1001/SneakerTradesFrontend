@@ -1,8 +1,16 @@
 import {RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET} from '@env';
 import base64 from 'react-native-base64';
+import {
+  AMOUNT,
+  CURRENCY,
+  DESCRIPTION,
+  SNEAKER_TRADES_CORP,
+} from '../../constants/Razorpay';
+import {THEME_PINK} from '../../constants/colorsandfonts';
+
 export const body = {
   amount: 20000,
-  currency: 'INR',
+  currency: CURRENCY,
 };
 
 export let myHeaders = new Headers();
@@ -13,16 +21,15 @@ myHeaders.append(
 );
 
 export const generateRazorpayOptions = ({prefill = {}, order_id}) => {
-  console.log(order_id);
   return {
-    description: 'Sneaker Trades Premium Subscription!',
+    description: DESCRIPTION,
     image: 'https://ibb.co/jyLvCGZ',
-    currency: 'INR',
+    currency: CURRENCY,
     key: RAZORPAY_KEY_ID,
-    amount: '20000',
-    name: 'Sneaker Trades Corp',
+    amount: AMOUNT,
+    name: SNEAKER_TRADES_CORP,
     order_id: order_id,
     prefill,
-    theme: {color: '#53a20e'},
+    theme: {color: THEME_PINK},
   };
 };

@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, TITLE_COLOR} from '../constants/colorsandfonts';
 
 export const Sneakerdetailstext = ({Name, Brand, Gender, Size}) => {
@@ -13,7 +13,7 @@ export const Sneakerdetailstext = ({Name, Brand, Gender, Size}) => {
     </View>
   );
 };
-const styles = {
+const styles = StyleSheet.create({
   mainImage: {
     height: '40%',
     width: '100%',
@@ -51,4 +51,4 @@ const styles = {
     fontWeight: '400',
     color: TITLE_COLOR,
   },
-};
+});

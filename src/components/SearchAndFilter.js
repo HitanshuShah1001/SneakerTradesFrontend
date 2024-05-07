@@ -1,6 +1,6 @@
 import {Searchbar} from 'react-native-paper';
 import {FILTER_ICON, SEARCH_CLEAR, SEARCH_ICON} from '../assets';
-import {Image, Pressable, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FILTER_REQUEST_SCREEN, FILTER_SCREEN} from '../constants/Screen';
 export const SearchAndFilter = ({
@@ -37,7 +37,7 @@ export const SearchAndFilter = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   wrapper: {width: '90%', alignSelf: 'center', flexDirection: 'row'},
   input: {
     fontSize: 14,
@@ -62,4 +62,4 @@ const styles = {
     alignSelf: 'center',
     marginLeft: 10,
   },
-};
+});

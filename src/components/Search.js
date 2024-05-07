@@ -1,11 +1,12 @@
 import {Searchbar} from 'react-native-paper';
 import {SEARCH_CLEAR, SEARCH_ICON} from '../assets';
-import {Image, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
+import {SEARCH} from '../constants/Placeholders';
 export const Search = ({searchQuery, onChangeText}) => {
   return (
     <View style={styles.wrapper}>
       <Searchbar
-        placeholder="SEARCH"
+        placeholder={SEARCH}
         inputStyle={styles.input}
         onChangeText={onChangeText}
         value={searchQuery}
@@ -21,7 +22,7 @@ export const Search = ({searchQuery, onChangeText}) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   image: {height: 18, width: 18},
   wrapper: {width: '90%', alignSelf: 'center', flexDirection: 'row'},
   input: {
@@ -47,4 +48,4 @@ const styles = {
     alignSelf: 'center',
     marginLeft: 10,
   },
-};
+});

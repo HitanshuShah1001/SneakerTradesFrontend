@@ -23,7 +23,7 @@ export const MySneakerRequestDetail = props => {
     const response = await apiService.delete(
       DELETE_SNEAKER_REQUEST_CALL(sneaker?._id),
     );
-    setLoading(false);
+    if (response) setLoading(false);
     navigation.navigate(MY_REQUEST_SCREEN);
   };
 
@@ -31,14 +31,14 @@ export const MySneakerRequestDetail = props => {
     <SafeAreaWrapper>
       <Header go_back={true} />
       <View style={styles.container}>
-        <ViewWrapper>
+        <ViewWrapper style={{justifyContent: 'center'}}>
           <Image
             source={{uri: sneaker?.Photo ?? ''}}
             style={styles.mainImage}
             resizeMode="contain"
           />
         </ViewWrapper>
-        <ViewWrapper>
+        <ViewWrapper customstyles={{flex: 1.4}}>
           <Sneakerdetailstext
             Name={sneaker.Name}
             Brand={sneaker.Brand}

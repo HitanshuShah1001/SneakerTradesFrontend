@@ -30,6 +30,7 @@ export const MyUploadSneakerDetail = props => {
   const deleteSneaker = async () => {
     setLoading(true);
     const response = await apiService.delete(DELETE_SNEAKER_CALL(sneaker?._id));
+    console.log(response);
     if (response === 'Deleted Succesfully') {
       navigation.navigate(MY_UPLOAD_SCREEN);
     }

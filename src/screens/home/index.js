@@ -66,7 +66,6 @@ export const Home = () => {
     setSearchQuery(text);
     Calltochangecount();
   };
-
   return (
     <SafeArea>
       <SearchAndFilter

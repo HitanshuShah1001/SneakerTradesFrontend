@@ -1,9 +1,10 @@
 import {CREATE_ORDER_RAZORPAY} from '../../constants/Apicall';
+import {POST} from '../../constants/ApiParams';
 import {body, myHeaders} from './Constants';
 
 export const CreateOrderForRazorPay = async () => {
   const requestOptions = {
-    method: 'POST',
+    method: POST,
     headers: myHeaders,
     body: JSON.stringify(body),
   };

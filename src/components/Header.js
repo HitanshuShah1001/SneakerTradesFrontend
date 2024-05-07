@@ -3,6 +3,7 @@ import {Dimensions, Image, Pressable, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FONT_WEIGHT_NORMAL, THEME_PINK} from '../constants/colorsandfonts';
 import {BACK_ICON, BRAND_ICON} from '../assets';
+import {SNEAKER_TRADES} from '../constants/Labels';
 
 export const Header = ({text, go_back = false}) => {
   const navigation = useNavigation();
@@ -21,7 +22,7 @@ export const Header = ({text, go_back = false}) => {
         <Image source={BRAND_ICON} style={styles.image} />
       )}
 
-      <Text style={styles.headerText}>{text ?? 'Sneaker Trades'}</Text>
+      <Text style={styles.headerText}>{text ?? SNEAKER_TRADES}</Text>
     </View>
   );
 };

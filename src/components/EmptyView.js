@@ -1,10 +1,10 @@
 import {Text} from 'react-native';
 import {FONT_SIZE, FONT_WEIGHT_BOLD} from '../constants/colorsandfonts';
-import {ViewWrapper} from './ViewWrapper';
 import {useContext} from 'react';
 import {Context} from '../navigation/BottomTab';
+import {NO_SNEAKERS_FOUND} from '../constants/Labels';
 
-export const EmptyView = ({text = 'No Sneakers Found'}) => {
+export const EmptyView = ({text = NO_SNEAKERS_FOUND}) => {
   const {loading} = useContext(Context);
   if (loading) {
     return null;

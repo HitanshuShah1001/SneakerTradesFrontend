@@ -15,14 +15,14 @@ export const SneakerRequestDetail = props => {
     <SafeAreaWrapper>
       <Header go_back={true} />
       <View style={styles.container}>
-        <ViewWrapper>
+        <ViewWrapper customstyles={{justifyContent: 'center'}}>
           <Image
             source={{uri: sneaker?.Photo ?? ''}}
             style={styles.mainImage}
-            resizeMode="contain"
+            resizeMode="stretch"
           />
         </ViewWrapper>
-        <ViewWrapper>
+        <ViewWrapper customstyles={{flex: 1.4}}>
           <Sneakerdetailstext
             Name={sneaker.Name}
             Brand={sneaker.Brand}

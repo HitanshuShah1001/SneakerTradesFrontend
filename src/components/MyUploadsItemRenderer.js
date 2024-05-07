@@ -3,6 +3,7 @@ import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
 import {ViewWrapper} from './ViewWrapper';
 import {returnStyleForEmptyData} from '../utils/StyleForEmptyData';
+import {NO_UPLOADS_FOUND} from '../constants/Labels';
 
 export const MyUploadsItemRenderer = ({
   sneakers,
@@ -31,7 +32,7 @@ export const MyUploadsItemRenderer = ({
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
-          ListEmptyComponent={() => <EmptyView text="No Uploads Found" />}
+          ListEmptyComponent={() => <EmptyView text={NO_UPLOADS_FOUND} />}
         />
       </ViewWrapper>
     </>

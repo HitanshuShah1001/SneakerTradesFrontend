@@ -80,3 +80,6 @@ export const GALLERY_LABEL = 'Gallery';
 export const CAMERA_LABEL = 'Camera';
 export const CANCEL_LABEL = 'Cancel';
 export const SELECT_SOURCE_LABEL = 'Select Source';
+export const SNEAKER_TRADES = 'Sneaker Trades';
+export const NO_UPLOADS_FOUND = 'No Uploads Found';
+export const NO_SNEAKERS_FOUND = 'No Sneakers Found';

@@ -7,28 +7,30 @@ export const Otpinput = ({setOTP}) => {
       numberOfDigits={6}
       onTextChange={text => setOTP(text)}
       focusColor={'white'}
-      theme={{
-        containerStyle: {
-          width: '80%',
-        },
-        pinCodeContainerStyle: {
-          width: 35,
-          height: 35,
-          borderRadius: 6,
-
-          backgroundColor: '#FFF',
-        },
-        pinCodeTextStyle: {
-          fontSize: 18,
-          color: THEME_PINK,
-        },
-        focusStickStyle: {
-          height: 18,
-        },
-        focusedPinCodeContainerStyle: {
-          borderColor: '#000',
-        },
-      }}
+      theme={otpprops}
     />
   );
+};
+
+const otpprops = {
+  containerStyle: {
+    width: '80%',
+  },
+  pinCodeContainerStyle: {
+    width: 35,
+    height: 35,
+    borderRadius: 6,
+
+    backgroundColor: '#FFF',
+  },
+  pinCodeTextStyle: {
+    fontSize: 18,
+    color: THEME_PINK,
+  },
+  focusStickStyle: {
+    height: 18,
+  },
+  focusedPinCodeContainerStyle: {
+    borderColor: '#000',
+  },
 };
