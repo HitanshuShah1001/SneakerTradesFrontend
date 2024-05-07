@@ -15,7 +15,8 @@ export const Scroller = ({children, go_back = false}) => {
       <ScrollView
         contentContainerStyle={{
           alignItems: 'center',
-        }}>
+        }}
+        showsVerticalScrollIndicator={false}>
         {children}
       </ScrollView>
     </SafeAreaWrapper>
