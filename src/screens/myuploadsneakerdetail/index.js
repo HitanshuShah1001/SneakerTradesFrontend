@@ -1,18 +1,16 @@
 import React, {useCallback, useContext, useState} from 'react';
-import {Image, Pressable, View, SafeAreaView} from 'react-native';
+import {Image, Pressable, View} from 'react-native';
 import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
-import {styles} from './styles';
+import {styles} from '../sneakerdetail/styles';
 import {ActionChip} from '../../components/ActionChip';
-import {Header} from '../../components/Header';
 import {OwnerDetails} from '../../components/OwnerDetails';
 import {Context} from '../../navigation/BottomTab';
-import {LoadingIndicator} from '../../components/SafeArea';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {apiService} from '../../services/apiService';
-import {DELETE_SNEAKER_CALL, LOGIN_CALL} from '../../constants/Apicall';
-import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
+import {DELETE_SNEAKER_CALL} from '../../constants/Apicall';
 import {useNavigation} from '@react-navigation/native';
 import {MY_UPLOAD_SCREEN} from '../../constants/Screen';
+import {Scroller} from '../../components/Scroller';
 
 export const MyUploadSneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -40,21 +38,14 @@ export const MyUploadSneakerDetail = props => {
   const ImageContainer = useCallback(
     () => (
       <View style={styles.imagecontainer}>
-        <Image
-          source={{uri: selectedSneakerImage}}
-          style={styles.mainImage}
-          resizeMode="contain"
-        />
-        <View style={styles.thumbnailContainer}>
-          {sneaker.Photos.map((photo, index) => (
-            <Pressable
-              key={index}
-              onPress={() => handleImagePress(photo)}
-              style={{marginRight: 8}}>
-              <Image source={{uri: photo}} style={styles.thumbnailImage} />
-            </Pressable>
-          ))}
-        </View>
+        {sneaker.Photos.map((photo, index) => (
+          <Pressable
+            key={index}
+            onPress={() => handleImagePress(photo)}
+            style={{marginRight: 8}}>
+            <Image source={{uri: photo}} style={styles.thumbnailImage} />
+          </Pressable>
+        ))}
       </View>
     ),
     [selectedSneakerImage],
@@ -75,19 +66,24 @@ export const MyUploadSneakerDetail = props => {
           Phone={sneaker.OwnerDetails.Phone}
           Email={sneaker.OwnerDetails.Email}
         />
-        <AuthenticationButton text={'DELETE'} onPress={() => deleteSneaker()} />
       </View>
     );
   }, []);
 
   return (
-    <SafeAreaWrapper>
-      {loading && <LoadingIndicator />}
-      <Header go_back={true} />
-      <View style={styles.container}>
-        <ImageContainer />
-        <DetailsContainer />
-      </View>
-    </SafeAreaWrapper>
+    <Scroller go_back>
+      <Image
+        source={{uri: selectedSneakerImage}}
+        style={styles.mainImage}
+        resizeMode="contain"
+      />
+      <ImageContainer />
+      <DetailsContainer />
+      <AuthenticationButton
+        text={'DELETE'}
+        onPress={() => deleteSneaker()}
+        customstyles={{width: '90%', flex: 1, marginBottom: 10}}
+      />
+    </Scroller>
   );
 };

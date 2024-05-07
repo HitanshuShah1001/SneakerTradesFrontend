@@ -20,10 +20,11 @@ export const styles = {
     width: 60,
     resizeMode: 'contain',
   },
-  detailsContainer: {alignSelf: 'flex-start', margin: 15},
+  detailsContainer: {alignSelf: 'flex-start', marginHorizontal: 15},
   imagecontainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '90%',
+    marginTop: 10,
   },
 };

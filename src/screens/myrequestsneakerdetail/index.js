@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Image, View, SafeAreaView} from 'react-native';
 import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
-import {styles} from './styles';
+import {styles} from '../sneakerrequestdetail/styles';
 import {ActionChip} from '../../components/ActionChip';
 import {Header} from '../../components/Header';
 import {OwnerDetails} from '../../components/OwnerDetails';
