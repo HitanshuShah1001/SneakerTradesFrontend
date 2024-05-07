@@ -9,8 +9,10 @@ import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {apiService} from '../../services/apiService';
 import {DELETE_SNEAKER_CALL} from '../../constants/Apicall';
 import {useNavigation} from '@react-navigation/native';
-import {MY_UPLOAD_SCREEN} from '../../constants/Screen';
+import {MY_UPLOAD_SCREEN, PROFILE} from '../../constants/Screen';
 import {Scroller} from '../../components/Scroller';
+import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
+import {AlertMessage} from '../../utils/Alertmessage';
 
 export const MyUploadSneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -19,7 +21,6 @@ export const MyUploadSneakerDetail = props => {
   const [selectedSneakerImage, setSelectedSneakerImage] = useState(
     sneaker.Photos[0],
   );
-  const {loading} = useContext(Context);
 
   const handleImagePress = photo => {
     setSelectedSneakerImage(photo);
@@ -29,8 +30,9 @@ export const MyUploadSneakerDetail = props => {
     setLoading(true);
     const response = await apiService.delete(DELETE_SNEAKER_CALL(sneaker?._id));
     console.log(response);
-    if (response === 'Deleted Succesfully') {
-      navigation.navigate(MY_UPLOAD_SCREEN);
+    if (response === DELETED_SUCCESFULLY) {
+      AlertMessage(DELETED_SUCCESFULLY);
+      navigation.navigate(PROFILE);
     }
     setLoading(false);
   };

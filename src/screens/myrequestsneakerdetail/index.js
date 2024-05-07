@@ -12,7 +12,9 @@ import {apiService} from '../../services/apiService';
 import {Context} from '../../navigation/BottomTab';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
-import {MY_REQUEST_SCREEN} from '../../constants/Screen';
+import {MY_REQUEST_SCREEN, PROFILE} from '../../constants/Screen';
+import {AlertMessage} from '../../utils/Alertmessage';
+import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
 
 export const MySneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -23,8 +25,11 @@ export const MySneakerRequestDetail = props => {
     const response = await apiService.delete(
       DELETE_SNEAKER_REQUEST_CALL(sneaker?._id),
     );
-    if (response) setLoading(false);
-    navigation.navigate(MY_REQUEST_SCREEN);
+    if (response === DELETED_SUCCESFULLY) {
+      AlertMessage(DELETED_SUCCESFULLY);
+      navigation.navigate(PROFILE);
+    }
+    setLoading(false);
   };
 
   return (
