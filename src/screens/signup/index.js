@@ -34,7 +34,7 @@ import {STRETCH} from '../../constants/InputOptions';
 import {isValidEmail, isValidPhone} from '../../utils/RegexTests';
 
 export const SignUp = () => {
-  const {setLoading} = useContext(Context);
+  const {setLoading} = useContext(Context) || {};
   const navigation = useNavigation();
   const [gender, setGender] = useState(null);
   const [username, setUsername] = useState('');

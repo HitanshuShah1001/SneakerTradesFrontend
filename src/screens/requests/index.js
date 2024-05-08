@@ -9,7 +9,7 @@ import {getSneakersOrSneakerRequests} from '../../services/getSneakersAndRequest
 import {GET_SNEAKER_REQUESTS} from '../../constants/Apicall';
 
 export const Requests = () => {
-  const {setLoading} = useContext(Context);
+  const {setLoading} = useContext(Context) || {};
   const {
     sneakerrequests,
     setSneakerRequests,

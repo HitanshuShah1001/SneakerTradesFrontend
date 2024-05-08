@@ -5,7 +5,7 @@ import {Context} from '../navigation/BottomTab';
 import {NO_SNEAKERS_FOUND} from '../constants/Labels';
 
 export const EmptyView = ({text = NO_SNEAKERS_FOUND}) => {
-  const {loading} = useContext(Context);
+  const {loading} = useContext(Context) || {};
   if (loading) {
     return null;
   } else {

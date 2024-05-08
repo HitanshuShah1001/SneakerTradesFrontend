@@ -11,7 +11,7 @@ export const LoadingIndicator = () => (
   </View>
 );
 export const SafeArea = ({children, go_back = false, text}) => {
-  const {loading} = useContext(Context);
+  const {loading} = useContext(Context) || {};
 
   return (
     <SafeAreaWrapper>

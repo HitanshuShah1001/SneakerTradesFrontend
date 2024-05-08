@@ -41,7 +41,7 @@ import {PLEASE_FILL_ALL_THE_FIELDS} from '../../constants/Messages';
 import {STATUS_FAIL} from '../../constants/ApiParams';
 
 export const Upload = () => {
-  const {loading, setLoading} = useContext(Context) || {};
+  const {setLoading} = useContext(Context) || {};
   const [uploadedFor, setUploadedFor] = useState(UPLOAD);
   const [Photos, setPhotos] = useState(
     uploadedFor == UPLOAD ? IMAGE_PLACEHOLDERS : REQUEST_IMAGE_PLACEHOLDER,
@@ -74,6 +74,10 @@ export const Upload = () => {
     uploadDetails.append('Type', Type);
     uploadDetails.append('Size', Size);
     if (uploadedFor === UPLOAD) {
+      if (!Photos[0].uri && !Photos[1].uri && !Photos[2].uri) {
+        setLoading(false);
+        return AlertMessage('Please upload three images minimum');
+      }
       uploadDetails.append('OverdueCharge', 140);
       uploadDetails.append('Location', 1.22);
       uploadDetails.append('Location', 2.22);
@@ -90,7 +94,7 @@ export const Upload = () => {
     } else {
       if (!Photos[0].uri) {
         setLoading(false);
-        return Alert.alert('Please upload an image');
+        return AlertMessage('Please upload an image');
       }
       uploadDetails.append('Photo', {
         uri: Photos[0].uri,
@@ -117,7 +121,16 @@ export const Upload = () => {
         setUploadedFor,
       });
       setPhotos(
-        uploadedFor === UPLOAD ? IMAGE_PLACEHOLDERS : REQUEST_IMAGE_PLACEHOLDER,
+        uploadedFor === UPLOAD
+          ? [
+              {image: '', uri: '', fileName: '', type: ''},
+              {image: '', uri: '', fileName: '', type: ''},
+              {image: '', uri: '', fileName: '', type: ''},
+              {image: '', uri: '', fileName: '', type: ''},
+              {image: '', uri: '', fileName: '', type: ''},
+              {image: '', uri: '', fileName: '', type: ''},
+            ]
+          : [{image: '', uri: '', fileName: '', type: ''}],
       );
     }
   };

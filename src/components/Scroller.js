@@ -7,7 +7,7 @@ import {LoadingIndicator} from './SafeArea';
 import {SNEAKER_TRADES} from '../constants/Labels';
 
 export const Scroller = ({children, go_back = false}) => {
-  const {loading} = useContext(Context);
+  const {loading} = useContext(Context) || {};
   return (
     <SafeAreaWrapper>
       <Header text={SNEAKER_TRADES} go_back={go_back} />

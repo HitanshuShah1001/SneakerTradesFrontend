@@ -22,8 +22,7 @@ import {apiService} from '../../services/apiService';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
 export const UpdateProfile = () => {
-  const {user} = useContext(Context);
-  const {setLoading} = useContext(Context);
+  const {user, setLoading} = useContext(Context) || {};
   const [gender, setGender] = useState(user?.Gender || null);
   const [username, setUsername] = useState(user.Username);
   const [name, setName] = useState(user.Name);
