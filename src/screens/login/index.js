@@ -27,7 +27,6 @@ export const Login = () => {
     const response = await apiService.post(LOGIN_CALL, {
       Phone,
     });
-    console.log(response);
     if (response.status === STATUS_FAIL) {
       setLoading(false);
       return AlertMessage(response.Data);

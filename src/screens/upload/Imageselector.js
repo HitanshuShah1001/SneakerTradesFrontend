@@ -17,7 +17,7 @@ export const Imageselector = ({
       <>
         <Pressable
           style={{alignSelf: 'flex-end', marginTop: 6}}
-          onPress={() => removeImage({Photos, setPhotos, index})}>
+          onPress={() => removeImage({Photos, setPhotos, index, uploadedFor})}>
           <Image source={CANCEL_ICON} style={styles.cancel_icon} />
         </Pressable>
         <Pressable style={styles.photoupload} onPress={() => {}}>

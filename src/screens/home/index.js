@@ -28,11 +28,11 @@ export const Home = () => {
     setSearchQuery,
   } = useContext(SneakerContext);
 
-  useEffect(() => {
-    notifee
-      .getTriggerNotifications()
-      .then(ids => console.log('All trigger notifications: ', ids));
-  }, []);
+  // useEffect(() => {
+  //   notifee
+  //     .getTriggerNotifications()
+  //     .then(ids => console.log('All trigger notifications: ', ids));
+  // }, []);
 
   const getSneakers = () =>
     getSneakersOrSneakerRequests({

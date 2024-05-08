@@ -2,15 +2,7 @@ import {Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {GALLERY_LABEL} from '../constants/Labels';
 import {REQUEST, UPLOAD} from '../constants/Choices';
-
-const options = (length = 1) => ({
-  mediaType: 'photo',
-  includeBase64: false,
-  maxHeight: 2000,
-  maxWidth: 2000,
-  selectionLimit: length,
-  quality: 0.3,
-});
+import {options} from '../utils/ImageOptionGenerator';
 
 const SetImageObject = (imageUri, fileName, type) => {
   let indiObj = {};
@@ -99,11 +91,9 @@ export const openImagePicker = ({
     });
   } else {
     launchCamera(options, response => {
-      let {didCancel, errorMessage, errorCode} = response || {};
+      let {errorMessage, errorCode} = response || {};
       if (errorMessage) {
         Alert.alert(errorMessage);
-      } else if (didCancel) {
-        Alert.alert('User cancelled');
       } else if (errorCode) {
         Alert.alert(errorCode);
       } else {
@@ -133,12 +123,17 @@ export const openImagePicker = ({
   }
 };
 
-export const removeImage = ({Photos, setPhotos, index}) => {
+export const removeImage = ({Photos, setPhotos, index, uploadedFor}) => {
+  if (uploadedFor === REQUEST) {
+    setPhotos([{image: '', uri: '', fileName: '', type: ''}]);
+    return;
+  }
   const newImagesBeforeRemovedElement = Photos.slice(0, index);
   const newImagesAfterRemovedElement = Photos.slice(index + 1);
   let photosConcatenated = newImagesBeforeRemovedElement.concat(
     newImagesAfterRemovedElement,
   );
+
   let lengthOfPhotosConcatenated = photosConcatenated.length;
   while (lengthOfPhotosConcatenated < 6) {
     let obj = {};
