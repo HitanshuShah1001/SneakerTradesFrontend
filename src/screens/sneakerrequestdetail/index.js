@@ -7,6 +7,7 @@ import {Header} from '../../components/Header';
 import {OwnerDetails} from '../../components/OwnerDetails';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
+import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const SneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -16,10 +17,9 @@ export const SneakerRequestDetail = props => {
       <Header go_back={true} />
       <View style={styles.container}>
         <ViewWrapper customstyles={{justifyContent: 'center', flex: 0.8}}>
-          <Image
-            source={{uri: sneaker?.Photo ?? ''}}
-            style={styles.mainImage}
-            resizeMode="contain"
+          <LazyImageLoader
+            uri={sneaker?.Photo ?? ''}
+            styles={styles.mainImage}
           />
         </ViewWrapper>
         <ViewWrapper customstyles={{flex: 1.2}}>

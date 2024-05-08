@@ -13,6 +13,7 @@ import {PROFILE} from '../../constants/Screen';
 import {Scroller} from '../../components/Scroller';
 import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
 import {AlertMessage} from '../../utils/Alertmessage';
+import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const MyUploadSneakerDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -58,18 +59,14 @@ export const MyUploadSneakerDetail = props => {
 
   return (
     <Scroller go_back>
-      <Image
-        source={{uri: selectedSneakerImage}}
-        style={styles.mainImage}
-        resizeMode="contain"
-      />
+      <LazyImageLoader uri={selectedSneakerImage} styles={styles.mainImage} />
       <View style={styles.imagecontainer}>
         {sneaker.Photos.map((photo, index) => (
           <Pressable
             key={index}
             onPress={() => handleImagePress(photo)}
             style={{marginRight: 8}}>
-            <Image source={{uri: photo}} style={styles.thumbnailImage} />
+            <LazyImageLoader uri={photo} styles={styles.thumbnailImage} />
           </Pressable>
         ))}
       </View>

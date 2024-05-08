@@ -15,6 +15,8 @@ import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
 import {PROFILE} from '../../constants/Screen';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
+import FastImage from 'react-native-fast-image';
+import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const MySneakerRequestDetail = props => {
   const sneaker = props.route.params.sneaker;
@@ -37,11 +39,7 @@ export const MySneakerRequestDetail = props => {
       <Header go_back={true} />
       <View style={styles.container}>
         <ViewWrapper customstyles={{justifyContent: 'center', flex: 0.8}}>
-          <Image
-            source={{uri: sneaker?.Photo ?? ''}}
-            style={styles.mainImage}
-            resizeMode="contain"
-          />
+          <LazyImageLoader uri={sneaker?.Photo ?? ''} styles={styles} />
         </ViewWrapper>
         <ViewWrapper customstyles={{flex: 1.2}}>
           <Sneakerdetailstext

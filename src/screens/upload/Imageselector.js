@@ -3,6 +3,7 @@ import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
 import {styles} from './styles';
 import {useCallback} from 'react';
 import {askForSourceInUpload} from '../../components/AskForSource';
+import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const Imageselector = ({
   index,
@@ -21,9 +22,9 @@ export const Imageselector = ({
           <Image source={CANCEL_ICON} style={styles.cancel_icon} />
         </Pressable>
         <Pressable style={styles.photoupload} onPress={() => {}}>
-          <Image
-            source={{uri: image}}
-            style={styles.selectedimage}
+          <LazyImageLoader
+            uri={image}
+            styles={styles.selectedimage}
             resizeMode="stretch"
           />
         </Pressable>

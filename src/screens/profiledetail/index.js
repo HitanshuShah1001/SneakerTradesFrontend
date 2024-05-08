@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {UPDATE_PROFILE_SCREEN} from '../../constants/Screen';
 import {styles} from './styles';
 import {ContactInfoWrapper} from './ContactInfo';
+import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const ProfileDetail = () => {
   const {user} = useContext(Context);
@@ -17,11 +18,7 @@ export const ProfileDetail = () => {
   return (
     <SafeArea go_back={true} text={MY_PROFILE}>
       {user.ProfilePhoto !== '' ? (
-        <Image
-          source={{uri: user.ProfilePhoto}}
-          style={styles.image}
-          resizeMode="contain"
-        />
+        <LazyImageLoader uri={user.ProfilePhoto} styles={styles.image} />
       ) : (
         <Image
           source={PROFILE_PLACEHOLDER_ICON}

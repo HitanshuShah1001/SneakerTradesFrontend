@@ -1,10 +1,13 @@
 import {Image, StyleSheet, View} from 'react-native';
 import {BRAND_ICON, SNEAKER_TRADES_TEXT} from '../assets';
 
+const HEADERICONANDTEXT = ({source}) => (
+  <Image style={styles.text} source={source} />
+);
 export const Brandiconandtext = () => (
   <View style={styles.container}>
-    <Image style={styles.text} source={BRAND_ICON} />
-    <Image style={styles.text} source={SNEAKER_TRADES_TEXT} />
+    <HEADERICONANDTEXT source={BRAND_ICON} />
+    <HEADERICONANDTEXT source={SNEAKER_TRADES_TEXT} />
   </View>
 );
 

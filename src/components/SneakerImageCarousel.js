@@ -4,6 +4,7 @@ import {
   FONT_WEIGHT_BOLD,
   TITLE_COLOR,
 } from '../constants/colorsandfonts';
+import {LazyImageLoader} from './LazyImageLoader';
 
 export const Sneakerimages = ({Photos, setSelectedSneakerImage}) => {
   const handleImagePress = photo => {
@@ -13,7 +14,7 @@ export const Sneakerimages = ({Photos, setSelectedSneakerImage}) => {
     <>
       {Photos.map((photo, index) => (
         <Pressable key={index} onPress={photo => handleImagePress(photo)}>
-          <Image source={{uri: photo}} style={styles.thumbnailImage} />
+          <LazyImageLoader uri={photo} styles={styles.thumbnailImage} />
         </Pressable>
       ))}
     </>

@@ -20,6 +20,7 @@ import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {UPDATE_PROFILE_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const UpdateProfile = () => {
   const {user, setLoading} = useContext(Context) || {};
@@ -67,11 +68,9 @@ export const UpdateProfile = () => {
       <View style={{flex: 0.9, alignItems: 'center'}}>
         <Pressable onPress={handleImagePickerPress}>
           {user.ProfilePhoto || profilephoto.image ? (
-            <Image
-              source={{
-                uri: user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image,
-              }}
-              style={styles.image}
+            <LazyImageLoader
+              uri={user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image}
+              styles={styles.image}
             />
           ) : (
             <Image

@@ -32,6 +32,7 @@ import {CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS} from '../../constants/Apicall';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {STRETCH} from '../../constants/InputOptions';
 import {isValidEmail, isValidPhone} from '../../utils/RegexTests';
+import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const SignUp = () => {
   const {setLoading} = useContext(Context) || {};
@@ -90,9 +91,9 @@ export const SignUp = () => {
         <Pressable onPress={() => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER)}>
           <Image source={CANCEL_ICON} style={styles.canceliconimage} />
         </Pressable>
-        <Image
-          source={{uri: profilephoto.uri}}
-          style={styles.image}
+        <LazyImageLoader
+          uri={profilephoto.uri}
+          styles={styles.image}
           resizeMode={STRETCH}
         />
       </View>
