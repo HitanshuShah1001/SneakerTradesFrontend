@@ -15,23 +15,6 @@ export const SneakerDetail = props => {
   const handleImagePress = photo => {
     setSelectedSneakerImage(photo);
   };
-
-  const ImageContainer = useCallback(
-    () => (
-      <View style={styles.imagecontainer}>
-        {sneaker.Photos.map((photo, index) => (
-          <Pressable
-            key={index}
-            onPress={() => handleImagePress(photo)}
-            style={{marginRight: 8}}>
-            <Image source={{uri: photo}} style={styles.thumbnailImage} />
-          </Pressable>
-        ))}
-      </View>
-    ),
-    [selectedSneakerImage],
-  );
-
   const DetailsContainer = useCallback(() => {
     return (
       <View style={styles.detailsContainer}>
@@ -50,7 +33,6 @@ export const SneakerDetail = props => {
       </View>
     );
   }, []);
-
   return (
     <Scroller go_back>
       <Image
@@ -58,7 +40,16 @@ export const SneakerDetail = props => {
         style={styles.mainImage}
         resizeMode="contain"
       />
-      <ImageContainer />
+      <View style={styles.imagecontainer}>
+        {sneaker.Photos.map((photo, index) => (
+          <Pressable
+            key={index}
+            onPress={() => handleImagePress(photo)}
+            style={{marginRight: 8}}>
+            <Image source={{uri: photo}} style={styles.thumbnailImage} />
+          </Pressable>
+        ))}
+      </View>
       <DetailsContainer />
     </Scroller>
   );

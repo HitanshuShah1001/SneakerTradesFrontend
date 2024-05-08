@@ -11,6 +11,8 @@ import {
   YES_LABEL,
   YOU_HAVE_SUBSCRIBED_SUCCESFULLY,
 } from '../constants/Razorpay';
+import {RetrieveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLocalStorage';
+import {gneratePrefill} from '../utils/GeneratePrefill';
 
 export const askForPremiumSubs = () =>
   Alert.alert(DO_YOU_WANT_TO_UPGRADE_TO_PREMIUM, '', [
@@ -18,10 +20,14 @@ export const askForPremiumSubs = () =>
       text: YES_LABEL,
       onPress: async () => {
         try {
-          const order_details = await CreateOrderForRazorPay();
+          const [order_details, user] = await Promise.all([
+            CreateOrderForRazorPay(),
+            RetrieveUserFromLocalStorage(),
+          ]);
+          const prefill = gneratePrefill(user);
           const order_id = JSON.parse(order_details).id;
           const paymentdetailstosave = await RazorpayCheckout.open(
-            generateRazorpayOptions({order_id}),
+            generateRazorpayOptions({order_id, prefill}),
           );
           const userresponse = await apiService.post(
             SAVE_SUBSCRIPTION_DETAILS,

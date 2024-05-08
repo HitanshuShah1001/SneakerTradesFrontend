@@ -8,3 +8,5 @@ export const DESCRIPTION = 'Sneaker Trades Premium Subscription!';
 export const CURRENCY = 'INR';
 export const SNEAKER_TRADES_CORP = 'Sneaker Trades Corp';
 export const AMOUNT = '20000';
+export const RZP_IMAGE =
+  'https://imgtr.ee/images/2024/05/08/cedbc07ca97ca49792c175982b0ab48d.png';

@@ -9,7 +9,7 @@ import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {apiService} from '../../services/apiService';
 import {DELETE_SNEAKER_CALL} from '../../constants/Apicall';
 import {useNavigation} from '@react-navigation/native';
-import {MY_UPLOAD_SCREEN, PROFILE} from '../../constants/Screen';
+import {PROFILE} from '../../constants/Screen';
 import {Scroller} from '../../components/Scroller';
 import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
 import {AlertMessage} from '../../utils/Alertmessage';
@@ -29,29 +29,13 @@ export const MyUploadSneakerDetail = props => {
   const deleteSneaker = async () => {
     setLoading(true);
     const response = await apiService.delete(DELETE_SNEAKER_CALL(sneaker?._id));
-    console.log(response);
+
     if (response === DELETED_SUCCESFULLY) {
       AlertMessage(DELETED_SUCCESFULLY);
       navigation.navigate(PROFILE);
     }
     setLoading(false);
   };
-
-  const ImageContainer = useCallback(
-    () => (
-      <View style={styles.imagecontainer}>
-        {sneaker.Photos.map((photo, index) => (
-          <Pressable
-            key={index}
-            onPress={() => handleImagePress(photo)}
-            style={{marginRight: 8}}>
-            <Image source={{uri: photo}} style={styles.thumbnailImage} />
-          </Pressable>
-        ))}
-      </View>
-    ),
-    [selectedSneakerImage],
-  );
 
   const DetailsContainer = useCallback(() => {
     return (
@@ -79,7 +63,16 @@ export const MyUploadSneakerDetail = props => {
         style={styles.mainImage}
         resizeMode="contain"
       />
-      <ImageContainer />
+      <View style={styles.imagecontainer}>
+        {sneaker.Photos.map((photo, index) => (
+          <Pressable
+            key={index}
+            onPress={() => handleImagePress(photo)}
+            style={{marginRight: 8}}>
+            <Image source={{uri: photo}} style={styles.thumbnailImage} />
+          </Pressable>
+        ))}
+      </View>
       <DetailsContainer />
       <AuthenticationButton
         text={'DELETE'}

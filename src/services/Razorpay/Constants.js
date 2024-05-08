@@ -4,9 +4,11 @@ import {
   AMOUNT,
   CURRENCY,
   DESCRIPTION,
+  RZP_IMAGE,
   SNEAKER_TRADES_CORP,
 } from '../../constants/Razorpay';
 import {THEME_PINK} from '../../constants/colorsandfonts';
+import {APPLICATION_JSON} from '../../constants/ApiParams';
 
 export const body = {
   amount: 20000,
@@ -14,7 +16,7 @@ export const body = {
 };
 
 export let myHeaders = new Headers();
-myHeaders.append('content-type', 'application/json');
+myHeaders.append('content-type', APPLICATION_JSON);
 myHeaders.append(
   'Authorization',
   'Basic ' + base64.encode(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`),
@@ -23,7 +25,7 @@ myHeaders.append(
 export const generateRazorpayOptions = ({prefill = {}, order_id}) => {
   return {
     description: DESCRIPTION,
-    image: 'https://ibb.co/jyLvCGZ',
+    image: RZP_IMAGE,
     currency: CURRENCY,
     key: RAZORPAY_KEY_ID,
     amount: AMOUNT,
