@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Image, View, SafeAreaView} from 'react-native';
+import {Image, View} from 'react-native';
 import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
 import {styles} from '../sneakerrequestdetail/styles';
 import {ActionChip} from '../../components/ActionChip';
@@ -12,7 +12,7 @@ import {apiService} from '../../services/apiService';
 import {Context} from '../../navigation/BottomTab';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {SafeAreaWrapper} from '../../components/SafeAreaWrapper';
-import {MY_REQUEST_SCREEN, PROFILE} from '../../constants/Screen';
+import {PROFILE} from '../../constants/Screen';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
 

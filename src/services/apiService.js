@@ -69,11 +69,15 @@ class ApiService {
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
         method: POST,
         body,
-        headers: {...HEADERS(), Authorization: `Bearer ${token}`},
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
       });
       const apiresponse = await response.json();
       return this.responseHandler(apiresponse);
     } catch (error) {
+      console.log(error);
       throw new Error(error.message);
     }
   }
