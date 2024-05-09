@@ -56,7 +56,6 @@ export const MyUploadSneakerDetail = props => {
       </View>
     );
   }, []);
-
   return (
     <Scroller go_back>
       <LazyImageLoader uri={selectedSneakerImage} styles={styles.mainImage} />
