@@ -22,7 +22,9 @@ export const AuthenticationButton = ({
             return styles.signupnavigatiorpressable;
           }}
           onPress={() => navigation.navigate(SIGN_UP_SCREEN)}>
-          <Text style={{color: THEME_PINK}}>Don't have an account?</Text>
+          <Text style={{color: THEME_PINK, fontSize: 16}}>
+            Don't have an account?
+          </Text>
           <Text style={styles.navigator}>Sign Up</Text>
         </Pressable>
       )}
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
     color: THEME_PINK,
     fontWeight: FONT_WEIGHT_BOLD,
     marginLeft: 4,
+    fontSize: 16,
     textDecorationLine: 'underline',
   },
 });

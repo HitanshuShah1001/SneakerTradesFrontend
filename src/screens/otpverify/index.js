@@ -12,29 +12,29 @@ import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalSt
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {setNotificationTimer} from '../../components/NotificationTimer';
 import {ViewWrapper} from '../../components/ViewWrapper';
-import {FAB, Text} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import {styles} from './styles';
 import {STATUS_FAIL} from '../../constants/ApiParams';
 import {AlertMessage} from '../../utils/Alertmessage';
+import {OTP_SENT_MESSAGE} from '../../constants/Labels';
 
 export const OTPverify = props => {
   const {setUser, setLoading} = useContext(Context);
   const {userDataForSignUp} = props?.route?.params || {};
-  const {userData} = props?.route?.params || {};
-  const {cameFromSignUp} = props?.route?.params || false;
   const [timeleft, setTimeLeft] = useState(30);
   const [showtryagaintext, setShowTryAgainText] = useState(true);
   const [otp, setOTP] = useState('');
   const navigateToHome = async () => {
-    if (cameFromSignUp) {
+    if (otp.toString() === userDataForSignUp.otp) {
       setLoading(true);
-      const {Username, Name, Phone, Email, ProfilePhoto, Gender} =
+      const {Username, Name, Phone, Email, ProfilePhoto, Gender, Password} =
         userDataForSignUp;
       const formData = new FormData();
       formData.append('Username', Username);
       formData.append('Name', Name);
       formData.append('Email', Email);
       formData.append('Phone', Phone);
+      formData.append('Password', Password);
       if (ProfilePhoto.uri) {
         formData.append('ProfilePhoto', {
           uri: ProfilePhoto.uri,
@@ -46,7 +46,7 @@ export const OTPverify = props => {
       const response = await apiService.postformdata(SIGN_UP_CALL, formData);
       if (response.status === STATUS_FAIL) {
         setLoading(false);
-        return Alert.alert(response.Data);
+        return Alert.alert('Some error occured');
       } else {
         setUser(response.user);
         await Promise.allSettled([
@@ -58,11 +58,7 @@ export const OTPverify = props => {
         setLoading(false);
       }
     } else {
-      setUser(userData);
-      return await Promise.allSettled([
-        StoreTokenInLocalStorage({token: userData.token}),
-        StoreUserInLocalStorage({userData}),
-      ]);
+      AlertMessage('Invalid OTP');
     }
   };
 
@@ -99,6 +95,7 @@ export const OTPverify = props => {
       <ViewWrapper customstyles={{flex: 0.7, alignItems: 'center'}}>
         <Otpinput setOTP={setOTP} />
         <ResendOtpOption />
+        <Text style={styles.text}>{OTP_SENT_MESSAGE}</Text>
       </ViewWrapper>
       <AuthenticationButton
         text={VERIFY_OTP}

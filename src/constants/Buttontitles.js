@@ -5,6 +5,7 @@ export const COINS_BALANCE_RECHARGE = 'Coins Balance & Recharge';
 export const LOGOUT = 'Logout';
 export const DEACTIVATE_ACCOUNT = 'Deactivate Account';
 export const GENERATE_OTP = 'Generate OTP';
+export const LOGIN = 'LOGIN';
 export const VERIFY_OTP = 'Verify OTP';
 export const RENT = 'Rent';
 export const SELL = 'Sell';
