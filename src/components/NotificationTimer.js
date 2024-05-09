@@ -1,8 +1,11 @@
 import notifee, {RepeatFrequency, TriggerType} from '@notifee/react-native';
 
+export const NOTIFICATION_REMINDER = `Reminder-Notification`;
+export const SNEAKER_TRADES_TITLE = 'Sneaker Trades';
+
 export const reminderNotificationObj = {
-  id: `Reminde-Notification`,
-  title: 'Sneaker Trades',
+  id: NOTIFICATION_REMINDER,
+  title: SNEAKER_TRADES_TITLE,
   body: "Let's buy some sneakers!",
   android: {
     channelId: 'general',

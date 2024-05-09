@@ -12,8 +12,10 @@ import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalSt
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {setNotificationTimer} from '../../components/NotificationTimer';
 import {ViewWrapper} from '../../components/ViewWrapper';
-import {Text} from 'react-native-paper';
+import {FAB, Text} from 'react-native-paper';
 import {styles} from './styles';
+import {STATUS_FAIL} from '../../constants/ApiParams';
+import {AlertMessage} from '../../utils/Alertmessage';
 
 export const OTPverify = props => {
   const {setUser, setLoading} = useContext(Context);
@@ -42,7 +44,7 @@ export const OTPverify = props => {
       }
       formData.append('Gender', Gender);
       const response = await apiService.postformdata(SIGN_UP_CALL, formData);
-      if (response.status === 'Fail') {
+      if (response.status === STATUS_FAIL) {
         setLoading(false);
         return Alert.alert(response.Data);
       } else {
@@ -52,7 +54,7 @@ export const OTPverify = props => {
           StoreUserInLocalStorage({userData: response.Data.user}),
           setNotificationTimer(),
         ]);
-        Alert.alert('User created succesfully!');
+        AlertMessage('User created succesfully!');
         setLoading(false);
       }
     } else {

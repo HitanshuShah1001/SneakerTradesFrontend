@@ -8,6 +8,7 @@ import {
   EMAIL_ID,
   GENDER_ROLES,
   NAME,
+  PASSWORD,
   PHONE_NUMBER,
   PROFILE_PHOTO_PLACEHOLDER,
   USER_NAME,
@@ -20,6 +21,7 @@ import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {
   ENTER_A_VALID_EMAIL,
+  ENTER_A_VALID_PHONE,
   FILL_DETAILS,
   SIGNUP_FIELDS_EXISTS,
 } from '../../constants/Messages';
@@ -28,11 +30,15 @@ import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {styles} from './styles';
 import {apiService} from '../../services/apiService';
-import {CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS} from '../../constants/Apicall';
+import {
+  CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS,
+  SEND_OTP_EMAIL,
+} from '../../constants/Apicall';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {STRETCH} from '../../constants/InputOptions';
 import {isValidEmail, isValidPhone} from '../../utils/RegexTests';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
+import {STATUS_SUCCESS} from '../../constants/ApiParams';
 
 export const SignUp = () => {
   const {setLoading} = useContext(Context) || {};
@@ -42,11 +48,12 @@ export const SignUp = () => {
   const [name, setName] = useState('');
   const [emailId, setEmailId] = useState('');
   const [phone, setPhone] = useState('');
+  const [Password, setPassword] = useState('');
   const [profilephoto, setProfilePhoto] = useState(PROFILE_PHOTO_PLACEHOLDER);
 
   const registerUser = async () => {
     if (!isValidPhone(phone)) {
-      return AlertMessage('Enter a valid phone');
+      return AlertMessage(ENTER_A_VALID_PHONE);
     }
     if (!username || !name || !emailId || !phone || !gender) {
       return AlertMessage(FILL_DETAILS);
@@ -64,20 +71,28 @@ export const SignUp = () => {
     if (SIGNUP_FIELDS_EXISTS.includes(response?.Data)) {
       return AlertMessage(response.Data);
     } else {
-      setLoading(true);
-      const userDataForSignUp = {
-        Username: username,
-        Name: name,
+      const response = await apiService.post(SEND_OTP_EMAIL, {
         Email: emailId,
-        Phone: phone,
-        ProfilePhoto: profilephoto,
-        Gender: gender,
-      };
-      setLoading(false);
-      navigation.navigate(OTP_VERIFY, {
-        userDataForSignUp,
-        cameFromSignUp: true,
       });
+      if (response.status === STATUS_SUCCESS) {
+        const {
+          Data: {otp},
+        } = response;
+        const userDataForSignUp = {
+          Username: username,
+          Name: name,
+          Email: emailId,
+          Phone: phone,
+          ProfilePhoto: profilephoto,
+          Gender: gender,
+          otp,
+        };
+        setLoading(false);
+        navigation.navigate(OTP_VERIFY, {
+          userDataForSignUp,
+          cameFromSignUp: true,
+        });
+      }
     }
   };
 
@@ -129,6 +144,13 @@ export const SignUp = () => {
           custVal={emailId}
           setCustVal={setEmailId}
           is_mandatory
+        />
+        <Textinput
+          placeholder={PASSWORD}
+          custVal={Password}
+          setCustVal={setPassword}
+          is_mandatory
+          props={{secureTextEntry: true}}
         />
         <Textinput
           placeholder={PHONE_NUMBER}
