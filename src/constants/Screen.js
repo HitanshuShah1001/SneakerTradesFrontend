@@ -11,6 +11,7 @@ export const RESET_PASSWORD = 'ResetPassword';
 export const PROFILE_DETAIL = 'ProfileDetail';
 export const MY_UPLOAD_SCREEN = 'MyUploads';
 export const MY_REQUEST_SCREEN = 'MyRequests';
+export const CONTACT_US_SCREEN = 'ContactUs';
 export const SIGN_UP_SCREEN = 'SignUp';
 export const LOGIN_SCREEN = 'Login';
 export const COINS_BALANCE_AND_RECHARGE = 'CoinBalanceAndRecharge';

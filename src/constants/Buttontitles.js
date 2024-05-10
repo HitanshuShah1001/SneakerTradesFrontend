@@ -5,6 +5,7 @@ export const FILTER_LABEL = 'Filter';
 export const RESET_PASSWORD = 'Reset Password';
 export const COINS_BALANCE_RECHARGE = 'Coins Balance & Recharge';
 export const LOGOUT = 'Logout';
+export const CONTACT_US = 'Contact Us';
 export const DEACTIVATE_ACCOUNT = 'Deactivate Account';
 export const GENERATE_OTP = 'Generate OTP';
 export const LOGIN = 'LOGIN';

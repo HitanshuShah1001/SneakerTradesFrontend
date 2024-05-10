@@ -1,4 +1,10 @@
-import {LOGOUT, MY_PROFILE, MY_REQUESTS, MY_UPLOADS} from './Buttontitles';
+import {
+  CONTACT_US,
+  LOGOUT,
+  MY_PROFILE,
+  MY_REQUESTS,
+  MY_UPLOADS,
+} from './Buttontitles';
 
 export const PROFILEITEMS = [MY_PROFILE, MY_UPLOADS, MY_REQUESTS];
-export const ACCOUNTITEMS = [LOGOUT];
+export const ACCOUNTITEMS = [CONTACT_US, LOGOUT];

@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {tabScreens} from './Bottomtab';
 import {
+  CONTACT_US_SCREEN,
   FILTER_REQUEST_SCREEN,
   FILTER_SCREEN,
   LOGIN_SCREEN,
@@ -32,6 +33,7 @@ import {Login} from '../screens/login';
 import {SignUp} from '../screens/signup';
 import {OTPverify} from '../screens/otpverify';
 import {ResetPassword} from '../screens/resetpassword';
+import {ContactUs} from '../screens/contactus';
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -66,6 +68,7 @@ export const ScreensAndComponents = [
   {name: PROFILE_DETAIL, component: ProfileDetail},
   {name: MY_UPLOAD_SCREEN, component: MyUploads},
   {name: MY_REQUEST_SCREEN, component: MyRequests},
+  {name: CONTACT_US_SCREEN, component: ContactUs},
   {name: FILTER_SCREEN, component: Filter},
   {name: FILTER_REQUEST_SCREEN, component: FilterRequests},
   {name: UPDATE_PROFILE_SCREEN, component: UpdateProfile},

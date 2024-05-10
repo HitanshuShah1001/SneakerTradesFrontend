@@ -5,6 +5,7 @@ import {ACCOUNTITEMS, PROFILEITEMS} from '../../constants/ProfileActions';
 import {useNavigation} from '@react-navigation/native';
 import {
   COINS_BALANCE_RECHARGE,
+  CONTACT_US,
   LOGOUT,
   MY_PROFILE,
   MY_REQUESTS,
@@ -12,6 +13,7 @@ import {
 } from '../../constants/Buttontitles';
 import {
   COINS_BALANCE_AND_RECHARGE,
+  CONTACT_US_SCREEN,
   MY_REQUEST_SCREEN,
   MY_UPLOAD_SCREEN,
   PROFILE_DETAIL,
@@ -51,6 +53,8 @@ export const Profile = () => {
         return navigateTo(MY_UPLOAD_SCREEN);
       case MY_REQUESTS:
         return navigateTo(MY_REQUEST_SCREEN);
+      case CONTACT_US:
+        return navigateTo(CONTACT_US_SCREEN);
       default:
         break;
     }
