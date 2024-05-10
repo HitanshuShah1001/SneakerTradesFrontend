@@ -10,11 +10,6 @@ export const styles = {
     marginTop: 10,
     borderRadius: 12,
   },
-  thumbnailContainer: {
-    flexDirection: 'row',
-    marginTop: 15,
-    flexWrap: 'wrap',
-  },
   thumbnailImage: {
     height: 60,
     width: 60,

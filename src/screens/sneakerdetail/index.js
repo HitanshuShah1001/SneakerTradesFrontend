@@ -42,7 +42,7 @@ export const SneakerDetail = props => {
           <Pressable
             key={index}
             onPress={() => handleImagePress(photo)}
-            style={{marginRight: 8}}>
+            style={{marginRight: 8, marginTop: 8}}>
             <LazyImageLoader uri={photo} styles={styles.thumbnailImage} />
           </Pressable>
         ))}

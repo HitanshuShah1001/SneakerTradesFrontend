@@ -51,7 +51,8 @@ export const askForSourceDuringSignUp = ({setProfilePhoto}) =>
     },
     {
       text: CAMERA_LABEL,
-      onPress: () => openImagePicker({setProfilePhoto, source: CAMERA_LABEL}),
+      onPress: () =>
+        openImagePickerForProfilePhoto({setProfilePhoto, source: CAMERA_LABEL}),
     },
     Cancel_option,
   ]);

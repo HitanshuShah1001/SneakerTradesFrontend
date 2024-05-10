@@ -60,11 +60,8 @@ export const openImagePicker = ({
     launchImageLibrary(options(length), response => {
       let {didCancel, errorMessage, errorCode} = response || {};
       if (didCancel) {
-        Alert.alert('User cancelled');
       } else if (errorMessage) {
-        Alert.alert(errorMessage);
       } else if (errorCode) {
-        Alert.alert(errorCode);
       } else {
         let Images = [...Photos];
         let photoArrayIndex = 0;
