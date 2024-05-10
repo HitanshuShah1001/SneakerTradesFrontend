@@ -60,6 +60,7 @@ export const SignUp = () => {
     } else if (!isValidEmail(emailId)) {
       return AlertMessage(ENTER_A_VALID_EMAIL);
     }
+    setLoading(true);
     const response = await apiService.post(
       CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS,
       {
@@ -69,11 +70,13 @@ export const SignUp = () => {
       },
     );
     if (SIGNUP_FIELDS_EXISTS.includes(response?.Data)) {
+      setLoading(false);
       return AlertMessage(response.Data);
     } else {
       const response = await apiService.post(SEND_OTP_EMAIL, {
         Email: emailId,
       });
+      setLoading(false);
       if (response.status === STATUS_SUCCESS) {
         const {
           Data: {otp},
