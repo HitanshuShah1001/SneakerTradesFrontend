@@ -7,18 +7,23 @@ import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {VERIFY_OTP} from '../../constants/Buttontitles';
 import {apiService} from '../../services/apiService';
-import {SIGN_UP_CALL} from '../../constants/Apicall';
+import {SEND_OTP_EMAIL, SIGN_UP_CALL} from '../../constants/Apicall';
 import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {setNotificationTimer} from '../../components/NotificationTimer';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {Text} from 'react-native-paper';
 import {styles} from './styles';
-import {STATUS_FAIL} from '../../constants/ApiParams';
+import {STATUS_FAIL, STATUS_SUCCESS} from '../../constants/ApiParams';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {OTP_SENT_MESSAGE} from '../../constants/Labels';
 import {useNavigation} from '@react-navigation/native';
 import {RESET_PASSWORD} from '../../constants/Screen';
+import {
+  INVALID_OTP,
+  SOME_ERROR_OCCURED,
+  USER_CREATED_SUCCESFULLY,
+} from '../../constants/Messages';
 
 export const OTPverify = props => {
   const navigation = useNavigation();
@@ -28,12 +33,17 @@ export const OTPverify = props => {
   const [timeleft, setTimeLeft] = useState(30);
   const [showtryagaintext, setShowTryAgainText] = useState(true);
   const [otp, setOTP] = useState('');
+  const [otpToVerifyAgainst, setOtpToVerifyAgainst] = useState(
+    forgotPasswordAction
+      ? userDataForForgotPassword.otp
+      : userDataForSignUp.otp,
+  );
   const navigateToHome = async () => {
     if (forgotPasswordAction) {
       if (isOtpCorrect(userDataForForgotPassword)) {
         navigation.navigate(RESET_PASSWORD, {userDataForForgotPassword});
       } else {
-        AlertMessage('Invalid OTP');
+        AlertMessage(INVALID_OTP);
       }
     } else {
       if (isOtpCorrect(userDataForSignUp)) {
@@ -57,7 +67,7 @@ export const OTPverify = props => {
         const response = await apiService.postformdata(SIGN_UP_CALL, formData);
         setLoading(false);
         if (response.status === STATUS_FAIL) {
-          return AlertMessage('Some error occured');
+          return AlertMessage(SOME_ERROR_OCCURED);
         } else {
           setUser(response.user);
           await Promise.allSettled([
@@ -65,15 +75,29 @@ export const OTPverify = props => {
             StoreUserInLocalStorage({userData: response.Data.user}),
             setNotificationTimer(),
           ]);
-          AlertMessage('User created succesfully!');
+          AlertMessage(USER_CREATED_SUCCESFULLY);
         }
       } else {
-        AlertMessage('Invalid OTP');
+        AlertMessage(INVALID_OTP);
       }
     }
   };
 
-  const isOtpCorrect = data => otp.toString() === data.otp;
+  const isOtpCorrect = data => otp.toString() === otpToVerifyAgainst;
+
+  const sendOtpEmailAgain = async () => {
+    const response = await apiService.post(SEND_OTP_EMAIL, {
+      Email: forgotPasswordAction
+        ? userDataForForgotPassword.Email
+        : userDataForSignUp.Email,
+    });
+    if (response.status === STATUS_SUCCESS) {
+      setOtpToVerifyAgainst(response.Data.otp);
+      return AlertMessage(OTP_SENT_MESSAGE);
+    } else {
+      return AlertMessage(SOME_ERROR_OCCURED);
+    }
+  };
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -94,7 +118,9 @@ export const OTPverify = props => {
             Resend again in {timeleft} seconds
           </Text>
         ) : (
-          <Pressable style={styles.pressableresendwrapper} onPress={() => {}}>
+          <Pressable
+            style={styles.pressableresendwrapper}
+            onPress={() => sendOtpEmailAgain()}>
             <Text style={styles.otpsendagaintext}>Resend OTP</Text>
           </Pressable>
         )}

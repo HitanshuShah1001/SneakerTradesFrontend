@@ -14,6 +14,10 @@ import {apiService} from '../../services/apiService';
 import {RESET_PASSWORD_CALL} from '../../constants/Apicall';
 import {STATUS_SUCCESS} from '../../constants/ApiParams';
 import {LOGIN_SCREEN} from '../../constants/Screen';
+import {
+  PASS_CONFIRM_PASS_NO_MATCH,
+  PASSWORD_RESET_SUCCESSFUL,
+} from '../../constants/Messages';
 
 export const ResetPassword = props => {
   const navigation = useNavigation();
@@ -22,10 +26,10 @@ export const ResetPassword = props => {
   const {setLoading} = useContext(Context);
   const {userDataForForgotPassword} = props.route.params || {};
   const arePasswordsEqual = () =>
-    !Password || !ConfirmPassword || Password !== ConfirmPassword;
+    Password && !ConfirmPassword && Password === ConfirmPassword;
   const resetPassword = async () => {
     if (!arePasswordsEqual) {
-      return AlertMessage('Password and Confirm Password do not match');
+      return AlertMessage(PASS_CONFIRM_PASS_NO_MATCH);
     } else {
       setLoading(true);
       const response = await apiService.post(RESET_PASSWORD_CALL, {
@@ -34,7 +38,7 @@ export const ResetPassword = props => {
       });
       setLoading(false);
       if (response.status === STATUS_SUCCESS) {
-        AlertMessage('Password reset successful! Please login again');
+        AlertMessage(PASSWORD_RESET_SUCCESSFUL);
         navigation.navigate(LOGIN_SCREEN);
       } else {
         AlertMessage(response.Data);

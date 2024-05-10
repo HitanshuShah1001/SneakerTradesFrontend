@@ -19,7 +19,7 @@ import {Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {OTP_VERIFY} from '../../constants/Screen';
 import {isValidEmail} from '../../utils/RegexTests';
-import {ENTER_A_VALID_EMAIL} from '../../constants/Messages';
+import {ENTER_A_VALID_EMAIL, FILL_DETAILS} from '../../constants/Messages';
 
 export const Login = () => {
   const navigation = useNavigation();
@@ -27,6 +27,9 @@ export const Login = () => {
   const [Password, setPassword] = useState('');
   const {setUser, setLoading} = useContext(Context);
   const login = async () => {
+    if (!Email || !Password) {
+      return AlertMessage(FILL_DETAILS);
+    }
     setLoading(true);
     const response = await apiService.post(LOGIN_CALL, {
       Email,
@@ -46,12 +49,10 @@ export const Login = () => {
   };
 
   const forgotPassword = async () => {
-    if (!Email) {
-      return AlertMessage('Please enter email to proceed.');
-    }
-    if (!isValidEmail(Email)) {
+    if (!isValidEmail(Email) || !Email) {
       return AlertMessage(ENTER_A_VALID_EMAIL);
     }
+    setLoading(true);
     //Send email and on success navigate to otp verify screen
     const response = await apiService.post(SEND_OTP_EMAIL, {
       Email,

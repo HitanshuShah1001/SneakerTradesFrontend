@@ -12,3 +12,9 @@ export const SIGNUP_FIELDS_EXISTS = [
 export const ENTER_A_VALID_EMAIL = 'Please enter a valid email';
 export const ENTER_A_VALID_PHONE = 'Please enter a valid phone';
 export const PLEASE_FILL_ALL_THE_FIELDS = 'Please fill the required fields';
+export const PASSWORD_RESET_SUCCESSFUL =
+  'Password reset successful! Please login again';
+export const PASS_CONFIRM_PASS_NO_MATCH = 'Passwords do not match';
+export const SOME_ERROR_OCCURED = 'Some error occured';
+export const USER_CREATED_SUCCESFULLY = 'User created succesfully!';
+export const INVALID_OTP = 'Invalid OTP';
