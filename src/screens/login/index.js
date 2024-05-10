@@ -9,35 +9,61 @@ import {LOGIN} from '../../constants/Buttontitles';
 import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {Context} from '../../navigation/BottomTab';
-import {LOGIN_CALL} from '../../constants/Apicall';
+import {LOGIN_CALL, SEND_OTP_EMAIL} from '../../constants/Apicall';
 import {setNotificationTimer} from '../../components/NotificationTimer';
 import {AlertMessage} from '../../utils/Alertmessage';
-import {STATUS_FAIL} from '../../constants/ApiParams';
+import {STATUS_FAIL, STATUS_SUCCESS} from '../../constants/ApiParams';
 import {styles} from './styles';
 import {EMAIL_ID, PASSWORD} from '../../constants/Labels';
 import {Text} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
+import {OTP_VERIFY} from '../../constants/Screen';
+import {isValidEmail} from '../../utils/RegexTests';
+import {ENTER_A_VALID_EMAIL} from '../../constants/Messages';
 
 export const Login = () => {
+  const navigation = useNavigation();
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const {setUser, setLoading} = useContext(Context);
-  const checkIfUserExists = async () => {
+  const login = async () => {
     setLoading(true);
     const response = await apiService.post(LOGIN_CALL, {
       Email,
       Password,
     });
+    setLoading(false);
     if (response.status === STATUS_FAIL) {
-      setLoading(false);
       return AlertMessage(response.Data);
     } else {
-      setLoading(false);
-      setUser(response.Data.user);
+      setUser(response.user);
       await Promise.allSettled([
         StoreTokenInLocalStorage({token: response.Data.token}),
         StoreUserInLocalStorage({userData: response.Data.user}),
         setNotificationTimer(),
       ]);
+    }
+  };
+
+  const forgotPassword = async () => {
+    if (!Email) {
+      return AlertMessage('Please enter email to proceed.');
+    }
+    if (!isValidEmail(Email)) {
+      return AlertMessage(ENTER_A_VALID_EMAIL);
+    }
+    //Send email and on success navigate to otp verify screen
+    const response = await apiService.post(SEND_OTP_EMAIL, {
+      Email,
+    });
+    if (response.status === STATUS_SUCCESS) {
+      navigation.navigate(OTP_VERIFY, {
+        forgotPasswordAction: true,
+        userDataForForgotPassword: {
+          otp: response.Data.otp,
+          Email,
+        },
+      });
     }
   };
   return (
@@ -55,13 +81,13 @@ export const Login = () => {
           setCustVal={setPassword}
           props={{secureTextEntry: true}}
         />
-        <Pressable style={{marginTop: 10}}>
+        <Pressable style={{marginTop: 10}} onPress={() => forgotPassword()}>
           <Text style={styles.navigator}>Forgot password?</Text>
         </Pressable>
       </View>
       <AuthenticationButton
         text={LOGIN}
-        onPress={() => checkIfUserExists()}
+        onPress={() => login()}
         showsignup={true}
       />
     </SafeArea>

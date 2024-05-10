@@ -15,6 +15,7 @@ import {Image} from 'react-native';
 import {RESET_ICON} from '../../assets';
 import {SneakerRequestContext} from '../sneakercontext/SneakerRequestContext';
 import {GET_SNEAKER_REQUESTS} from '../../constants/Apicall';
+import {FILTER_LABEL} from '../../constants/Buttontitles';
 
 export const FilterRequests = () => {
   const {
@@ -110,7 +111,7 @@ export const FilterRequests = () => {
   };
 
   return (
-    <SafeArea go_back text={'Filter'}>
+    <SafeArea go_back text={FILTER_LABEL}>
       <View style={styles.mainContainer}>
         <View style={{width: '35%', marginLeft: 8}}>
           <Pressable

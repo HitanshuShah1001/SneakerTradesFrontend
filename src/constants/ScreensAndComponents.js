@@ -9,6 +9,7 @@ import {
   MY_UPLOAD_SCREEN,
   OTP_VERIFY,
   PROFILE_DETAIL,
+  RESET_PASSWORD,
   SIGN_UP_SCREEN,
   SNEAKER_DETAIL,
   SNEAKER_REQUEST_DETAIL,
@@ -30,6 +31,7 @@ import {Tabbaricon} from '../components/Tabbaricon';
 import {Login} from '../screens/login';
 import {SignUp} from '../screens/signup';
 import {OTPverify} from '../screens/otpverify';
+import {ResetPassword} from '../screens/resetpassword';
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -73,4 +75,5 @@ export const AuthScreenComponents = [
   {name: LOGIN_SCREEN, component: Login},
   {name: SIGN_UP_SCREEN, component: SignUp},
   {name: OTP_VERIFY, component: OTPverify},
+  {name: RESET_PASSWORD, component: ResetPassword},
 ];

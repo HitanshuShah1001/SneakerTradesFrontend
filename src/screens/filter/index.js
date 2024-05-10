@@ -13,6 +13,7 @@ import {HOME} from '../../constants/Screen';
 import {THEME_PINK} from '../../constants/colorsandfonts';
 import {Image} from 'react-native';
 import {RESET_ICON} from '../../assets';
+import {FILTER_LABEL} from '../../constants/Buttontitles';
 
 export const Filter = () => {
   const {
@@ -108,7 +109,7 @@ export const Filter = () => {
   };
 
   return (
-    <SafeArea go_back text={'Filter'}>
+    <SafeArea go_back text={FILTER_LABEL}>
       <View style={styles.mainContainer}>
         <View style={{width: '35%', marginLeft: 8}}>
           <Pressable

@@ -1,4 +1,4 @@
-import {Alert, Pressable, View} from 'react-native';
+import {Pressable, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Otpinput} from '../../components/Otpinput';
@@ -17,50 +17,63 @@ import {styles} from './styles';
 import {STATUS_FAIL} from '../../constants/ApiParams';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {OTP_SENT_MESSAGE} from '../../constants/Labels';
+import {useNavigation} from '@react-navigation/native';
+import {RESET_PASSWORD} from '../../constants/Screen';
 
 export const OTPverify = props => {
+  const navigation = useNavigation();
   const {setUser, setLoading} = useContext(Context);
-  const {userDataForSignUp} = props?.route?.params || {};
+  const {userDataForSignUp, forgotPasswordAction, userDataForForgotPassword} =
+    props?.route?.params || {};
   const [timeleft, setTimeLeft] = useState(30);
   const [showtryagaintext, setShowTryAgainText] = useState(true);
   const [otp, setOTP] = useState('');
   const navigateToHome = async () => {
-    if (otp.toString() === userDataForSignUp.otp) {
-      setLoading(true);
-      const {Username, Name, Phone, Email, ProfilePhoto, Gender, Password} =
-        userDataForSignUp;
-      const formData = new FormData();
-      formData.append('Username', Username);
-      formData.append('Name', Name);
-      formData.append('Email', Email);
-      formData.append('Phone', Phone);
-      formData.append('Password', Password);
-      if (ProfilePhoto.uri) {
-        formData.append('ProfilePhoto', {
-          uri: ProfilePhoto.uri,
-          type: ProfilePhoto.type,
-          name: ProfilePhoto.fileName,
-        });
-      }
-      formData.append('Gender', Gender);
-      const response = await apiService.postformdata(SIGN_UP_CALL, formData);
-      if (response.status === STATUS_FAIL) {
-        setLoading(false);
-        return Alert.alert('Some error occured');
+    if (forgotPasswordAction) {
+      if (isOtpCorrect(userDataForForgotPassword)) {
+        navigation.navigate(RESET_PASSWORD, {userDataForForgotPassword});
       } else {
-        setUser(response.user);
-        await Promise.allSettled([
-          StoreTokenInLocalStorage({token: response.Data.token}),
-          StoreUserInLocalStorage({userData: response.Data.user}),
-          setNotificationTimer(),
-        ]);
-        AlertMessage('User created succesfully!');
-        setLoading(false);
+        AlertMessage('Invalid OTP');
       }
     } else {
-      AlertMessage('Invalid OTP');
+      if (isOtpCorrect(userDataForSignUp)) {
+        setLoading(true);
+        const {Username, Name, Phone, Email, ProfilePhoto, Gender, Password} =
+          userDataForSignUp;
+        const formData = new FormData();
+        formData.append('Username', Username);
+        formData.append('Name', Name);
+        formData.append('Email', Email);
+        formData.append('Phone', Phone);
+        formData.append('Password', Password);
+        if (ProfilePhoto.uri) {
+          formData.append('ProfilePhoto', {
+            uri: ProfilePhoto.uri,
+            type: ProfilePhoto.type,
+            name: ProfilePhoto.fileName,
+          });
+        }
+        formData.append('Gender', Gender);
+        const response = await apiService.postformdata(SIGN_UP_CALL, formData);
+        setLoading(false);
+        if (response.status === STATUS_FAIL) {
+          return AlertMessage('Some error occured');
+        } else {
+          setUser(response.user);
+          await Promise.allSettled([
+            StoreTokenInLocalStorage({token: response.Data.token}),
+            StoreUserInLocalStorage({userData: response.Data.user}),
+            setNotificationTimer(),
+          ]);
+          AlertMessage('User created succesfully!');
+        }
+      } else {
+        AlertMessage('Invalid OTP');
+      }
     }
   };
+
+  const isOtpCorrect = data => otp.toString() === data.otp;
 
   useEffect(() => {
     let timer = setTimeout(() => {

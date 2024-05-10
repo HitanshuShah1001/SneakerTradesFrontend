@@ -22,6 +22,7 @@ export const Navigation = () => {
   }, [loading]);
   const getUserDetails = async () => {
     const userDetails = await RetrieveUserFromLocalStorage();
+    console.log(userDetails,'user details in bottom tab');
     setUser(userDetails);
   };
   useEffect(() => {

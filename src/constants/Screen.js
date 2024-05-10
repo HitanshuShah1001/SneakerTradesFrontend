@@ -7,6 +7,7 @@ export const SNEAKER_UPLOADED_DETAIL = 'UploadedSneakerDetail';
 export const SNEAKER_REQUEST_UPLOADED_DETAIL = 'UploadedRequestDetail';
 export const SNEAKER_REQUEST_DETAIL = 'SneakerRequestDetail';
 export const OTP_VERIFY = 'OtpVerify';
+export const RESET_PASSWORD = 'ResetPassword';
 export const PROFILE_DETAIL = 'ProfileDetail';
 export const MY_UPLOAD_SCREEN = 'MyUploads';
 export const MY_REQUEST_SCREEN = 'MyRequests';

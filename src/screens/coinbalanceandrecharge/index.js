@@ -4,6 +4,7 @@ import {COINS} from '../../assets';
 import {Textinput} from '../../components/Textinput';
 import {FONT_WEIGHT_BOLD, TITLE_COLOR} from '../../constants/colorsandfonts';
 import {SafeArea} from '../../components/SafeArea';
+import {COINS_BALANCE_RECHARGE} from '../../constants/Buttontitles';
 
 export const Coinbalanceandrecharge = props => {
   const {balance} = props.route.params;
@@ -37,7 +38,7 @@ export const Coinbalanceandrecharge = props => {
     );
   };
   return (
-    <SafeArea text={'Coin Balance And Recharge'} go_back>
+    <SafeArea text={COINS_BALANCE_RECHARGE} go_back>
       <CurrentBalance balance={balance} />
       <CoinsToRecharge />
     </SafeArea>

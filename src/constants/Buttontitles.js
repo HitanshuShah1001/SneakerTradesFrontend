@@ -1,6 +1,8 @@
 export const MY_PROFILE = 'My Profile';
 export const MY_UPLOADS = 'My Uploads';
 export const MY_REQUESTS = 'My Requests';
+export const FILTER_LABEL = 'Filter';
+export const RESET_PASSWORD = 'Reset Password';
 export const COINS_BALANCE_RECHARGE = 'Coins Balance & Recharge';
 export const LOGOUT = 'Logout';
 export const DEACTIVATE_ACCOUNT = 'Deactivate Account';
