@@ -1,5 +1,5 @@
 import {TextInput, StyleSheet} from 'react-native';
-import {THEME_PINK} from '../constants/colorsandfonts';
+import {PLACEHOLDER_COLOR, THEME_PINK} from '../constants/colorsandfonts';
 
 export const Textinput = ({
   placeholder,
@@ -23,6 +23,7 @@ export const Textinput = ({
       }}
       inputMode={inputMode}
       {...props}
+      placeholderTextColor={PLACEHOLDER_COLOR}
     />
   );
 };
