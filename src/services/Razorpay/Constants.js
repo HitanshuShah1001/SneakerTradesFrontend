@@ -11,7 +11,7 @@ import {THEME_PINK} from '../../constants/colorsandfonts';
 import {APPLICATION_JSON} from '../../constants/ApiParams';
 
 export const body = {
-  amount: 20000,
+  amount: 30000,
   currency: CURRENCY,
 };
 

@@ -6,7 +6,7 @@ export const SNEAKER_TRADES_TITLE = 'Sneaker Trades';
 export const reminderNotificationObj = {
   id: NOTIFICATION_REMINDER,
   title: SNEAKER_TRADES_TITLE,
-  body: "Let's buy some sneakers!",
+  body: 'Sneaker alerts: Because missing out is not an option!',
   android: {
     channelId: 'general',
   },
