@@ -19,6 +19,7 @@ import {AlertMessage} from '../../utils/Alertmessage';
 import {OTP_SENT_MESSAGE} from '../../constants/Labels';
 import {useNavigation} from '@react-navigation/native';
 import {RESET_PASSWORD} from '../../constants/Screen';
+import {Keyboard} from 'react-native';
 import {
   INVALID_OTP,
   SOME_ERROR_OCCURED,
@@ -109,6 +110,12 @@ export const OTPverify = props => {
       clearTimeout(timer);
     }
   }, [timeleft]);
+
+  useEffect(() => {
+    if (otp.length === 6) {
+      Keyboard.dismiss();
+    }
+  }, [otp]);
 
   const ResendOtpOption = useCallback(() => {
     return (
