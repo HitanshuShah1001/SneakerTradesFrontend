@@ -10,6 +10,7 @@ import {SneakerContext} from '../sneakercontext/SneakerContext';
 import {getSneakersOrSneakerRequests} from '../../services/getSneakersAndRequests';
 import {GET_SNEAKER_FOR_PURCHASE_AND_BORROW} from '../../constants/Apicall';
 import notifee from '@notifee/react-native';
+import {DEBOUNCE_MS} from '../../constants/InputOptions';
 
 export const Home = () => {
   const navigation = useNavigation();
@@ -54,7 +55,7 @@ export const Home = () => {
     navigation.navigate(SNEAKER_DETAIL, {sneaker});
   };
 
-  const Calltochangecount = debounce(() => setCount(!count), 500);
+  const Calltochangecount = debounce(() => setCount(!count), DEBOUNCE_MS);
 
   const onChangeInput = text => {
     setSearchQuery(text);

@@ -9,6 +9,7 @@ import {MY_UPLOADS} from '../../constants/Buttontitles';
 import {GET_SNEAKERS_OWNED} from '../../constants/Apicall';
 import {MyUploadsItemRenderer} from '../../components/MyUploadsItemRenderer';
 import {Search} from '../../components/Search';
+import {DEBOUNCE_MS} from '../../constants/InputOptions';
 
 export const MyUploads = () => {
   const navigation = useNavigation();
@@ -44,7 +45,7 @@ export const MyUploads = () => {
     navigation.navigate(SNEAKER_UPLOADED_DETAIL, {sneaker});
   };
 
-  const Calltochangecount = debounce(() => setCount(!count), 500);
+  const Calltochangecount = debounce(() => setCount(!count), DEBOUNCE_MS);
 
   const onChangeInput = text => {
     setSearchQuery(text);

@@ -1,4 +1,6 @@
-export const debounce = (callback, ms = 500) => {
+import {DEBOUNCE_MS} from '../constants/InputOptions';
+
+export const debounce = (callback, ms = DEBOUNCE_MS) => {
   let timer;
   return (...args) => {
     clearTimeout(timer);

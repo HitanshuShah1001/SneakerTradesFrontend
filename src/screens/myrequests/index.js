@@ -8,6 +8,7 @@ import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests
 import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 import {Search} from '../../components/Search';
 import {SNEAKER_REQUEST_UPLOADED_DETAIL} from '../../constants/Screen';
+import {DEBOUNCE_MS} from '../../constants/InputOptions';
 
 export const MyRequests = () => {
   const {setLoading} = useContext(Context);
@@ -50,7 +51,7 @@ export const MyRequests = () => {
     filterSneakerRequest();
   }, [count]);
 
-  const Calltochangecount = debounce(() => setCount(!count), 500);
+  const Calltochangecount = debounce(() => setCount(!count), DEBOUNCE_MS);
 
   const onChangeInput = text => {
     setSearchQuery(text);
