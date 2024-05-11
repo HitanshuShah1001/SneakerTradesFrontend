@@ -41,9 +41,9 @@ export const ContactUs = () => {
       <Textinput
         custVal={Details}
         setCustVal={setDetails}
-        customstyles={{height: 200}}
+        customstyles={{height: 200, padding: 10}}
         props={{multiline: true}}
-        placeholder={'Enter details(the more the better)'}
+        placeholder={'Enter details (the more elaborate the better)'}
       />
       <AuthenticationButton
         customstyles={{marginTop: 20}}

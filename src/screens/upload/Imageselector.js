@@ -22,11 +22,7 @@ export const Imageselector = ({
           <Image source={CANCEL_ICON} style={styles.cancel_icon} />
         </Pressable>
         <Pressable style={styles.photoupload} onPress={() => {}}>
-          <LazyImageLoader
-            uri={image}
-            styles={styles.selectedimage}
-            resizeMode="stretch"
-          />
+          <LazyImageLoader uri={image} styles={styles.selectedimage} />
         </Pressable>
       </>
     ),

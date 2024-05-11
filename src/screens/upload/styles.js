@@ -28,7 +28,6 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
     borderRadius: 6,
     marginTop: 8,
     alignSelf: 'center',
@@ -53,8 +52,8 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   placeholderimage: {
-    height: 24,
-    width: 24,
+    height: 64,
+    width: 64,
     borderRadius: 12,
     resizeMode: 'contain',
   },
