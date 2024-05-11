@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: THEME_PINK,
     borderWidth: 1,
-    marginTop: 8,
+    marginTop: 6,
     borderRadius: 6,
   },
   text: {color: THEME_PINK, fontWeight: FONT_WEIGHT_BOLD, fontSize: 14},

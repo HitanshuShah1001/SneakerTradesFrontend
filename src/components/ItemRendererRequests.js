@@ -22,7 +22,6 @@ export const ItemRendererSneakerRequests = ({
             key={sneaker?.Name}
             name={sneaker?.Name}
             brand={sneaker?.Brand}
-            price={100}
             source={sneaker?.Photo}
             type={sneaker?.Type}
             onPress={() => navigation.navigate(navigateto, {sneaker})}

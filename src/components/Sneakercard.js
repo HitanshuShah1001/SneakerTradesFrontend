@@ -18,7 +18,7 @@ const Sneakercard = ({
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.brand}>{brand}</Text>
-        <Text style={styles.price}>{price}</Text>
+        {price && <Text style={styles.price}>{price}</Text>}
         <Typechip type={type} />
       </View>
     </Pressable>

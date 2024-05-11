@@ -1,12 +1,20 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, TITLE_COLOR} from '../constants/colorsandfonts';
 
-export const Sneakerdetailstext = ({Name, Brand, Gender, Size}) => {
+export const Sneakerdetailstext = ({
+  Name,
+  Brand,
+  Gender,
+  Size,
+  Price = undefined,
+}) => {
   return (
     <View style={styles.detailsContainer}>
       <Text style={styles.name}>{Name}</Text>
       <Text style={styles.brand}>{Brand}</Text>
       <View style={styles.additionalDetails}>
+        {Price && <Text style={styles.detailText}>Price: Rs. {Price}</Text>}
+
         <Text style={styles.detailText}>Gender: {Gender}</Text>
         <Text style={styles.detailText}>Size: UK-{Size}</Text>
       </View>

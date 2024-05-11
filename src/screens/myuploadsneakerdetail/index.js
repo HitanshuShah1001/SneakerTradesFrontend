@@ -46,6 +46,7 @@ export const MyUploadSneakerDetail = props => {
           Brand={sneaker.Brand}
           Gender={sneaker.Gender}
           Size={sneaker.Size}
+          Price={sneaker?.Price}
         />
         <ActionChip text={sneaker?.Type} />
         <OwnerDetails
