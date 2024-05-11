@@ -159,7 +159,6 @@ export const SignUp = () => {
           placeholder={PHONE_NUMBER}
           custVal={phone}
           setCustVal={setPhone}
-          inputMode={'numeric'}
           is_mandatory
         />
         <DropdownComponent

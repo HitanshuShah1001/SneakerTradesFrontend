@@ -31,7 +31,6 @@ export const Coinbalanceandrecharge = props => {
             customstyles={styles.inputcustomstyles}
             custVal={coins}
             setCustVal={setCoins}
-            inputMode={'numeric'}
           />
         </View>
       </View>
