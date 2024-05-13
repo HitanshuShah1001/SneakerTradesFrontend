@@ -86,3 +86,4 @@ export const SNEAKER_TRADES = 'Sneaker Trades';
 export const NO_UPLOADS_FOUND = 'No Uploads Found';
 export const NO_SNEAKERS_FOUND = 'No Sneakers Found';
 export const OTP_SENT_MESSAGE = `An OTP has been sent to \n registered email address. Kindly verify!`;
+export const REMOVE_IMAGE = 'Remove Image?';

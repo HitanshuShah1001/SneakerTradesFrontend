@@ -1,14 +1,16 @@
 import {Image, Pressable, View} from 'react-native';
-import {CANCEL_ICON, PHOTO_UPLOAD} from '../../assets';
+import {PHOTO_UPLOAD} from '../../assets';
 import {styles} from './styles';
 import {useCallback} from 'react';
-import {askForSourceInUpload} from '../../components/AskForSource';
+import {
+  askForSourceInUpload,
+  removeImageOption,
+} from '../../components/AskForSource';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
 
 export const Imageselector = ({
   index,
   image,
-  removeImage,
   Photos,
   setPhotos,
   uploadedFor,
@@ -17,11 +19,10 @@ export const Imageselector = ({
     () => (
       <>
         <Pressable
-          style={{alignSelf: 'flex-end', marginTop: 6}}
-          onPress={() => removeImage({Photos, setPhotos, index, uploadedFor})}>
-          <Image source={CANCEL_ICON} style={styles.cancel_icon} />
-        </Pressable>
-        <Pressable style={styles.photoupload} onPress={() => {}}>
+          style={styles.photoupload}
+          onPress={() =>
+            removeImageOption({index, Photos, setPhotos, uploadedFor})
+          }>
           <LazyImageLoader uri={image} styles={styles.selectedimage} />
         </Pressable>
       </>

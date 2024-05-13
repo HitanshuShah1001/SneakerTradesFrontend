@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {Textinput} from '../../components/Textinput';
 import {Scroller} from '../../components/Scroller';
 import {UPLOAD} from '../../constants/Screen';
-import {removeImage} from '../../components/CameraPicker';
 import {styles} from './styles';
 import {
   BRANDS,
@@ -151,7 +150,6 @@ export const Upload = () => {
               image={val.image}
               Photos={Photos}
               setPhotos={setPhotos}
-              removeImage={removeImage}
               uploadedFor={uploadedFor}
             />
           );

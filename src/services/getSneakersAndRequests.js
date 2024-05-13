@@ -1,5 +1,4 @@
 import {STATUS_SUCCESS} from '../constants/ApiParams';
-import {RetrieveTokenFromLocalStorage} from '../utils/GetDeleteStoreTokenInLocalStorage';
 import {apiService} from './apiService';
 
 export const getSneakersOrSneakerRequests = async ({

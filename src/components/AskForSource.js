@@ -1,11 +1,17 @@
 import {Alert} from 'react-native';
-import {openImagePicker, openImagePickerForProfilePhoto} from './CameraPicker';
+import {
+  openImagePicker,
+  openImagePickerForProfilePhoto,
+  removeImage,
+} from './CameraPicker';
 import {
   CAMERA_LABEL,
   CANCEL_LABEL,
   GALLERY_LABEL,
+  REMOVE_IMAGE,
   SELECT_SOURCE_LABEL,
 } from '../constants/Labels';
+import {YES_LABEL} from '../constants/Razorpay';
 
 const Cancel_option = {
   text: CANCEL_LABEL,
@@ -56,3 +62,13 @@ export const askForSourceDuringSignUp = ({setProfilePhoto}) =>
     },
     Cancel_option,
   ]);
+
+export const removeImageOption = ({index, Photos, setPhotos, uploadedFor}) => {
+  Alert.alert(REMOVE_IMAGE, '', [
+    {
+      text: YES_LABEL,
+      onPress: () => removeImage({Photos, setPhotos, index, uploadedFor}),
+    },
+    Cancel_option,
+  ]);
+};
