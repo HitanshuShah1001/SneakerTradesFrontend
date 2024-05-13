@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {View, Alert} from 'react-native';
+import {View} from 'react-native';
 import {Textinput} from '../../components/Textinput';
 import {Scroller} from '../../components/Scroller';
 import {UPLOAD} from '../../constants/Screen';
@@ -37,7 +37,11 @@ import {
 import {UPGRADE_TO_PREMIUM_STATUSES} from '../../constants/Backendresponses';
 import {askForPremiumSubs} from '../../components/AskForPremiumSubs';
 import {AlertMessage} from '../../utils/Alertmessage';
-import {PLEASE_FILL_ALL_THE_FIELDS} from '../../constants/Messages';
+import {
+  PLEASE_FILL_ALL_THE_FIELDS,
+  UPL_ATL_ONE_IMAGE,
+  UPL_MIN_THREE_IMAGES,
+} from '../../constants/Messages';
 import {STATUS_FAIL} from '../../constants/ApiParams';
 
 export const Upload = () => {
@@ -74,9 +78,9 @@ export const Upload = () => {
     uploadDetails.append('Type', Type);
     uploadDetails.append('Size', Size);
     if (uploadedFor === UPLOAD) {
-      if (!Photos[0].uri && !Photos[1].uri && !Photos[2].uri) {
+      if (threeImagesAreNotPresent(Photos)) {
         setLoading(false);
-        return AlertMessage('Please upload three images minimum');
+        return AlertMessage(UPL_MIN_THREE_IMAGES);
       }
       uploadDetails.append('OverdueCharge', 140);
       uploadDetails.append('Location', 1.22);
@@ -94,7 +98,7 @@ export const Upload = () => {
     } else {
       if (!Photos[0].uri) {
         setLoading(false);
-        return AlertMessage('Please upload an image');
+        return AlertMessage(UPL_ATL_ONE_IMAGE);
       }
       uploadDetails.append('Photo', {
         uri: Photos[0].uri,
@@ -167,6 +171,15 @@ export const Upload = () => {
         setCustVal={setName}
         is_mandatory
       />
+      {uploadedFor === UPLOAD && (
+        <Textinput
+          placeholder={SNEAKER_PRICE}
+          customstyles={{width: '90%'}}
+          custVal={Price}
+          setCustVal={setPrice}
+          is_mandatory
+        />
+      )}
       <DropdownComponent
         placeholder={SELECT_BRAND}
         value={Brand}
@@ -182,15 +195,7 @@ export const Upload = () => {
         data={GENDER_ROLES_FOR_UPLOAD}
         is_mandatory
       />
-      {uploadedFor === UPLOAD && (
-        <Textinput
-          placeholder={SNEAKER_PRICE}
-          customstyles={{width: '90%'}}
-          custVal={Price}
-          setCustVal={setPrice}
-          is_mandatory
-        />
-      )}
+
       <DropdownComponent
         placeholder={SELECT_SIZE}
         value={Size}

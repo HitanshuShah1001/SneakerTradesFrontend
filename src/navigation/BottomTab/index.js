@@ -17,7 +17,7 @@ export const Navigation = () => {
     if (loading) {
       setTimeout(() => {
         setLoading(false);
-      }, 6000);
+      }, 8000);
     }
   }, [loading]);
   const getUserDetails = async () => {

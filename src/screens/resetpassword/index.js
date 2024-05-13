@@ -26,9 +26,9 @@ export const ResetPassword = props => {
   const {setLoading} = useContext(Context);
   const {userDataForForgotPassword} = props.route.params || {};
   const arePasswordsEqual = () =>
-    Password && !ConfirmPassword && Password === ConfirmPassword;
+    Password && ConfirmPassword && Password === ConfirmPassword;
   const resetPassword = async () => {
-    if (!arePasswordsEqual) {
+    if (!arePasswordsEqual()) {
       return AlertMessage(PASS_CONFIRM_PASS_NO_MATCH);
     } else {
       setLoading(true);

@@ -6,7 +6,7 @@ export const OwnerDetails = ({Name, Email, Phone}) => {
     <View style={styles.detailsContainer}>
       <Text style={styles.name}>{Name}</Text>
       <View style={styles.additionalDetails}>
-        <Text style={styles.detailText}>Phone - {Phone}</Text>
+        <Text style={styles.detailText}>Phone: {Phone}</Text>
         <Text style={styles.detailText}>Email: {Email}</Text>
       </View>
     </View>

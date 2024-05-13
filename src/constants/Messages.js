@@ -18,3 +18,5 @@ export const PASS_CONFIRM_PASS_NO_MATCH = 'Passwords do not match';
 export const SOME_ERROR_OCCURED = 'Some error occured';
 export const USER_CREATED_SUCCESFULLY = 'User created succesfully!';
 export const INVALID_OTP = 'Invalid OTP';
+export const UPL_MIN_THREE_IMAGES = 'Please upload three images minimum';
+export const UPL_ATL_ONE_IMAGE = 'Please upload an image';
