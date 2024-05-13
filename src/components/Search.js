@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'DMSans',
     justifyContent: 'center',
+    color: '#000000',
   },
   container: {
     backgroundColor: '#FFFFFF',

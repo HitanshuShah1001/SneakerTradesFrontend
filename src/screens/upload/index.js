@@ -43,6 +43,7 @@ import {
   UPL_MIN_THREE_IMAGES,
 } from '../../constants/Messages';
 import {STATUS_FAIL} from '../../constants/ApiParams';
+import {threeImagesAreNotPresent} from '../../utils/Threeimagesarenotinserted';
 
 export const Upload = () => {
   const {setLoading} = useContext(Context) || {};
@@ -158,7 +159,6 @@ export const Upload = () => {
       </View>
     );
   }, [Photos]);
-
   return (
     <Scroller>
       <Uploadchips uploadedFor={uploadedFor} setUploadedFor={setUploadedFor} />
