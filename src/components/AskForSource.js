@@ -13,7 +13,7 @@ import {
 } from '../constants/Labels';
 import {YES_LABEL} from '../constants/Razorpay';
 
-const Cancel_option = {
+export const Cancel_option = {
   text: CANCEL_LABEL,
   onPress: () => {},
 };

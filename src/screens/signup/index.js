@@ -1,4 +1,4 @@
-import {Image, Pressable, View} from 'react-native';
+import {Alert, Image, Pressable, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
@@ -11,6 +11,7 @@ import {
   PASSWORD,
   PHONE_NUMBER,
   PROFILE_PHOTO_PLACEHOLDER,
+  REMOVE_IMAGE,
   USER_NAME,
 } from '../../constants/Labels';
 import {SIGN_UP} from '../../constants/Buttontitles';
@@ -26,7 +27,10 @@ import {
   SIGNUP_FIELDS_EXISTS,
 } from '../../constants/Messages';
 import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
-import {askForSourceDuringSignUp} from '../../components/AskForSource';
+import {
+  askForSourceDuringSignUp,
+  Cancel_option,
+} from '../../components/AskForSource';
 import {ViewWrapper} from '../../components/ViewWrapper';
 import {styles} from './styles';
 import {apiService} from '../../services/apiService';
@@ -40,6 +44,7 @@ import {isValidEmail, isValidPhone} from '../../utils/RegexTests';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
 import {STATUS_SUCCESS} from '../../constants/ApiParams';
 import {Scroller} from '../../components/Scroller';
+import {YES_LABEL} from '../../constants/Razorpay';
 
 export const SignUp = () => {
   const {setLoading} = useContext(Context) || {};
@@ -104,17 +109,26 @@ export const SignUp = () => {
     askForSourceDuringSignUp({setProfilePhoto});
   };
 
+  const removeImageOption = () => {
+    Alert.alert(REMOVE_IMAGE, '', [
+      {
+        text: YES_LABEL,
+        onPress: () => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER),
+      },
+      Cancel_option,
+    ]);
+  };
+
   const ProfilePhoto = useCallback(
     () => (
       <View style={styles.profilephotowrapper}>
-        <Pressable onPress={() => setProfilePhoto(PROFILE_PHOTO_PLACEHOLDER)}>
-          <Image source={CANCEL_ICON} style={styles.canceliconimage} />
+        <Pressable onPress={() => removeImageOption()}>
+          <LazyImageLoader
+            uri={profilephoto.uri}
+            styles={styles.image}
+            resizeMode={STRETCH}
+          />
         </Pressable>
-        <LazyImageLoader
-          uri={profilephoto.uri}
-          styles={styles.image}
-          resizeMode={STRETCH}
-        />
       </View>
     ),
     [profilephoto],
