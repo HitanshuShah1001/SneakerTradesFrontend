@@ -39,6 +39,7 @@ import {STRETCH} from '../../constants/InputOptions';
 import {isValidEmail, isValidPhone} from '../../utils/RegexTests';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
 import {STATUS_SUCCESS} from '../../constants/ApiParams';
+import {Scroller} from '../../components/Scroller';
 
 export const SignUp = () => {
   const {setLoading} = useContext(Context) || {};
@@ -120,9 +121,8 @@ export const SignUp = () => {
   );
 
   return (
-    <SafeArea go_back={true}>
-      <Brandiconandtext />
-      <ViewWrapper customstyles={{flex: 0.9, alignItems: 'center'}}>
+    <Scroller text={SIGN_UP} go_back>
+      <ViewWrapper customstyles={styles.addonstyles}>
         <Pressable onPress={handleImagePickerPress}>
           {profilephoto.uri ? (
             <ProfilePhoto />
@@ -169,7 +169,11 @@ export const SignUp = () => {
           is_mandatory
         />
       </ViewWrapper>
-      <AuthenticationButton text={SIGN_UP} onPress={() => registerUser()} />
-    </SafeArea>
+      <AuthenticationButton
+        text={SIGN_UP}
+        onPress={() => registerUser()}
+        customstyles={{marginVertical: 10, width: '100%'}}
+      />
+    </Scroller>
   );
 };
