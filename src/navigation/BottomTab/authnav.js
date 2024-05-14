@@ -7,7 +7,12 @@ export const AuthNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {AuthScreenComponents.map(({name, component}, index) => (
-          <Stack.Screen name={name} component={component} key={index} />
+          <Stack.Screen
+            name={name}
+            component={component}
+            key={index}
+            options={{gestureEnabled: false}}
+          />
         ))}
       </Stack.Navigator>
     </NavigationContainer>

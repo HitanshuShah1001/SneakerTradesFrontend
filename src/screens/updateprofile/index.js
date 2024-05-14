@@ -16,11 +16,11 @@ import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
 import {FILL_DETAILS} from '../../constants/Messages';
 import {PROFILE_PLACEHOLDER_ICON} from '../../assets';
-import {askForSourceDuringSignUp} from '../../components/AskForSource';
 import {UPDATE_PROFILE_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
+import {CONTAIN} from '../../constants/InputOptions';
 
 export const UpdateProfile = () => {
   const {user, setLoading} = useContext(Context) || {};
@@ -71,10 +71,9 @@ export const UpdateProfile = () => {
           <Image
             source={PROFILE_PLACEHOLDER_ICON}
             style={styles.placeholder_image}
-            resizeMode="contain"
+            resizeMode={CONTAIN}
           />
         )}
-
         <Textinput
           placeholder={USER_NAME}
           custVal={username}
