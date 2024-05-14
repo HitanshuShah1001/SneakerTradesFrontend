@@ -1,9 +1,7 @@
 import {Alert, Image, Pressable, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
-import {Brandiconandtext} from '../../components/BrandIconAndText';
 import {Textinput} from '../../components/Textinput';
 import {useNavigation} from '@react-navigation/native';
-import {SafeArea} from '../../components/SafeArea';
 import {
   EMAIL_ID,
   GENDER_ROLES,
@@ -26,7 +24,7 @@ import {
   FILL_DETAILS,
   SIGNUP_FIELDS_EXISTS,
 } from '../../constants/Messages';
-import {CANCEL_ICON, USER_UPLOAD_ICON} from '../../assets';
+import {USER_UPLOAD_ICON} from '../../assets';
 import {
   askForSourceDuringSignUp,
   Cancel_option,
@@ -92,6 +90,7 @@ export const SignUp = () => {
           Name: name,
           Email: emailId,
           Phone: phone,
+          Password: Password,
           ProfilePhoto: profilephoto,
           Gender: gender,
           otp,

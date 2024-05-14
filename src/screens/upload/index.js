@@ -33,11 +33,10 @@ import {
   ResetFields,
   UploadSneakerButton,
 } from './Uploadutils';
-import {UPGRADE_TO_PREMIUM_STATUSES} from '../../constants/Backendresponses';
-import {askForPremiumSubs} from '../../components/AskForPremiumSubs';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {
   PLEASE_FILL_ALL_THE_FIELDS,
+  SOME_ERROR_OCCURED,
   UPL_ATL_ONE_IMAGE,
   UPL_MIN_THREE_IMAGES,
 } from '../../constants/Messages';
@@ -110,9 +109,7 @@ export const Upload = () => {
     const response = await apiService.postformdata(Apicall, uploadDetails);
     setLoading(false);
     if (response.status === STATUS_FAIL) {
-      if (UPGRADE_TO_PREMIUM_STATUSES.includes(response?.Data)) {
-        askForPremiumSubs();
-      }
+      return AlertMessage(SOME_ERROR_OCCURED);
     } else {
       ResetFields({
         uploadedFor,
