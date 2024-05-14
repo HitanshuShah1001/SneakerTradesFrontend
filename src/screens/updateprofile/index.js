@@ -59,27 +59,22 @@ export const UpdateProfile = () => {
     setLoading(false);
   };
 
-  const handleImagePickerPress = () => {
-    askForSourceDuringSignUp({setProfilePhoto});
-  };
-
   return (
     <SafeArea go_back={true}>
       <View style={{flex: 0.9, alignItems: 'center'}}>
-        <Pressable onPress={handleImagePickerPress}>
-          {user.ProfilePhoto || profilephoto.image ? (
-            <LazyImageLoader
-              uri={user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image}
-              styles={styles.image}
-            />
-          ) : (
-            <Image
-              source={PROFILE_PLACEHOLDER_ICON}
-              style={styles.placeholder_image}
-              resizeMode="contain"
-            />
-          )}
-        </Pressable>
+        {user.ProfilePhoto || profilephoto.image ? (
+          <LazyImageLoader
+            uri={user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image}
+            styles={styles.image}
+          />
+        ) : (
+          <Image
+            source={PROFILE_PLACEHOLDER_ICON}
+            style={styles.placeholder_image}
+            resizeMode="contain"
+          />
+        )}
+
         <Textinput
           placeholder={USER_NAME}
           custVal={username}
