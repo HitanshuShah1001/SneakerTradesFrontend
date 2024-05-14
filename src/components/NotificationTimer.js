@@ -1,14 +1,17 @@
 import notifee, {RepeatFrequency, TriggerType} from '@notifee/react-native';
-
-export const NOTIFICATION_REMINDER = `Reminder-Notification`;
-export const SNEAKER_TRADES_TITLE = 'Sneaker Trades';
+import {
+  findRandomQuote,
+  GENERAL,
+  NOTIFICATION_REMINDER,
+  SNEAKER_TRADES_TITLE,
+} from '../constants/Choices';
 
 export const reminderNotificationObj = {
   id: NOTIFICATION_REMINDER,
   title: SNEAKER_TRADES_TITLE,
-  body: 'Sneaker alerts: Because missing out is not an option!',
+  body: findRandomQuote(),
   android: {
-    channelId: 'general',
+    channelId: GENERAL,
   },
 };
 
@@ -17,8 +20,8 @@ export const setNotificationTimer = async () => {
     await notifee.requestPermission();
     await notifee.cancelTriggerNotifications();
     let today = new Date(Date.now());
-    today.setHours(13);
-    today.setMinutes(20);
+    today.setHours(19);
+    today.setMinutes(15);
     if (today.getTime() <= Date.now()) {
       today.setDate(today.getDate() + 1);
     }
