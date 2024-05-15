@@ -1,5 +1,6 @@
 import {
   CONTACT_US,
+  DELETE_ACCOUNT,
   LOGOUT,
   MY_PROFILE,
   MY_REQUESTS,
@@ -7,4 +8,4 @@ import {
 } from './Buttontitles';
 
 export const PROFILEITEMS = [MY_PROFILE, MY_UPLOADS, MY_REQUESTS];
-export const ACCOUNTITEMS = [CONTACT_US, LOGOUT];
+export const ACCOUNTITEMS = [CONTACT_US, LOGOUT, DELETE_ACCOUNT];

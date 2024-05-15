@@ -10,7 +10,7 @@ export const STATUS_SUCCESS = 'Success';
 export const MESSAGE_JWT_EXPIRED = 'jwt expired';
 export const HEROKU_URL = 'https://sneakertrades-40ac0b208284.herokuapp.com';
 export const LOCALHOST_URL = 'http://localhost:4000';
-export const BASE_URL = HEROKU_URL;
+export const BASE_URL = LOCALHOST_URL;
 export const HEADERS = (headers = {}) => {
   return {...headers, 'Content-Type': APPLICATION_JSON};
 };

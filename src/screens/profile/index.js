@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, SafeAreaView} from 'react-native';
+import {View, SafeAreaView, Alert} from 'react-native';
 import {ProfileCard} from '../../components/Profilecard';
 import {ACCOUNTITEMS, PROFILEITEMS} from '../../constants/ProfileActions';
 import {useNavigation} from '@react-navigation/native';
 import {
   COINS_BALANCE_RECHARGE,
   CONTACT_US,
+  DELETE_ACCOUNT,
   LOGOUT,
   MY_PROFILE,
   MY_REQUESTS,
@@ -24,6 +25,13 @@ import {
   RetrieveUserFromLocalStorage,
 } from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {styles} from './styles';
+import {apiService} from '../../services/apiService';
+import {DELETE_USER} from '../../constants/Apicall';
+import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
+import {AlertMessage} from '../../utils/Alertmessage';
+import {ACC_DEL, DELETE_QUESTION_ASK} from '../../constants/Labels';
+import {Cancel_option} from '../../components/AskForSource';
+import {YES_LABEL} from '../../constants/Razorpay';
 
 export const Profile = () => {
   const navigation = useNavigation();
@@ -33,6 +41,26 @@ export const Profile = () => {
   };
 
   const navigateTo = screen => navigation.navigate(screen);
+
+  const confirmDelete = () =>
+    Alert.alert(DELETE_QUESTION_ASK, '', [
+      {
+        text: YES_LABEL,
+        onPress: () => deleteAccount(),
+      },
+      Cancel_option,
+    ]);
+
+  const deleteAccount = async () => {
+    const res = await apiService.delete(DELETE_USER);
+    if (res === DELETED_SUCCESFULLY) {
+      AlertMessage(ACC_DEL);
+      return await Promise.allSettled([
+        RemoveTokenFromLocalStorage(),
+        RemoveUserFromLocalStorage(),
+      ]);
+    }
+  };
 
   const actionsBasedOnTitle = async ({title}) => {
     switch (title) {
@@ -55,6 +83,8 @@ export const Profile = () => {
         return navigateTo(MY_REQUEST_SCREEN);
       case CONTACT_US:
         return navigateTo(CONTACT_US_SCREEN);
+      case DELETE_ACCOUNT:
+        return confirmDelete();
       default:
         break;
     }

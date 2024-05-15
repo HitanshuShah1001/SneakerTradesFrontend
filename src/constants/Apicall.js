@@ -13,5 +13,6 @@ export const GET_SNEAKER_REQUESTS_CREATED = `sneakerrequests/requestscreated`;
 export const SAVE_SUBSCRIPTION_DETAILS = `usersubscription/savesubscriptiondetails`;
 export const RAISE_QUERY_CALL = `user/raisequery`;
 export const CREATE_ORDER_RAZORPAY = `https://api.razorpay.com/v1/orders`;
+export const DELETE_USER = `user/delete`;
 export const DELETE_SNEAKER_CALL = id => `sneaker/delete/${id}`;
 export const DELETE_SNEAKER_REQUEST_CALL = id => `sneakerrequests/delete/${id}`;

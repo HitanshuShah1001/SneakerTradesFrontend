@@ -109,6 +109,7 @@ export const Upload = () => {
     const response = await apiService.postformdata(Apicall, uploadDetails);
     setLoading(false);
     if (response.status === STATUS_FAIL) {
+      console.log(response);
       return AlertMessage(SOME_ERROR_OCCURED);
     } else {
       ResetFields({

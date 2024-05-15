@@ -77,7 +77,7 @@ export const BRANDS = [
   {label: 'New Balance', value: 'New Balance'},
   {label: `Other`, value: `Other`},
 ];
-
+export const ACC_DEL = 'Account Deleted!';
 export const GALLERY_LABEL = 'Gallery';
 export const CAMERA_LABEL = 'Camera';
 export const CANCEL_LABEL = 'Cancel';
@@ -87,3 +87,4 @@ export const NO_UPLOADS_FOUND = 'No Uploads Found';
 export const NO_SNEAKERS_FOUND = 'No Sneakers Found';
 export const OTP_SENT_MESSAGE = `An OTP has been sent to \n registered email address. Kindly verify!`;
 export const REMOVE_IMAGE = 'Remove Image?';
+export const DELETE_QUESTION_ASK = 'Are you sure to delete your account?';

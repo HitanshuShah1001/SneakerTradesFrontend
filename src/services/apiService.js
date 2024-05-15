@@ -13,6 +13,8 @@ import {
   DELETED_SUCCESFULLY,
   TOKEN_EXPIRED_STATUSES,
 } from '../constants/Backendresponses';
+import {SOME_ERROR_OCCURED} from '../constants/Messages';
+import {AlertMessage} from '../utils/Alertmessage';
 import {
   RemoveTokenFromLocalStorage,
   RetrieveTokenFromLocalStorage,
@@ -133,6 +135,8 @@ class ApiService {
       const {status} = apiresponse || {};
       if (status === STATUS_SUCCESS) {
         return DELETED_SUCCESFULLY;
+      } else {
+        return AlertMessage(SOME_ERROR_OCCURED);
       }
       return;
     } catch (error) {
