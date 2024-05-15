@@ -9,6 +9,7 @@ import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 import {Search} from '../../components/Search';
 import {SNEAKER_REQUEST_UPLOADED_DETAIL} from '../../constants/Screen';
 import {DEBOUNCE_MS} from '../../constants/InputOptions';
+import {ItemRendererMyRequests} from '../../components/ItemRenderMyRequests';
 
 export const MyRequests = () => {
   const {setLoading} = useContext(Context);
@@ -64,7 +65,7 @@ export const MyRequests = () => {
         searchQuery={searchQuery}
         onChangeText={text => onChangeInput(text)}
       />
-      <ItemRendererSneakerRequests
+      <ItemRendererMyRequests
         sneakers={sneakersRequestsUsed}
         handleRefresh={handleRefresh}
         refreshing={refreshing}

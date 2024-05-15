@@ -35,7 +35,9 @@ export const Home = () => {
   }, [count]);
 
   const getSneakersInitial = async () => {
-    setLoading(true);
+    if (!refreshing) {
+      setLoading(true);
+    }
     setPage(1);
     const response = await apiService.post(
       GET_SNEAKER_FOR_PURCHASE_AND_BORROW_CALL({page: 1}),
@@ -64,7 +66,7 @@ export const Home = () => {
 
   const fetchMoreSneakers = async () => {
     if (loading) return;
-    setLoading(true);
+
     const nextPage = page + 1;
     const response = await apiService.post(
       GET_SNEAKER_FOR_PURCHASE_AND_BORROW_CALL({page: nextPage}),
