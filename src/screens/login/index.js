@@ -65,6 +65,8 @@ export const Login = () => {
           Email,
         },
       });
+    } else {
+      return AlertMessage(response.Data);
     }
   };
   return (
