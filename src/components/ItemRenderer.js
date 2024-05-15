@@ -9,6 +9,7 @@ export const ItemRendererSneakers = ({
   handleSneakerPress,
   refreshing,
   handleRefresh,
+  fetchMoreSneakers,
 }) => {
   return (
     <>
@@ -27,6 +28,8 @@ export const ItemRendererSneakers = ({
               onPress={() => handleSneakerPress(sneaker)}
             />
           )}
+          onEndReached={() => fetchMoreSneakers()}
+          onEndReachedThreshold={0.2}
           initialNumToRender={10}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />

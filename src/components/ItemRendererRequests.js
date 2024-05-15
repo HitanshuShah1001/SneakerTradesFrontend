@@ -10,6 +10,7 @@ export const ItemRendererSneakerRequests = ({
   refreshing,
   handleRefresh,
   navigateto = SNEAKER_REQUEST_DETAIL,
+  fetchMoreSneakers,
 }) => {
   const navigation = useNavigation();
   return (
@@ -27,6 +28,9 @@ export const ItemRendererSneakerRequests = ({
             onPress={() => navigation.navigate(navigateto, {sneaker})}
           />
         )}
+        onEndReached={() => fetchMoreSneakers()}
+        onEndReachedThreshold={0.2}
+        initialNumToRender={10}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }

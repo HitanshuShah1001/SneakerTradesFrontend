@@ -1,15 +1,21 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
+import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {SearchAndFilter} from '../../components/SearchAndFilter';
 import {debounce} from '../../utils/debounce';
-import {SneakerRequestContext} from '../sneakercontext/SneakerRequestContext';
+import {GET_SNEAKERREQUESTS_CALL} from '../../constants/Apicall';
+import {DEBOUNCE_MS} from '../../constants/InputOptions';
+import {apiService} from '../../services/apiService';
+import {STATUS_SUCCESS} from '../../constants/ApiParams';
 import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
-import {getSneakersOrSneakerRequests} from '../../services/getSneakersAndRequests';
-import {GET_SNEAKER_REQUESTS} from '../../constants/Apicall';
+import {SneakerRequestContext} from '../sneakercontext/SneakerRequestContext';
 
 export const Requests = () => {
-  const {setLoading} = useContext(Context) || {};
+  const navigation = useNavigation();
+  const {setLoading, loading} = useContext(Context) || {};
+  const [page, setPage] = useState(1);
   const {
     sneakerrequests,
     setSneakerRequests,
@@ -24,29 +30,66 @@ export const Requests = () => {
     setSearchQuery,
   } = useContext(SneakerRequestContext);
 
+  useEffect(() => {
+    getSneakersInitial();
+  }, [count]);
+
+  const getSneakersInitial = async () => {
+    setLoading(true);
+    setPage(1);
+    const response = await apiService.post(
+      GET_SNEAKERREQUESTS_CALL({page: 1}),
+      {
+        searchQuery,
+        filters: {
+          Gender: selectedGenders,
+          Brand: selectedBrands,
+          Size: selectedSizes,
+        },
+      },
+    );
+    if (response.status === STATUS_SUCCESS) {
+      setSneakerRequests(response.Data.data);
+    }
+    setLoading(false);
+  };
+
   const handleRefresh = () => {
     setRefreshing(true);
     setSneakerRequests([]);
-    getSneakerRequests();
+    setPage(1);
+    getSneakersInitial();
     setRefreshing(false);
   };
 
-  const getSneakerRequests = () =>
-    getSneakersOrSneakerRequests({
-      setLoading,
-      setValue: setSneakerRequests,
-      searchQuery,
-      selectedBrands,
-      selectedGenders,
-      selectedSizes,
-      apicall: GET_SNEAKER_REQUESTS,
-    });
+  const fetchMoreSneakers = async () => {
+    if (loading) return;
+    setLoading(true);
+    const nextPage = page + 1;
+    const response = await apiService.post(
+      GET_SNEAKERREQUESTS_CALL({page: nextPage}),
+      {
+        searchQuery,
+        filters: {
+          Gender: selectedGenders,
+          Brand: selectedBrands,
+          Size: selectedSizes,
+        },
+        page: nextPage,
+      },
+    );
+    if (response.status === STATUS_SUCCESS) {
+      setSneakerRequests([...sneakerrequests, ...response.Data.data]);
+      setPage(nextPage);
+    }
+    setLoading(false);
+  };
 
-  useEffect(() => {
-    getSneakerRequests();
-  }, [count]);
+  const handleSneakerPress = sneaker => {
+    navigation.navigate(SNEAKER_DETAIL, {sneaker});
+  };
 
-  const Calltochangecount = debounce(() => setCount(!count), 500);
+  const Calltochangecount = debounce(() => setCount(!count), DEBOUNCE_MS);
 
   const onChangeInput = text => {
     setSearchQuery(text);
@@ -58,12 +101,14 @@ export const Requests = () => {
       <SearchAndFilter
         searchQuery={searchQuery}
         onChangeText={text => onChangeInput(text)}
-        isFromRequestScreen
       />
       <ItemRendererSneakerRequests
         sneakers={sneakerrequests}
-        refreshing={refreshing}
         handleRefresh={handleRefresh}
+        handleSneakerPress={handleSneakerPress}
+        refreshing={refreshing}
+        setPage={setPage}
+        fetchMoreSneakers={fetchMoreSneakers}
       />
     </SafeArea>
   );
