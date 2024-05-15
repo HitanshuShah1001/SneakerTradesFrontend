@@ -7,6 +7,7 @@ export const SearchAndFilter = ({
   searchQuery,
   onChangeText,
   isFromRequestScreen = false,
+  setPage,
 }) => {
   const navigation = useNavigation();
   return (
@@ -29,6 +30,7 @@ export const SearchAndFilter = ({
         onPress={() =>
           navigation.navigate(
             isFromRequestScreen ? FILTER_REQUEST_SCREEN : FILTER_SCREEN,
+            {setPage},
           )
         }>
         <Image source={FILTER_ICON} />

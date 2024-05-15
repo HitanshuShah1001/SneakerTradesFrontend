@@ -101,6 +101,7 @@ export const Home = () => {
       <SearchAndFilter
         searchQuery={searchQuery}
         onChangeText={text => onChangeInput(text)}
+        setPage={setPage}
       />
       <ItemRendererSneakers
         sneakers={sneakers}

@@ -14,10 +14,11 @@ import {THEME_PINK} from '../../constants/colorsandfonts';
 import {Image} from 'react-native';
 import {RESET_ICON} from '../../assets';
 import {SneakerRequestContext} from '../sneakercontext/SneakerRequestContext';
-import {GET_SNEAKER_REQUESTS} from '../../constants/Apicall';
+import {GET_SNEAKERREQUESTS_CALL} from '../../constants/Apicall';
 import {FILTER_LABEL} from '../../constants/Buttontitles';
+import {STATUS_SUCCESS} from '../../constants/ApiParams';
 
-export const FilterRequests = () => {
+export const FilterRequests = props => {
   const {
     setSneakerRequests,
     checkboxopts,
@@ -34,6 +35,7 @@ export const FilterRequests = () => {
     setSelectedSizes,
     searchQuery,
   } = useContext(SneakerRequestContext);
+  const {setPage} = props.route.params || {};
   const navigation = useNavigation();
   const {setLoading} = useContext(Context);
   const changeSelectedFilter = useCallback(
@@ -97,16 +99,22 @@ export const FilterRequests = () => {
 
   const ApplyFilter = async () => {
     setLoading(true);
-    const response = await apiService.post(GET_SNEAKER_REQUESTS, {
-      searchQuery,
-      filters: {
-        Gender: selectedGenders,
-        Brand: selectedBrands,
-        Size: selectedSizes,
+    const response = await apiService.post(
+      GET_SNEAKERREQUESTS_CALL({page: 1}),
+      {
+        searchQuery,
+        filters: {
+          Gender: selectedGenders,
+          Brand: selectedBrands,
+          Size: selectedSizes,
+        },
       },
-    });
-    setSneakerRequests(response.Data.data);
+    );
+    if (response.status === STATUS_SUCCESS) {
+      setSneakerRequests(response.Data.data);
+    }
     navigation.navigate(REQUESTS);
+    setPage(1);
     setLoading(false);
   };
 

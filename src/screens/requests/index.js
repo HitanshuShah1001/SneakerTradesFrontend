@@ -101,6 +101,8 @@ export const Requests = () => {
       <SearchAndFilter
         searchQuery={searchQuery}
         onChangeText={text => onChangeInput(text)}
+        setPage={setPage}
+        isFromRequestScreen
       />
       <ItemRendererSneakerRequests
         sneakers={sneakerrequests}
