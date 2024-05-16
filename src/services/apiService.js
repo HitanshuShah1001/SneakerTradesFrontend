@@ -50,7 +50,7 @@ class ApiService {
     } catch (error) {}
   }
 
-  async post(endpoint, body) {
+  async postwithtoken(endpoint, body) {
     try {
       const token = await RetrieveTokenFromLocalStorage();
       const response = await fetch(`${BASE_URL}/${endpoint}`, {
@@ -59,6 +59,22 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
+      console.log(apiresponse);
+      return this.responseHandler(apiresponse);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async postwithouttoken(endpoint, body) {
+    try {
+      const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        method: POST,
+        body: JSON.stringify(body),
+        headers: {...HEADERS()},
+      });
+      const apiresponse = await response.json();
+      console.log(apiresponse);
       return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);

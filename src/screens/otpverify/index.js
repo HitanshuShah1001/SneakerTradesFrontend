@@ -18,7 +18,7 @@ import {STATUS_FAIL, STATUS_SUCCESS} from '../../constants/ApiParams';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {OTP_SENT_MESSAGE} from '../../constants/Labels';
 import {useNavigation} from '@react-navigation/native';
-import {RESET_PASSWORD} from '../../constants/Screen';
+import {RESET_PASSWORD, UPLOAD} from '../../constants/Screen';
 import {Keyboard} from 'react-native';
 import {
   INVALID_OTP,
@@ -77,6 +77,7 @@ export const OTPverify = props => {
             setNotificationTimer(),
           ]);
           AlertMessage(USER_CREATED_SUCCESFULLY);
+          navigation.navigate(UPLOAD);
         }
       } else {
         AlertMessage(INVALID_OTP);
@@ -87,11 +88,14 @@ export const OTPverify = props => {
   const isOtpCorrect = data => otp.toString() === otpToVerifyAgainst;
 
   const sendOtpEmailAgain = async () => {
-    const response = await apiService.post(SEND_OTP_EMAIL_FOR_SIGNUP, {
-      Email: forgotPasswordAction
-        ? userDataForForgotPassword.Email
-        : userDataForSignUp.Email,
-    });
+    const response = await apiService.postwithouttoken(
+      SEND_OTP_EMAIL_FOR_SIGNUP,
+      {
+        Email: forgotPasswordAction
+          ? userDataForForgotPassword.Email
+          : userDataForSignUp.Email,
+      },
+    );
     if (response.status === STATUS_SUCCESS) {
       setOtpToVerifyAgainst(response.Data.otp);
       return AlertMessage(OTP_SENT_MESSAGE);

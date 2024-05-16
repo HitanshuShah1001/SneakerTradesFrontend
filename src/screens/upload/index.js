@@ -2,12 +2,13 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {Textinput} from '../../components/Textinput';
 import {Scroller} from '../../components/Scroller';
-import {UPLOAD} from '../../constants/Screen';
+import {LOGIN_SCREEN, UPLOAD} from '../../constants/Screen';
 import {styles} from './styles';
 import {
   BRANDS,
   GENDER_ROLES_FOR_UPLOAD,
   IMAGE_PLACEHOLDERS,
+  LOGIN_TO_UPLOAD,
   REQUEST_IMAGE_PLACEHOLDER,
   REQUEST_TYPES,
   SIZES,
@@ -42,9 +43,13 @@ import {
 } from '../../constants/Messages';
 import {STATUS_FAIL} from '../../constants/ApiParams';
 import {threeImagesAreNotPresent} from '../../utils/Threeimagesarenotinserted';
+import {AskToLogin} from './AskToLogin';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
-export const Upload = () => {
+export const Upload = props => {
   const {setLoading} = useContext(Context) || {};
+  const isFocused = useIsFocused();
   const [uploadedFor, setUploadedFor] = useState(UPLOAD);
   const [Photos, setPhotos] = useState(
     uploadedFor == UPLOAD ? IMAGE_PLACEHOLDERS : REQUEST_IMAGE_PLACEHOLDER,
@@ -55,6 +60,8 @@ export const Upload = () => {
   const [Name, setName] = useState('');
   const [Price, setPrice] = useState('');
   const [Type, setType] = useState('');
+  const [user, setUser] = useState(undefined);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (uploadedFor == UPLOAD) {
@@ -63,6 +70,15 @@ export const Upload = () => {
       setPhotos(REQUEST_IMAGE_PLACEHOLDER);
     }
   }, [uploadedFor, setLoading]);
+
+  const getUserDetails = async () => {
+    const userDetails = await RetrieveUserFromLocalStorage();
+    setUser(userDetails);
+  };
+
+  useEffect(() => {
+    getUserDetails();
+  }, [isFocused]);
 
   const UploadSneaker = async () => {
     setLoading(true);
@@ -155,58 +171,77 @@ export const Upload = () => {
       </View>
     );
   }, [Photos]);
-  return (
-    <Scroller>
-      <Uploadchips uploadedFor={uploadedFor} setUploadedFor={setUploadedFor} />
-      <Imageselectorcontainer />
-      <UploadPlaceholder uploadedFor={uploadedFor} />
-      <Textinput
-        placeholder={SNEAKER_NAME}
-        customstyles={{width: '90%'}}
-        custVal={Name}
-        setCustVal={setName}
-        is_mandatory
-      />
-      {uploadedFor === UPLOAD && (
+
+  const UploadFunctionality = () => {
+    return (
+      <Scroller>
+        <Uploadchips
+          uploadedFor={uploadedFor}
+          setUploadedFor={setUploadedFor}
+        />
+        <Imageselectorcontainer />
+        <UploadPlaceholder uploadedFor={uploadedFor} />
         <Textinput
-          placeholder={SNEAKER_PRICE}
+          placeholder={SNEAKER_NAME}
           customstyles={{width: '90%'}}
-          custVal={Price}
-          setCustVal={setPrice}
+          custVal={Name}
+          setCustVal={setName}
           is_mandatory
         />
-      )}
-      <DropdownComponent
-        placeholder={SELECT_BRAND}
-        value={Brand}
-        setValue={setBrand}
-        data={BRANDS}
-        is_mandatory
-        search
-      />
-      <DropdownComponent
-        placeholder={SELECT_GENDER}
-        value={Gender}
-        setValue={setGender}
-        data={GENDER_ROLES_FOR_UPLOAD}
-        is_mandatory
-      />
+        {uploadedFor === UPLOAD && (
+          <Textinput
+            placeholder={SNEAKER_PRICE}
+            customstyles={{width: '90%'}}
+            custVal={Price}
+            setCustVal={setPrice}
+            is_mandatory
+          />
+        )}
+        <DropdownComponent
+          placeholder={SELECT_BRAND}
+          value={Brand}
+          setValue={setBrand}
+          data={BRANDS}
+          is_mandatory
+          search
+        />
+        <DropdownComponent
+          placeholder={SELECT_GENDER}
+          value={Gender}
+          setValue={setGender}
+          data={GENDER_ROLES_FOR_UPLOAD}
+          is_mandatory
+        />
 
-      <DropdownComponent
-        placeholder={SELECT_SIZE}
-        value={Size}
-        setValue={setSize}
-        data={SIZES}
-        is_mandatory
-      />
-      <DropdownComponent
-        placeholder={SELECT_TYPE}
-        value={Type}
-        setValue={setType}
-        is_mandatory
-        data={uploadedFor == UPLOAD ? TYPES : REQUEST_TYPES}
-      />
-      <UploadSneakerButton onPress={() => UploadSneaker()} />
-    </Scroller>
+        <DropdownComponent
+          placeholder={SELECT_SIZE}
+          value={Size}
+          setValue={setSize}
+          data={SIZES}
+          is_mandatory
+        />
+        <DropdownComponent
+          placeholder={SELECT_TYPE}
+          value={Type}
+          setValue={setType}
+          is_mandatory
+          data={uploadedFor == UPLOAD ? TYPES : REQUEST_TYPES}
+        />
+        <UploadSneakerButton onPress={() => UploadSneaker()} />
+      </Scroller>
+    );
+  };
+
+  return (
+    <>
+      {user ? (
+        <UploadFunctionality />
+      ) : (
+        <AskToLogin
+          text={LOGIN_TO_UPLOAD}
+          onPress={() => navigation.navigate(LOGIN_SCREEN)}
+        />
+      )}
+    </>
   );
 };

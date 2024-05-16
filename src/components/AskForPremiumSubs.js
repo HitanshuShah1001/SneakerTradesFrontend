@@ -29,7 +29,7 @@ export const askForPremiumSubs = () =>
           const paymentdetailstosave = await RazorpayCheckout.open(
             generateRazorpayOptions({order_id, prefill}),
           );
-          const userresponse = await apiService.post(
+          const userresponse = await apiService.postwithtoken(
             SAVE_SUBSCRIPTION_DETAILS,
             paymentdetailstosave,
           );

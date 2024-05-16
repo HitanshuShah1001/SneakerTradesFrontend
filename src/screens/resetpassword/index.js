@@ -32,7 +32,7 @@ export const ResetPassword = props => {
       return AlertMessage(PASS_CONFIRM_PASS_NO_MATCH);
     } else {
       setLoading(true);
-      const response = await apiService.post(RESET_PASSWORD_CALL, {
+      const response = await apiService.postwithouttoken(RESET_PASSWORD_CALL, {
         Email: userDataForForgotPassword.Email,
         Password,
       });

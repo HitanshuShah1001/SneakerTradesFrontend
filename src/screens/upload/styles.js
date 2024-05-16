@@ -1,5 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {PLACEHOLDER_COLOR, THEME_PINK} from '../../constants/colorsandfonts';
+import {
+  FONT_SIZE,
+  FONT_WEIGHT_BOLD,
+  PLACEHOLDER_COLOR,
+  THEME_PINK,
+} from '../../constants/colorsandfonts';
 
 export const styles = StyleSheet.create({
   container: {
@@ -60,4 +65,11 @@ export const styles = StyleSheet.create({
   selectedimage: {height: '100%', width: '100%', borderRadius: 12},
   imageselectorwrapper: {width: '30%', alignItems: 'center'},
   uploadbutton: {width: '100%', marginVertical: 10},
+  asktologinview: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  asktologintext: {
+    fontSize: FONT_SIZE,
+    fontWeight: FONT_WEIGHT_BOLD,
+    textAlign: 'center',
+  },
+  asktologinbutton: {width: '50%', marginTop: 15},
 });

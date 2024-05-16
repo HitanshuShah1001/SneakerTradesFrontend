@@ -20,13 +20,6 @@ export const Navigation = () => {
       }, 8000);
     }
   }, [loading]);
-  const getUserDetails = async () => {
-    const userDetails = await RetrieveUserFromLocalStorage();
-    setUser(userDetails);
-  };
-  useEffect(() => {
-    getUserDetails();
-  }, [user]);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
@@ -49,15 +42,11 @@ export const Navigation = () => {
 
   return (
     <Context.Provider value={{user, setUser, loading, setLoading}}>
-      {user ? (
-        <SneakerWrapper>
-          <SneakerRequestWrapper>
-            <ActionScreens />
-          </SneakerRequestWrapper>
-        </SneakerWrapper>
-      ) : (
-        <AuthNavigation />
-      )}
+      <SneakerWrapper>
+        <SneakerRequestWrapper>
+          <ActionScreens />
+        </SneakerRequestWrapper>
+      </SneakerWrapper>
     </Context.Provider>
   );
 };

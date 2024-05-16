@@ -65,7 +65,7 @@ export const SignUp = () => {
       return AlertMessage(ENTER_A_VALID_EMAIL);
     }
     setLoading(true);
-    const response = await apiService.post(
+    const response = await apiService.postwithouttoken(
       CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS,
       {
         Username: username,
@@ -77,9 +77,12 @@ export const SignUp = () => {
       setLoading(false);
       return AlertMessage(response.Data);
     } else {
-      const response = await apiService.post(SEND_OTP_EMAIL_FOR_SIGNUP, {
-        Email: emailId,
-      });
+      const response = await apiService.postwithouttoken(
+        SEND_OTP_EMAIL_FOR_SIGNUP,
+        {
+          Email: emailId,
+        },
+      );
       setLoading(false);
       if (response.status === STATUS_SUCCESS) {
         const {

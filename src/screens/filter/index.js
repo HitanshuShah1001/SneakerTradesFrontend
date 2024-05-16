@@ -98,7 +98,7 @@ export const Filter = props => {
 
   const ApplyFilter = async () => {
     setLoading(true);
-    const response = await apiService.post(
+    const response = await apiService.postwithouttoken(
       GET_SNEAKER_FOR_PURCHASE_AND_BORROW_CALL({page: 1}),
       {
         searchQuery,

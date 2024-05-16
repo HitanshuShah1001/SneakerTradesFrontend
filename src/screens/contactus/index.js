@@ -17,7 +17,7 @@ export const ContactUs = () => {
 
   const submitQuery = async () => {
     setLoading(true);
-    const response = await apiService.post(RAISE_QUERY_CALL, {
+    const response = await apiService.postwithtoken(RAISE_QUERY_CALL, {
       Subject,
       Details,
     });

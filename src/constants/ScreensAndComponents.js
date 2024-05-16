@@ -72,6 +72,10 @@ export const ScreensAndComponents = [
   {name: FILTER_SCREEN, component: Filter},
   {name: FILTER_REQUEST_SCREEN, component: FilterRequests},
   {name: UPDATE_PROFILE_SCREEN, component: UpdateProfile},
+  {name: LOGIN_SCREEN, component: Login},
+  {name: SIGN_UP_SCREEN, component: SignUp},
+  {name: OTP_VERIFY, component: OTPverify},
+  {name: RESET_PASSWORD, component: ResetPassword},
 ];
 
 export const AuthScreenComponents = [

@@ -39,7 +39,7 @@ export const Home = () => {
       setLoading(true);
     }
     setPage(1);
-    const response = await apiService.post(
+    const response = await apiService.postwithouttoken(
       GET_SNEAKER_FOR_PURCHASE_AND_BORROW_CALL({page: 1}),
       {
         searchQuery,
@@ -68,7 +68,7 @@ export const Home = () => {
     if (loading) return;
 
     const nextPage = page + 1;
-    const response = await apiService.post(
+    const response = await apiService.postwithouttoken(
       GET_SNEAKER_FOR_PURCHASE_AND_BORROW_CALL({page: nextPage}),
       {
         searchQuery,

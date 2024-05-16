@@ -20,7 +20,7 @@ import {styles} from './styles';
 import {EMAIL_ID, PASSWORD} from '../../constants/Labels';
 import {Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
-import {OTP_VERIFY} from '../../constants/Screen';
+import {OTP_VERIFY, UPLOAD} from '../../constants/Screen';
 import {isValidEmail} from '../../utils/RegexTests';
 import {ENTER_A_VALID_EMAIL, FILL_DETAILS} from '../../constants/Messages';
 
@@ -34,7 +34,7 @@ export const Login = () => {
       return AlertMessage(FILL_DETAILS);
     }
     setLoading(true);
-    const response = await apiService.post(LOGIN_CALL, {
+    const response = await apiService.postwithouttoken(LOGIN_CALL, {
       Email,
       Password,
     });
@@ -43,11 +43,13 @@ export const Login = () => {
       return AlertMessage(response.Data);
     } else {
       setUser(response.user);
-      await Promise.allSettled([
+      Promise.allSettled([
         StoreTokenInLocalStorage({token: response.Data.token}),
         StoreUserInLocalStorage({userData: response.Data.user}),
         setNotificationTimer(),
-      ]);
+      ]).then(() => {
+        navigation.navigate(UPLOAD);
+      });
     }
   };
 
@@ -57,9 +59,12 @@ export const Login = () => {
     }
     setLoading(true);
     //Send email and on success navigate to otp verify screen
-    const response = await apiService.post(SEND_OTP_EMAIL_FOR_RESET_PASSWORD, {
-      Email,
-    });
+    const response = await apiService.postwithouttoken(
+      SEND_OTP_EMAIL_FOR_RESET_PASSWORD,
+      {
+        Email,
+      },
+    );
     if (response.status === STATUS_SUCCESS) {
       navigation.navigate(OTP_VERIFY, {
         forgotPasswordAction: true,
@@ -73,7 +78,7 @@ export const Login = () => {
     }
   };
   return (
-    <SafeArea>
+    <SafeArea go_back>
       <Brandiconandtext />
       <View style={styles.inputcontainer}>
         <Textinput

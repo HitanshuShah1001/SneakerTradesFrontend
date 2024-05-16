@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, SafeAreaView, Alert} from 'react-native';
 import {ProfileCard} from '../../components/Profilecard';
 import {ACCOUNTITEMS, PROFILEITEMS} from '../../constants/ProfileActions';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {
-  COINS_BALANCE_RECHARGE,
   CONTACT_US,
   DELETE_ACCOUNT,
   LOGOUT,
@@ -13,8 +12,8 @@ import {
   MY_UPLOADS,
 } from '../../constants/Buttontitles';
 import {
-  COINS_BALANCE_AND_RECHARGE,
   CONTACT_US_SCREEN,
+  LOGIN_SCREEN,
   MY_REQUEST_SCREEN,
   MY_UPLOAD_SCREEN,
   PROFILE_DETAIL,
@@ -29,16 +28,27 @@ import {apiService} from '../../services/apiService';
 import {DELETE_USER} from '../../constants/Apicall';
 import {DELETED_SUCCESFULLY} from '../../constants/Backendresponses';
 import {AlertMessage} from '../../utils/Alertmessage';
-import {ACC_DEL, DELETE_QUESTION_ASK} from '../../constants/Labels';
+import {
+  ACC_DEL,
+  DELETE_QUESTION_ASK,
+  LOGIN_TO_SEE_PROFILE,
+} from '../../constants/Labels';
 import {Cancel_option} from '../../components/AskForSource';
 import {YES_LABEL} from '../../constants/Razorpay';
+import {AskToLogin} from '../upload/AskToLogin';
 
 export const Profile = () => {
   const navigation = useNavigation();
-  const getDetails = async () => {
-    const user = await RetrieveUserFromLocalStorage();
-    return user;
+  const [user, setUser] = useState(undefined);
+  const isFocused = useIsFocused();
+  const getUserDetails = async () => {
+    const userDetails = await RetrieveUserFromLocalStorage();
+    setUser(userDetails);
   };
+
+  useEffect(() => {
+    getUserDetails();
+  }, [isFocused]);
 
   const navigateTo = screen => navigation.navigate(screen);
 
@@ -65,16 +75,10 @@ export const Profile = () => {
   const actionsBasedOnTitle = async ({title}) => {
     switch (title) {
       case LOGOUT:
-        return await Promise.allSettled([
+        return Promise.allSettled([
           RemoveTokenFromLocalStorage(),
           RemoveUserFromLocalStorage(),
-        ]);
-      case COINS_BALANCE_RECHARGE:
-        return getDetails().then(user =>
-          navigation.navigate(COINS_BALANCE_AND_RECHARGE, {
-            balance: user?.TotalCoinsLeft,
-          }),
-        );
+        ]).then(() => setUser(undefined));
       case MY_PROFILE:
         return navigateTo(PROFILE_DETAIL);
       case MY_UPLOADS:
@@ -89,30 +93,46 @@ export const Profile = () => {
         break;
     }
   };
+
+  const ProfilePage = () => {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View>
+          {PROFILEITEMS.map((title, index) => {
+            return (
+              <ProfileCard
+                title={title}
+                key={index}
+                onPress={() => actionsBasedOnTitle({title})}
+              />
+            );
+          })}
+        </View>
+        <View style={styles.accountContainer}>
+          {ACCOUNTITEMS.map((title, index) => {
+            return (
+              <ProfileCard
+                title={title}
+                key={index}
+                onPress={() => actionsBasedOnTitle({title})}
+              />
+            );
+          })}
+        </View>
+      </SafeAreaView>
+    );
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        {PROFILEITEMS.map((title, index) => {
-          return (
-            <ProfileCard
-              title={title}
-              key={index}
-              onPress={() => actionsBasedOnTitle({title})}
-            />
-          );
-        })}
-      </View>
-      <View style={styles.accountContainer}>
-        {ACCOUNTITEMS.map((title, index) => {
-          return (
-            <ProfileCard
-              title={title}
-              key={index}
-              onPress={() => actionsBasedOnTitle({title})}
-            />
-          );
-        })}
-      </View>
-    </SafeAreaView>
+    <>
+      {user ? (
+        <ProfilePage />
+      ) : (
+        <AskToLogin
+          text={LOGIN_TO_SEE_PROFILE}
+          onPress={() => navigation.navigate(LOGIN_SCREEN)}
+        />
+      )}
+    </>
   );
 };

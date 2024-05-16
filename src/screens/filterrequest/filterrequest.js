@@ -99,7 +99,7 @@ export const FilterRequests = props => {
 
   const ApplyFilter = async () => {
     setLoading(true);
-    const response = await apiService.post(
+    const response = await apiService.postwithouttoken(
       GET_SNEAKERREQUESTS_CALL({page: 1}),
       {
         searchQuery,

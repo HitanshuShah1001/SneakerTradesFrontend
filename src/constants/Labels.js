@@ -88,3 +88,5 @@ export const NO_SNEAKERS_FOUND = 'No Sneakers Found';
 export const OTP_SENT_MESSAGE = `An OTP has been sent to \n registered email address. Kindly verify!`;
 export const REMOVE_IMAGE = 'Remove Image?';
 export const DELETE_QUESTION_ASK = 'Are you sure to delete your account?';
+export const LOGIN_TO_UPLOAD = 'Kindly login to upload or request sneakers!';
+export const LOGIN_TO_SEE_PROFILE = 'Kindly login to access profile.';
