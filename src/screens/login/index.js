@@ -9,7 +9,10 @@ import {LOGIN} from '../../constants/Buttontitles';
 import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {Context} from '../../navigation/BottomTab';
-import {LOGIN_CALL, SEND_OTP_EMAIL} from '../../constants/Apicall';
+import {
+  LOGIN_CALL,
+  SEND_OTP_EMAIL_FOR_RESET_PASSWORD,
+} from '../../constants/Apicall';
 import {setNotificationTimer} from '../../components/NotificationTimer';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {STATUS_FAIL, STATUS_SUCCESS} from '../../constants/ApiParams';
@@ -54,7 +57,7 @@ export const Login = () => {
     }
     setLoading(true);
     //Send email and on success navigate to otp verify screen
-    const response = await apiService.post(SEND_OTP_EMAIL, {
+    const response = await apiService.post(SEND_OTP_EMAIL_FOR_RESET_PASSWORD, {
       Email,
     });
     if (response.status === STATUS_SUCCESS) {

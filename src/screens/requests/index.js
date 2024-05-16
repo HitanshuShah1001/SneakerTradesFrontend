@@ -64,7 +64,6 @@ export const Requests = () => {
 
   const fetchMoreSneakers = async () => {
     if (loading) return;
-    setLoading(true);
     const nextPage = page + 1;
     const response = await apiService.post(
       GET_SNEAKERREQUESTS_CALL({page: nextPage}),

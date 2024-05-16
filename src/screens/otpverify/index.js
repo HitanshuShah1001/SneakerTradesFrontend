@@ -7,7 +7,7 @@ import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {VERIFY_OTP} from '../../constants/Buttontitles';
 import {apiService} from '../../services/apiService';
-import {SEND_OTP_EMAIL, SIGN_UP_CALL} from '../../constants/Apicall';
+import {SEND_OTP_EMAIL_FOR_SIGNUP, SIGN_UP_CALL} from '../../constants/Apicall';
 import {StoreTokenInLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {setNotificationTimer} from '../../components/NotificationTimer';
@@ -87,7 +87,7 @@ export const OTPverify = props => {
   const isOtpCorrect = data => otp.toString() === otpToVerifyAgainst;
 
   const sendOtpEmailAgain = async () => {
-    const response = await apiService.post(SEND_OTP_EMAIL, {
+    const response = await apiService.post(SEND_OTP_EMAIL_FOR_SIGNUP, {
       Email: forgotPasswordAction
         ? userDataForForgotPassword.Email
         : userDataForSignUp.Email,

@@ -34,7 +34,7 @@ import {styles} from './styles';
 import {apiService} from '../../services/apiService';
 import {
   CHECK_IF_USERNAME_EMAIL_PHONE_EXISTS,
-  SEND_OTP_EMAIL,
+  SEND_OTP_EMAIL_FOR_SIGNUP,
 } from '../../constants/Apicall';
 import {AlertMessage} from '../../utils/Alertmessage';
 import {STRETCH} from '../../constants/InputOptions';
@@ -77,7 +77,7 @@ export const SignUp = () => {
       setLoading(false);
       return AlertMessage(response.Data);
     } else {
-      const response = await apiService.post(SEND_OTP_EMAIL, {
+      const response = await apiService.post(SEND_OTP_EMAIL_FOR_SIGNUP, {
         Email: emailId,
       });
       setLoading(false);
