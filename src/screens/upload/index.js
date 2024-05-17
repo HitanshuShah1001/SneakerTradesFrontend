@@ -47,7 +47,7 @@ import {AskToLogin} from './AskToLogin';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 
-export const Upload = props => {
+export const Upload = () => {
   const {setLoading} = useContext(Context) || {};
   const isFocused = useIsFocused();
   const [uploadedFor, setUploadedFor] = useState(UPLOAD);
@@ -171,70 +171,64 @@ export const Upload = props => {
     );
   }, [Photos]);
 
-  const UploadFunctionality = useCallback(() => {
-    return (
-      <Scroller>
-        <Uploadchips
-          uploadedFor={uploadedFor}
-          setUploadedFor={setUploadedFor}
-        />
-        <Imageselectorcontainer />
-        <UploadPlaceholder uploadedFor={uploadedFor} />
-        <Textinput
-          placeholder={SNEAKER_NAME}
-          customstyles={{width: '90%'}}
-          custVal={Name}
-          setCustVal={setName}
-          is_mandatory
-        />
-        {uploadedFor === UPLOAD && (
-          <Textinput
-            placeholder={SNEAKER_PRICE}
-            customstyles={{width: '90%'}}
-            custVal={Price}
-            setCustVal={setPrice}
-            is_mandatory
-          />
-        )}
-        <DropdownComponent
-          placeholder={SELECT_BRAND}
-          value={Brand}
-          setValue={setBrand}
-          data={BRANDS}
-          is_mandatory
-          search
-        />
-        <DropdownComponent
-          placeholder={SELECT_GENDER}
-          value={Gender}
-          setValue={setGender}
-          data={GENDER_ROLES_FOR_UPLOAD}
-          is_mandatory
-        />
-
-        <DropdownComponent
-          placeholder={SELECT_SIZE}
-          value={Size}
-          setValue={setSize}
-          data={SIZES}
-          is_mandatory
-        />
-        <DropdownComponent
-          placeholder={SELECT_TYPE}
-          value={Type}
-          setValue={setType}
-          is_mandatory
-          data={uploadedFor == UPLOAD ? TYPES : REQUEST_TYPES}
-        />
-        <UploadSneakerButton onPress={() => UploadSneaker()} />
-      </Scroller>
-    );
-  }, [uploadedFor]);
-
   return (
     <>
       {user ? (
-        <UploadFunctionality />
+        <Scroller>
+          <Uploadchips
+            uploadedFor={uploadedFor}
+            setUploadedFor={setUploadedFor}
+          />
+          <Imageselectorcontainer />
+          <UploadPlaceholder uploadedFor={uploadedFor} />
+          <Textinput
+            placeholder={SNEAKER_NAME}
+            customstyles={{width: '90%'}}
+            custVal={Name}
+            setCustVal={setName}
+            is_mandatory
+          />
+          {uploadedFor === UPLOAD && (
+            <Textinput
+              placeholder={SNEAKER_PRICE}
+              customstyles={{width: '90%'}}
+              custVal={Price}
+              setCustVal={setPrice}
+              is_mandatory
+            />
+          )}
+          <DropdownComponent
+            placeholder={SELECT_BRAND}
+            value={Brand}
+            setValue={setBrand}
+            data={BRANDS}
+            is_mandatory
+            search
+          />
+          <DropdownComponent
+            placeholder={SELECT_GENDER}
+            value={Gender}
+            setValue={setGender}
+            data={GENDER_ROLES_FOR_UPLOAD}
+            is_mandatory
+          />
+
+          <DropdownComponent
+            placeholder={SELECT_SIZE}
+            value={Size}
+            setValue={setSize}
+            data={SIZES}
+            is_mandatory
+          />
+          <DropdownComponent
+            placeholder={SELECT_TYPE}
+            value={Type}
+            setValue={setType}
+            is_mandatory
+            data={uploadedFor == UPLOAD ? TYPES : REQUEST_TYPES}
+          />
+          <UploadSneakerButton onPress={() => UploadSneaker()} />
+        </Scroller>
       ) : (
         <AskToLogin
           text={LOGIN_TO_UPLOAD}

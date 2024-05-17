@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, SafeAreaView, Alert} from 'react-native';
 import {ProfileCard} from '../../components/Profilecard';
 import {ACCOUNTITEMS, PROFILEITEMS} from '../../constants/ProfileActions';
@@ -37,9 +37,11 @@ import {
 import {Cancel_option} from '../../components/AskForSource';
 import {YES_LABEL} from '../../constants/Razorpay';
 import {AskToLogin} from '../upload/AskToLogin';
+import {Context} from '../../navigation/BottomTab';
 
 export const Profile = () => {
   const navigation = useNavigation();
+  const {setUserContext} = useContext(Context);
   const [user, setUser] = useState(undefined);
   const isFocused = useIsFocused();
   const getUserDetails = async () => {
@@ -66,6 +68,8 @@ export const Profile = () => {
     const res = await apiService.delete(DELETE_USER);
     if (res === DELETED_SUCCESFULLY) {
       AlertMessage(ACC_DEL);
+      setUserContext(undefined);
+      setUser(undefined);
       return await Promise.allSettled([
         RemoveTokenFromLocalStorage(),
         RemoveUserFromLocalStorage(),
@@ -79,7 +83,10 @@ export const Profile = () => {
         return Promise.allSettled([
           RemoveTokenFromLocalStorage(),
           RemoveUserFromLocalStorage(),
-        ]).then(() => setUser(undefined));
+        ]).then(() => {
+          setUserContext(undefined);
+          setUser(undefined);
+        });
       case MY_PROFILE:
         return navigation.navigate(PROFILE_DETAIL, {user});
       case MY_UPLOADS:

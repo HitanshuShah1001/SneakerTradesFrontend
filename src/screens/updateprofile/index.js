@@ -1,4 +1,4 @@
-import {Alert, Image, Pressable, StyleSheet, View} from 'react-native';
+import {Alert, Image, StyleSheet, View} from 'react-native';
 import {AuthenticationButton} from '../../components/Authenticationbutton';
 import {Textinput} from '../../components/Textinput';
 import {SafeArea} from '../../components/SafeArea';
@@ -14,16 +14,21 @@ import DropdownComponent from '../../components/Dropdown';
 import {useContext, useState} from 'react';
 import {SELECT_GENDER} from '../../constants/Placeholders';
 import {Context} from '../../navigation/BottomTab';
-import {FILL_DETAILS} from '../../constants/Messages';
+import {FILL_DETAILS, USER_UPDATED_SUCCESFULLY} from '../../constants/Messages';
 import {PROFILE_PLACEHOLDER_ICON} from '../../assets';
 import {UPDATE_PROFILE_CALL} from '../../constants/Apicall';
 import {apiService} from '../../services/apiService';
 import {StoreUserInLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
 import {CONTAIN} from '../../constants/InputOptions';
+import {STATUS_SUCCESS} from '../../constants/ApiParams';
+import {useNavigation} from '@react-navigation/native';
+import {PROFILE} from '../../constants/Screen';
+import {AlertMessage} from '../../utils/Alertmessage';
 
 export const UpdateProfile = () => {
-  const {userContext, setLoading} = useContext(Context) || {};
+  const {userContext, setLoading, setUserContext} = useContext(Context) || {};
+  const navigation = useNavigation();
   const [gender, setGender] = useState(userContext?.Gender || null);
   const [username, setUsername] = useState(userContext.Username);
   const [name, setName] = useState(userContext.Name);
@@ -41,21 +46,19 @@ export const UpdateProfile = () => {
     formData.append('Name', name);
     formData.append('Email', emailId);
     formData.append('Phone', phone);
-    if (profilephoto?.uri != undefined) {
-      formData.append('ProfilePhoto', {
-        uri: profilephoto.uri,
-        type: profilephoto.type,
-        name: profilephoto.fileName,
-      });
-    } else {
-      formData.append('ProfilePhoto', profilephoto);
-    }
+    formData.append('ProfilePhoto', profilephoto);
     formData.append('Gender', gender);
     const response = await apiService.patchformdata(
       UPDATE_PROFILE_CALL,
       formData,
     );
-    StoreUserInLocalStorage({userData: response.Data});
+    if (response.status === STATUS_SUCCESS) {
+      AlertMessage(USER_UPDATED_SUCCESFULLY);
+      setUserContext(response.Data);
+      StoreUserInLocalStorage({userData: response.Data});
+      navigation.navigate(PROFILE);
+    }
+
     setLoading(false);
   };
 
