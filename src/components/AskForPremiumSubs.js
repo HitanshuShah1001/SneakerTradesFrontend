@@ -12,7 +12,7 @@ import {
   YOU_HAVE_SUBSCRIBED_SUCCESFULLY,
 } from '../constants/Razorpay';
 import {RetrieveUserFromLocalStorage} from '../utils/GetDeleteStoreUserDetailsInLocalStorage';
-import {gneratePrefill} from '../utils/GeneratePrefill';
+import {generatePrefill} from '../utils/GeneratePrefill';
 
 export const askForPremiumSubs = () =>
   Alert.alert(DO_YOU_WANT_TO_UPGRADE_TO_PREMIUM, '', [
@@ -24,7 +24,7 @@ export const askForPremiumSubs = () =>
             CreateOrderForRazorPay(),
             RetrieveUserFromLocalStorage(),
           ]);
-          const prefill = gneratePrefill(user);
+          const prefill = generatePrefill(user);
           const order_id = JSON.parse(order_details).id;
           const paymentdetailstosave = await RazorpayCheckout.open(
             generateRazorpayOptions({order_id, prefill}),
