@@ -4,7 +4,6 @@ import {SafeArea} from '../../components/SafeArea';
 import {Context} from '../../navigation/BottomTab';
 import {debounce} from '../../utils/debounce';
 import {MY_REQUESTS} from '../../constants/Buttontitles';
-import {ItemRendererSneakerRequests} from '../../components/ItemRendererRequests';
 import {GET_SNEAKER_REQUESTS_CREATED} from '../../constants/Apicall';
 import {Search} from '../../components/Search';
 import {SNEAKER_REQUEST_UPLOADED_DETAIL} from '../../constants/Screen';

@@ -1,5 +1,3 @@
-import {useContext} from 'react';
-import {Context} from '../../navigation/BottomTab';
 import {SafeArea} from '../../components/SafeArea';
 import {Image} from 'react-native';
 import {MY_PROFILE, UPDATE_PROFILE} from '../../constants/Buttontitles';
@@ -11,13 +9,12 @@ import {styles} from './styles';
 import {ContactInfoWrapper} from './ContactInfo';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
 
-export const ProfileDetail = () => {
-  const {user} = useContext(Context);
+export const ProfileDetail = props => {
   const navigation = useNavigation();
-
+  const {user} = props.route.params || {};
   return (
     <SafeArea go_back={true} text={MY_PROFILE}>
-      {user.ProfilePhoto !== '' ? (
+      {user?.ProfilePhoto !== '' ? (
         <LazyImageLoader uri={user.ProfilePhoto} styles={styles.image} />
       ) : (
         <Image

@@ -1,5 +1,4 @@
-import {Pressable, StyleSheet} from 'react-native';
-import {Text} from 'react-native-paper';
+import {Pressable, StyleSheet, Text} from 'react-native';
 import {
   FONT_SIZE,
   FONT_WEIGHT_BOLD,

@@ -8,10 +8,7 @@ import {Scroller} from '../../components/Scroller';
 import {LazyImageLoader} from '../../components/LazyImageLoader';
 import {useIsFocused} from '@react-navigation/native';
 import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
-import {
-  LoginToSeeDetails,
-  LoginToSeeUploaderDetails,
-} from '../../components/LoginToSeeDetails';
+import {LoginToSeeDetails} from '../../components/LoginToSeeDetails';
 import {SNEAKER_DETAIL} from '../../constants/Screen';
 import {LOGIN_TO_SEE_UPLOADER_DETAILS} from '../../constants/Labels';
 
@@ -27,7 +24,6 @@ export const SneakerDetail = props => {
     const userDetails = await RetrieveUserFromLocalStorage();
     setUser(userDetails);
   };
-
   useEffect(() => {
     getUserDetails();
   }, [isFocused]);

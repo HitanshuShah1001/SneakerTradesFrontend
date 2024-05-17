@@ -29,7 +29,7 @@ export const Login = props => {
   const {navigateTo, additionalParam} = props.route.params || {};
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
-  const {setUser, setLoading} = useContext(Context);
+  const {setUserContext, setLoading} = useContext(Context);
   const login = async () => {
     if (!Email || !Password) {
       return AlertMessage(FILL_DETAILS);
@@ -43,12 +43,12 @@ export const Login = props => {
     if (response.status === STATUS_FAIL) {
       return AlertMessage(response.Data);
     } else {
-      setUser(response.user);
       Promise.allSettled([
         StoreTokenInLocalStorage({token: response.Data.token}),
         StoreUserInLocalStorage({userData: response.Data.user}),
         setNotificationTimer(),
       ]).then(() => {
+        setUserContext(response.Data.user);
         navigation.navigate(navigateTo ?? UPLOAD, {
           sneaker: additionalParam,
         });

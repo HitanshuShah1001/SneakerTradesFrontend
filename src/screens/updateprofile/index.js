@@ -23,13 +23,13 @@ import {LazyImageLoader} from '../../components/LazyImageLoader';
 import {CONTAIN} from '../../constants/InputOptions';
 
 export const UpdateProfile = () => {
-  const {user, setLoading} = useContext(Context) || {};
-  const [gender, setGender] = useState(user?.Gender || null);
-  const [username, setUsername] = useState(user.Username);
-  const [name, setName] = useState(user.Name);
-  const [emailId, setEmailId] = useState(user.Email);
-  const [phone, setPhone] = useState(user.Phone);
-  const [profilephoto, setProfilePhoto] = useState(user?.ProfilePhoto);
+  const {userContext, setLoading} = useContext(Context) || {};
+  const [gender, setGender] = useState(userContext?.Gender || null);
+  const [username, setUsername] = useState(userContext.Username);
+  const [name, setName] = useState(userContext.Name);
+  const [emailId, setEmailId] = useState(userContext.Email);
+  const [phone, setPhone] = useState(userContext.Phone);
+  const [profilephoto, setProfilePhoto] = useState(userContext?.ProfilePhoto);
 
   const updateUserDetails = async () => {
     if (!username || !name || !emailId || !phone || !gender) {
@@ -62,9 +62,13 @@ export const UpdateProfile = () => {
   return (
     <SafeArea go_back={true}>
       <View style={{flex: 0.9, alignItems: 'center'}}>
-        {user.ProfilePhoto || profilephoto.image ? (
+        {userContext.ProfilePhoto || profilephoto.image ? (
           <LazyImageLoader
-            uri={user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image}
+            uri={
+              userContext.ProfilePhoto
+                ? userContext.ProfilePhoto
+                : profilephoto.image
+            }
             styles={styles.image}
           />
         ) : (

@@ -70,6 +70,7 @@ export const styles = StyleSheet.create({
     fontSize: FONT_SIZE,
     fontWeight: FONT_WEIGHT_BOLD,
     textAlign: 'center',
+    color: '#000000',
   },
   asktologinbutton: {width: '50%', marginTop: 15},
 });

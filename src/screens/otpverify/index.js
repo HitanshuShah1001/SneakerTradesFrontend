@@ -28,7 +28,7 @@ import {
 
 export const OTPverify = props => {
   const navigation = useNavigation();
-  const {setUser, setLoading} = useContext(Context);
+  const {setUserContext, setLoading} = useContext(Context);
   const {userDataForSignUp, forgotPasswordAction, userDataForForgotPassword} =
     props?.route?.params || {};
   const [timeleft, setTimeLeft] = useState(30);
@@ -70,14 +70,15 @@ export const OTPverify = props => {
         if (response.status === STATUS_FAIL) {
           return AlertMessage(SOME_ERROR_OCCURED);
         } else {
-          setUser(response.user);
-          await Promise.allSettled([
+          Promise.allSettled([
             StoreTokenInLocalStorage({token: response.Data.token}),
             StoreUserInLocalStorage({userData: response.Data.user}),
             setNotificationTimer(),
-          ]);
-          AlertMessage(USER_CREATED_SUCCESFULLY);
-          navigation.navigate(UPLOAD);
+          ]).then(() => {
+            setUserContext(response.Data.user);
+            AlertMessage(USER_CREATED_SUCCESFULLY);
+            navigation.navigate(UPLOAD);
+          });
         }
       } else {
         AlertMessage(INVALID_OTP);

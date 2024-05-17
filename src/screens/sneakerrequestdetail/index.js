@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
 import {Sneakerdetailstext} from '../../components/SneakerNameAndBrand';
 import {styles} from './styles';
 import {ActionChip} from '../../components/ActionChip';

@@ -1,7 +1,5 @@
-import {AuthNavigation} from './authnav';
 import {ActionScreens} from './bottomtab';
 import {createContext, useEffect, useState} from 'react';
-import {RetrieveUserFromLocalStorage} from '../../utils/GetDeleteStoreUserDetailsInLocalStorage';
 import {SneakerWrapper} from '../../screens/sneakercontext/SneakerContext';
 import {SneakerRequestWrapper} from '../../screens/sneakercontext/SneakerRequestContext';
 import NetInfo from '@react-native-community/netinfo';
@@ -9,7 +7,7 @@ import {Alert} from 'react-native';
 
 export const Context = createContext();
 export const Navigation = () => {
-  const [user, setUser] = useState(undefined);
+  const [userContext, setUserContext] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [isConnected, setConnected] = useState(true);
 
@@ -41,7 +39,8 @@ export const Navigation = () => {
   }, [isConnected]);
 
   return (
-    <Context.Provider value={{user, setUser, loading, setLoading}}>
+    <Context.Provider
+      value={{userContext, setUserContext, loading, setLoading}}>
       <SneakerWrapper>
         <SneakerRequestWrapper>
           <ActionScreens />

@@ -81,7 +81,7 @@ export const Profile = () => {
           RemoveUserFromLocalStorage(),
         ]).then(() => setUser(undefined));
       case MY_PROFILE:
-        return navigateTo(PROFILE_DETAIL);
+        return navigation.navigate(PROFILE_DETAIL, {user});
       case MY_UPLOADS:
         return navigateTo(MY_UPLOAD_SCREEN);
       case MY_REQUESTS:
