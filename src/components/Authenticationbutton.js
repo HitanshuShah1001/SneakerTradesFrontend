@@ -2,6 +2,8 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {FONT_WEIGHT_BOLD, THEME_PINK} from '../constants/colorsandfonts';
 import {useNavigation} from '@react-navigation/native';
 import {SIGN_UP_SCREEN} from '../constants/Screen';
+import {DONT_HAVE_AN_ACCOUNT} from '../constants/Labels';
+import {SIGN_UP} from '../constants/Buttontitles';
 export const AuthenticationButton = ({
   text,
   showsignup = false,
@@ -18,14 +20,12 @@ export const AuthenticationButton = ({
       </Pressable>
       {showsignup && (
         <Pressable
-          style={({pressed}) => {
-            return styles.signupnavigatiorpressable;
-          }}
+          style={styles.signupnavigatiorpressable}
           onPress={() => navigation.navigate(SIGN_UP_SCREEN)}>
           <Text style={{color: THEME_PINK, fontSize: 16}}>
-            Don't have an account?
+            {DONT_HAVE_AN_ACCOUNT}
           </Text>
-          <Text style={styles.navigator}>Sign Up</Text>
+          <Text style={styles.navigator}>{SIGN_UP}</Text>
         </Pressable>
       )}
     </View>

@@ -92,3 +92,4 @@ export const LOGIN_TO_UPLOAD = 'Kindly login to upload or request sneakers!';
 export const LOGIN_TO_SEE_PROFILE = 'Kindly login to access profile.';
 export const LOGIN_TO_SEE_UPLOADER_DETAILS = 'Login To See Uploader Details';
 export const LOGIN_TO_SEE_REQUESTOR_DETAILS = 'Login To See Requestor Details';
+export const DONT_HAVE_AN_ACCOUNT = "Don't have an account?";
