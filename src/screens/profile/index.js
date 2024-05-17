@@ -16,6 +16,7 @@ import {
   LOGIN_SCREEN,
   MY_REQUEST_SCREEN,
   MY_UPLOAD_SCREEN,
+  PROFILE,
   PROFILE_DETAIL,
 } from '../../constants/Screen';
 import {RemoveTokenFromLocalStorage} from '../../utils/GetDeleteStoreTokenInLocalStorage';
@@ -130,7 +131,9 @@ export const Profile = () => {
       ) : (
         <AskToLogin
           text={LOGIN_TO_SEE_PROFILE}
-          onPress={() => navigation.navigate(LOGIN_SCREEN)}
+          onPress={() =>
+            navigation.navigate(LOGIN_SCREEN, {navigateTo: PROFILE})
+          }
         />
       )}
     </>

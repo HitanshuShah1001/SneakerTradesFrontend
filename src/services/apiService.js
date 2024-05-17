@@ -59,7 +59,6 @@ class ApiService {
         headers: {...HEADERS(), Authorization: `Bearer ${token}`},
       });
       const apiresponse = await response.json();
-      console.log(apiresponse);
       return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);
@@ -74,7 +73,6 @@ class ApiService {
         headers: {...HEADERS()},
       });
       const apiresponse = await response.json();
-      console.log(apiresponse);
       return this.responseHandler(apiresponse);
     } catch (error) {
       throw new Error(error.message);

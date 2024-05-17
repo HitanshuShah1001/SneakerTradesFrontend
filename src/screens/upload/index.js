@@ -125,7 +125,6 @@ export const Upload = props => {
     const response = await apiService.postformdata(Apicall, uploadDetails);
     setLoading(false);
     if (response.status === STATUS_FAIL) {
-      console.log(response);
       return AlertMessage(SOME_ERROR_OCCURED);
     } else {
       ResetFields({
@@ -172,7 +171,7 @@ export const Upload = props => {
     );
   }, [Photos]);
 
-  const UploadFunctionality = () => {
+  const UploadFunctionality = useCallback(() => {
     return (
       <Scroller>
         <Uploadchips
@@ -230,7 +229,7 @@ export const Upload = props => {
         <UploadSneakerButton onPress={() => UploadSneaker()} />
       </Scroller>
     );
-  };
+  }, [uploadedFor]);
 
   return (
     <>

@@ -24,8 +24,9 @@ import {OTP_VERIFY, UPLOAD} from '../../constants/Screen';
 import {isValidEmail} from '../../utils/RegexTests';
 import {ENTER_A_VALID_EMAIL, FILL_DETAILS} from '../../constants/Messages';
 
-export const Login = () => {
+export const Login = props => {
   const navigation = useNavigation();
+  const {navigateTo, additionalParam} = props.route.params || {};
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const {setUser, setLoading} = useContext(Context);
@@ -48,7 +49,9 @@ export const Login = () => {
         StoreUserInLocalStorage({userData: response.Data.user}),
         setNotificationTimer(),
       ]).then(() => {
-        navigation.navigate(UPLOAD);
+        navigation.navigate(navigateTo ?? UPLOAD, {
+          sneaker: additionalParam,
+        });
       });
     }
   };
@@ -58,7 +61,6 @@ export const Login = () => {
       return AlertMessage(ENTER_A_VALID_EMAIL);
     }
     setLoading(true);
-    //Send email and on success navigate to otp verify screen
     const response = await apiService.postwithouttoken(
       SEND_OTP_EMAIL_FOR_RESET_PASSWORD,
       {
