@@ -49,11 +49,13 @@ export const SneakerDetail = props => {
             Email={sneaker?.OwnerDetails?.Email}
           />
         ) : (
-          <LoginToSeeDetails
-            sneaker={sneaker}
-            navigateTo={SNEAKER_DETAIL}
-            text={LOGIN_TO_SEE_UPLOADER_DETAILS}
-          />
+          <View style={styles.buttonwrapper}>
+            <LoginToSeeDetails
+              sneaker={sneaker}
+              navigateTo={SNEAKER_DETAIL}
+              text={LOGIN_TO_SEE_UPLOADER_DETAILS}
+            />
+          </View>
         )}
       </View>
     );

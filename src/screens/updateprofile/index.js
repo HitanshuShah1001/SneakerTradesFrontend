@@ -26,15 +26,16 @@ import {useNavigation} from '@react-navigation/native';
 import {PROFILE} from '../../constants/Screen';
 import {AlertMessage} from '../../utils/Alertmessage';
 
-export const UpdateProfile = () => {
-  const {userContext, setLoading, setUserContext} = useContext(Context) || {};
+export const UpdateProfile = props => {
+  const {setLoading, setUserContext} = useContext(Context) || {};
   const navigation = useNavigation();
-  const [gender, setGender] = useState(userContext?.Gender || null);
-  const [username, setUsername] = useState(userContext.Username);
-  const [name, setName] = useState(userContext.Name);
-  const [emailId, setEmailId] = useState(userContext.Email);
-  const [phone, setPhone] = useState(userContext.Phone);
-  const [profilephoto, setProfilePhoto] = useState(userContext?.ProfilePhoto);
+  const {user} = props.route.params || {};
+  const [gender, setGender] = useState(user?.Gender || null);
+  const [username, setUsername] = useState(user.Username);
+  const [name, setName] = useState(user.Name);
+  const [emailId, setEmailId] = useState(user.Email);
+  const [phone, setPhone] = useState(user.Phone);
+  const [profilephoto, setProfilePhoto] = useState(user?.ProfilePhoto);
 
   const updateUserDetails = async () => {
     if (!username || !name || !emailId || !phone || !gender) {
@@ -65,13 +66,9 @@ export const UpdateProfile = () => {
   return (
     <SafeArea go_back={true}>
       <View style={{flex: 0.9, alignItems: 'center'}}>
-        {userContext.ProfilePhoto || profilephoto.image ? (
+        {user.ProfilePhoto || profilephoto.image ? (
           <LazyImageLoader
-            uri={
-              userContext.ProfilePhoto
-                ? userContext.ProfilePhoto
-                : profilephoto.image
-            }
+            uri={user.ProfilePhoto ? user.ProfilePhoto : profilephoto.image}
             styles={styles.image}
           />
         ) : (

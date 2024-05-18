@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 12,
     borderRadius: 8,
+    width: '100%',
   },
   text: {
     fontSize: FONT_SIZE,

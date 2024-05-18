@@ -27,7 +27,7 @@ export const ProfileDetail = props => {
       <AuthenticationButton
         text={UPDATE_PROFILE}
         customstyles={{marginTop: 20}}
-        onPress={() => navigation.navigate(UPDATE_PROFILE_SCREEN)}
+        onPress={() => navigation.navigate(UPDATE_PROFILE_SCREEN, {user})}
       />
     </SafeArea>
   );
