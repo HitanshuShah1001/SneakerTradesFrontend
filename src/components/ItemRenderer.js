@@ -3,6 +3,7 @@ import Sneakercard from './Sneakercard';
 import {EmptyView} from './EmptyView';
 import {ViewWrapper} from './ViewWrapper';
 import {returnStyleForEmptyData} from '../utils/StyleForEmptyData';
+import {NO_SNEAKERS_FOUND} from '../constants/Labels';
 
 export const ItemRendererSneakers = ({
   sneakers,
@@ -34,7 +35,7 @@ export const ItemRendererSneakers = ({
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
-          ListEmptyComponent={() => <EmptyView text="No Sneakers Found" />}
+          ListEmptyComponent={() => <EmptyView text={NO_SNEAKERS_FOUND} />}
         />
       </ViewWrapper>
     </>

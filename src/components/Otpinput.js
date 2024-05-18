@@ -1,12 +1,12 @@
 import {OtpInput} from 'react-native-otp-entry';
-import {THEME_PINK} from '../constants/colorsandfonts';
+import {THEME_PINK, WHITE} from '../constants/colorsandfonts';
 
 export const Otpinput = ({setOTP}) => {
   return (
     <OtpInput
       numberOfDigits={6}
       onTextChange={text => setOTP(text)}
-      focusColor={'white'}
+      focusColor={WHITE}
       theme={otpprops}
     />
   );

@@ -4,6 +4,7 @@ import {EmptyView} from './EmptyView';
 import {useNavigation} from '@react-navigation/native';
 import {SNEAKER_REQUEST_DETAIL} from '../constants/Screen';
 import {returnStyleForEmptyData} from '../utils/StyleForEmptyData';
+import {NO_REQUESTS_FOUND} from '../constants/Labels';
 
 export const ItemRendererMyRequests = ({
   sneakers,
@@ -32,7 +33,7 @@ export const ItemRendererMyRequests = ({
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
-        ListEmptyComponent={() => <EmptyView text="No Requests Found" />}
+        ListEmptyComponent={() => <EmptyView text={NO_REQUESTS_FOUND} />}
       />
     </>
   );
